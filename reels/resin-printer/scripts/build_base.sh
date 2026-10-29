@@ -13,3 +13,10 @@ ffmpeg -loglevel error -y \
 [a][b]concat=n=2:v=1:a=0,format=yuvj420p[v]" \
   -map "[v]" -q:v 3 -start_number 0 build/creator/%05d.jpg
 ls build/creator | wc -l
+
+# Real printer demo footage -> 30fps 1080x1920 frames (upscaled from 720p, light sharpen + grade)
+mkdir -p build/demo
+ffmpeg -loglevel error -y -i assets/source/demo_resin_printing.mp4 \
+  -vf "fps=30,scale=1080:1920:flags=lanczos,unsharp=5:5:0.6,eq=contrast=1.06:saturation=1.12,setsar=1,format=yuvj420p" \
+  -q:v 3 -start_number 0 build/demo/%05d.jpg
+ls build/demo | wc -l

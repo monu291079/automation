@@ -5,37 +5,123 @@
   "handle": "@ideaspulse.in",
   "brand_name": "IdeasPulse.in",
   "logo": null,
-  "colors": { "navy": "#12213A", "gold": "#A9812E", "gold_light": "#E2BE6A", "cream": "#FAF9F5", "teal": "#218C87", "impact": "#FF5A2C" },
-
+  "colors": {
+    "navy": "#12213A",
+    "gold": "#A9812E",
+    "gold_light": "#E2BE6A",
+    "cream": "#FAF9F5",
+    "teal": "#218C87",
+    "impact": "#FF5A2C"
+  },
   "scenes": [
-    { "id": "hook",      "start": 0.00,  "end": 2.95 },
-    { "id": "creator",   "start": 2.95,  "end": 6.55 },
-    { "id": "reveal",    "start": 6.55,  "end": 12.50 },
-    { "id": "sell",      "start": 12.50, "end": 15.45 },
-    { "id": "creator",   "start": 15.45, "end": 16.60 },
-    { "id": "photo2mini","start": 16.60, "end": 19.60 },
-    { "id": "creator",   "start": 19.60, "end": 23.60 },
-    { "id": "home",      "start": 23.60, "end": 26.45 },
-    { "id": "cost",      "start": 26.45, "end": 31.75 },
-    { "id": "creator",   "start": 31.75, "end": 36.60 },
-    { "id": "plan",      "start": 36.60, "end": 41.20 },
-    { "id": "cta",       "start": 41.20, "end": 44.93 }
+    {
+      "id": "hook",
+      "start": 0.0,
+      "end": 2.95
+    },
+    {
+      "id": "creator",
+      "start": 2.95,
+      "end": 4.2
+    },
+    {
+      "id": "broll",
+      "start": 4.2,
+      "end": 5.35
+    },
+    {
+      "id": "creator",
+      "start": 5.35,
+      "end": 6.55
+    },
+    {
+      "id": "broll",
+      "start": 6.55,
+      "end": 12.5
+    },
+    {
+      "id": "sell",
+      "start": 12.5,
+      "end": 13.55
+    },
+    {
+      "id": "broll",
+      "start": 13.55,
+      "end": 15.45
+    },
+    {
+      "id": "creator",
+      "start": 15.45,
+      "end": 16.6
+    },
+    {
+      "id": "photo2mini",
+      "start": 16.6,
+      "end": 19.6
+    },
+    {
+      "id": "creator",
+      "start": 19.6,
+      "end": 21.3
+    },
+    {
+      "id": "broll",
+      "start": 21.3,
+      "end": 22.55
+    },
+    {
+      "id": "creator",
+      "start": 22.55,
+      "end": 23.6
+    },
+    {
+      "id": "broll",
+      "start": 23.6,
+      "end": 26.45
+    },
+    {
+      "id": "cost",
+      "start": 26.45,
+      "end": 31.75
+    },
+    {
+      "id": "creator",
+      "start": 31.75,
+      "end": 36.6
+    },
+    {
+      "id": "plan",
+      "start": 36.6,
+      "end": 41.2
+    },
+    {
+      "id": "cta",
+      "start": 41.2,
+      "end": 44.93
+    }
   ],
-
   "text": {
     "hook_line1": "3D MACHINE SE",
     "hook_line2": "CUSTOM BUSINESS! 😱",
-    "hook_line1_at": 0.12,
-    "hook_line2_at": 1.00,
+    "hook_line1_at": -0.22,
+    "hook_line2_at": 1.0,
     "price_chip": "Sirf ~₹19,000*",
     "price_chip_at": 0.55,
     "price_note": "*Approx. online price — kharidne se pehle check karein",
-
     "reveal_title": "YE HAI 3D RESIN PRINTER",
     "reveal_labels": [
-      { "text": "7\" 10K MONO LCD", "at": 7.45 },
-      { "text": "BUILD PLATE", "at": 7.85 },
-      { "text": "RESIN VAT", "at": 8.25 }
+      {
+        "text": "7\" 10K MONO LCD",
+        "at": 7.45
+      },
+      {
+        "text": "BUILD PLATE",
+        "at": 7.85
+      },
+      {
+        "text": "RESIN VAT",
+        "at": 8.25
+      }
     ],
     "reveal_b_line1": "EK MACHINE SE BANAYEIN",
     "reveal_b_line2": "3D MINIATURES",
@@ -44,106 +130,485 @@
     "reveal_c_line": "BAAREEK DETAILS",
     "reveal_c_spec": "9024 × 5120 resolution",
     "reveal_c_at": 11.05,
-
     "sell_cards": [
-      { "label": "GAMING FIGURES", "at": 12.50, "visual": "figurine" },
-      { "label": "CUSTOM GIFTS", "at": 13.60, "visual": "gift" },
-      { "label": "COLLECTIBLES", "at": 14.50, "visual": "angel" }
+      {
+        "label": "GAMING FIGURES",
+        "at": 12.5,
+        "visual": "figurine"
+      }
     ],
-
     "photo2mini_title": "PHOTO ➜ 3D MINIATURE",
     "photo2mini_tag": "Concept illustration",
-
     "home_title": "GHAR SE SHURU?",
     "home_sub": "ONLINE + CUSTOM ORDERS",
-    "home_steps": ["3D Design", "Print", "Wash & Cure", "Pack", "Online Order"],
-
+    "home_steps": [
+      "3D Design",
+      "Print",
+      "Wash & Cure",
+      "Pack",
+      "Online Order"
+    ],
     "cost_header": "REALITY CHECK",
     "cost_formula": "Machine + Resin + Finishing",
     "cost_rows": [
-      { "text": "MACHINE", "at": 26.60 },
-      { "text": "RAW MATERIAL / RESIN", "at": 28.24 },
-      { "text": "QUALITY + FINISHING", "at": 29.23 },
-      { "text": "ORDERS & DEMAND", "at": 30.37 }
+      {
+        "text": "MACHINE",
+        "at": 26.6
+      },
+      {
+        "text": "RAW MATERIAL / RESIN",
+        "at": 28.24
+      },
+      {
+        "text": "QUALITY + FINISHING",
+        "at": 29.23
+      },
+      {
+        "text": "ORDERS & DEMAND",
+        "at": 30.37
+      }
     ],
     "cost_stamp": "PEHLE NIKALEIN|POORA COST!",
     "cost_stamp_at": 30.85,
     "cost_extra": "Failed prints • Labour • Packaging • Selling price",
     "cost_note": "Kamai fixed ya guaranteed nahi hai",
-
     "plan_title1": "POORA BUSINESS",
     "plan_title2": "PLAN CHAHIYE?",
     "plan_chips": [
-      { "text": "Machine ki laagat", "at": 38.17 },
-      { "text": "Investment", "at": 39.15 },
-      { "text": "Profit calculation", "at": 39.78 }
+      {
+        "text": "Machine ki laagat",
+        "at": 38.17
+      },
+      {
+        "text": "Investment",
+        "at": 39.15
+      },
+      {
+        "text": "Profit calculation",
+        "at": 39.78
+      }
     ],
-
     "cta_comment": "COMMENT 'PLAN' 👇",
     "cta_comment_word": "PLAN",
     "cta_follow": "FOLLOW @IDEASPULSE.IN",
     "cta_follow_at": 42.31,
     "cta_end_tag": "Naye business ideas ke liye",
-    "cta_end_at": 43.47
+    "cta_end_at": 43.47,
+    "sell_total": 3,
+    "plan_video": {
+      "in": 12.5,
+      "out": 18.0
+    }
   },
-
   "captions": [
-    { "t0": 2.95,  "t1": 4.20,  "text": "GHAR BAITHE 3D REALISTIC", "hl": "3D REALISTIC" },
-    { "t0": 4.20,  "t1": 5.35,  "text": "CUSTOM MODELS", "hl": "CUSTOM" },
-    { "t0": 5.35,  "t1": 6.55,  "text": "KA BUSINESS SHURU!", "hl": "BUSINESS" },
-    { "t0": 15.45, "t1": 16.05, "text": "SOCHIYE... 🤔", "hl": "SOCHIYE" },
-    { "t0": 16.05, "t1": 16.60, "text": "AGAR KOI GRAHAK", "hl": "GRAHAK" },
-    { "t0": 19.60, "t1": 21.30, "text": "YA KOI KHAAS DESIGN", "hl": "KHAAS DESIGN" },
-    { "t0": 21.40, "t1": 22.55, "text": "CUSTOM ORDER PAR", "hl": "CUSTOM ORDER" },
-    { "t0": 22.55, "t1": 23.60, "text": "TAIYAAR! ✅", "hl": "TAIYAAR" },
-    { "t0": 31.80, "t1": 32.80, "text": "SABSE ACCHI BAAT? 😊", "hl": "ACCHI BAAT" },
-    { "t0": 32.85, "t1": 34.65, "text": "CHHOTE STAR SE SHURU", "hl": "CHHOTE STAR" },
-    { "t0": 34.70, "t1": 36.60, "text": "DHEERE-DHEERE APNA BRAND 🚀", "hl": "APNA BRAND" }
+    {
+      "t0": 2.95,
+      "t1": 4.2,
+      "text": "GHAR BAITHE 3D REALISTIC",
+      "hl": "3D REALISTIC"
+    },
+    {
+      "t0": 4.2,
+      "t1": 5.35,
+      "text": "CUSTOM MODELS",
+      "hl": "CUSTOM"
+    },
+    {
+      "t0": 5.35,
+      "t1": 6.55,
+      "text": "KA BUSINESS SHURU!",
+      "hl": "BUSINESS"
+    },
+    {
+      "t0": 15.45,
+      "t1": 16.05,
+      "text": "SOCHIYE... 🤔",
+      "hl": "SOCHIYE"
+    },
+    {
+      "t0": 16.05,
+      "t1": 16.6,
+      "text": "AGAR KOI GRAHAK",
+      "hl": "GRAHAK"
+    },
+    {
+      "t0": 19.6,
+      "t1": 21.3,
+      "text": "YA KOI KHAAS DESIGN",
+      "hl": "KHAAS DESIGN"
+    },
+    {
+      "t0": 21.4,
+      "t1": 22.55,
+      "text": "CUSTOM ORDER PAR",
+      "hl": "CUSTOM ORDER"
+    },
+    {
+      "t0": 22.55,
+      "t1": 23.6,
+      "text": "TAIYAAR! ✅",
+      "hl": "TAIYAAR"
+    },
+    {
+      "t0": 31.8,
+      "t1": 32.8,
+      "text": "SABSE ACCHI BAAT? 😊",
+      "hl": "ACCHI BAAT"
+    },
+    {
+      "t0": 32.85,
+      "t1": 34.65,
+      "text": "CHHOTE STAR SE SHURU",
+      "hl": "CHHOTE STAR"
+    },
+    {
+      "t0": 34.7,
+      "t1": 36.6,
+      "text": "DHEERE-DHEERE APNA BRAND 🚀",
+      "hl": "APNA BRAND"
+    }
   ],
-
   "creator_punch_ins": [
-    { "t0": 4.20, "t1": 6.55, "scale": 1.10 },
-    { "t0": 16.05, "t1": 16.60, "scale": 1.08 },
-    { "t0": 21.40, "t1": 23.60, "scale": 1.10 },
-    { "t0": 34.70, "t1": 36.60, "scale": 1.10 }
+    {
+      "t0": 4.2,
+      "t1": 6.55,
+      "scale": 1.1
+    },
+    {
+      "t0": 16.05,
+      "t1": 16.6,
+      "scale": 1.08
+    },
+    {
+      "t0": 21.4,
+      "t1": 23.6,
+      "scale": 1.1
+    },
+    {
+      "t0": 34.7,
+      "t1": 36.6,
+      "scale": 1.1
+    }
   ],
-
   "sfx": [
-    { "t": 0.00, "type": "impact" },
-    { "t": 0.10, "type": "shimmer" },
-    { "t": 0.55, "type": "pop" },
-    { "t": 1.00, "type": "impact" },
-    { "t": 2.85, "type": "whoosh" },
-    { "t": 6.45, "type": "whoosh" },
-    { "t": 7.45, "type": "tick" },
-    { "t": 7.85, "type": "tick" },
-    { "t": 8.25, "type": "tick" },
-    { "t": 9.00, "type": "whoosh" },
-    { "t": 11.00, "type": "whoosh" },
-    { "t": 12.45, "type": "whoosh" },
-    { "t": 13.55, "type": "whoosh" },
-    { "t": 14.45, "type": "whoosh" },
-    { "t": 15.40, "type": "whoosh" },
-    { "t": 16.55, "type": "shimmer" },
-    { "t": 19.55, "type": "whoosh" },
-    { "t": 23.55, "type": "whoosh" },
-    { "t": 26.40, "type": "whoosh" },
-    { "t": 26.60, "type": "pop" },
-    { "t": 28.24, "type": "pop" },
-    { "t": 29.23, "type": "pop" },
-    { "t": 30.37, "type": "pop" },
-    { "t": 30.85, "type": "impact" },
-    { "t": 31.70, "type": "whoosh" },
-    { "t": 36.00, "type": "riser" },
-    { "t": 36.60, "type": "impact" },
-    { "t": 38.17, "type": "pop" },
-    { "t": 39.15, "type": "pop" },
-    { "t": 39.78, "type": "pop" },
-    { "t": 41.15, "type": "whoosh" },
-    { "t": 41.55, "type": "typing" },
-    { "t": 42.31, "type": "click" },
-    { "t": 43.47, "type": "shimmer" }
+    {
+      "t": 0.0,
+      "type": "impact"
+    },
+    {
+      "t": 0.1,
+      "type": "shimmer"
+    },
+    {
+      "t": 0.55,
+      "type": "pop"
+    },
+    {
+      "t": 1.0,
+      "type": "impact"
+    },
+    {
+      "t": 1.68,
+      "type": "impact"
+    },
+    {
+      "t": 2.85,
+      "type": "whoosh"
+    },
+    {
+      "t": 4.15,
+      "type": "whoosh"
+    },
+    {
+      "t": 5.3,
+      "type": "whoosh"
+    },
+    {
+      "t": 6.45,
+      "type": "whoosh"
+    },
+    {
+      "t": 7.95,
+      "type": "whoosh"
+    },
+    {
+      "t": 9.0,
+      "type": "whoosh"
+    },
+    {
+      "t": 10.7,
+      "type": "whoosh"
+    },
+    {
+      "t": 11.0,
+      "type": "shimmer"
+    },
+    {
+      "t": 12.45,
+      "type": "whoosh"
+    },
+    {
+      "t": 13.5,
+      "type": "whoosh"
+    },
+    {
+      "t": 14.45,
+      "type": "whoosh"
+    },
+    {
+      "t": 15.4,
+      "type": "whoosh"
+    },
+    {
+      "t": 16.55,
+      "type": "shimmer"
+    },
+    {
+      "t": 16.55,
+      "type": "shimmer"
+    },
+    {
+      "t": 19.55,
+      "type": "whoosh"
+    },
+    {
+      "t": 21.25,
+      "type": "whoosh"
+    },
+    {
+      "t": 22.5,
+      "type": "whoosh"
+    },
+    {
+      "t": 23.55,
+      "type": "whoosh"
+    },
+    {
+      "t": 24.27,
+      "type": "whoosh"
+    },
+    {
+      "t": 24.97,
+      "type": "whoosh"
+    },
+    {
+      "t": 25.67,
+      "type": "whoosh"
+    },
+    {
+      "t": 26.4,
+      "type": "whoosh"
+    },
+    {
+      "t": 26.6,
+      "type": "pop"
+    },
+    {
+      "t": 28.24,
+      "type": "pop"
+    },
+    {
+      "t": 29.23,
+      "type": "pop"
+    },
+    {
+      "t": 30.37,
+      "type": "pop"
+    },
+    {
+      "t": 30.85,
+      "type": "impact"
+    },
+    {
+      "t": 31.7,
+      "type": "whoosh"
+    },
+    {
+      "t": 36.0,
+      "type": "riser"
+    },
+    {
+      "t": 36.6,
+      "type": "impact"
+    },
+    {
+      "t": 38.17,
+      "type": "pop"
+    },
+    {
+      "t": 39.15,
+      "type": "pop"
+    },
+    {
+      "t": 39.78,
+      "type": "pop"
+    },
+    {
+      "t": 41.15,
+      "type": "whoosh"
+    },
+    {
+      "t": 41.55,
+      "type": "typing"
+    },
+    {
+      "t": 42.31,
+      "type": "click"
+    },
+    {
+      "t": 43.47,
+      "type": "shimmer"
+    }
   ],
-
-  "audio": { "voice_gain_db": 0, "music_gain_db": -17, "sfx_gain_db": -9, "target_lufs": -14 }
+  "audio": {
+    "voice_gain_db": 0,
+    "music_gain_db": -17,
+    "sfx_gain_db": -9,
+    "target_lufs": -14
+  },
+  "_broll_help": "Real demo footage (assets/source/demo_resin_printing.mp4). in/out = seconds in that clip; it is sped up to fit start..end. ease 'ramp' = slow-fast-slow speed ramp. z0/z1 = zoom from/to.",
+  "broll": [
+    {
+      "start": 0.0,
+      "end": 1.7,
+      "in": 12.5,
+      "out": 17.9,
+      "ease": "ramp",
+      "z0": 1.55,
+      "z1": 1.12,
+      "fy": 0.42,
+      "hud": "▶▶ TIMELAPSE"
+    },
+    {
+      "start": 4.2,
+      "end": 5.35,
+      "in": 21.1,
+      "out": 24.3,
+      "z0": 1.18,
+      "z1": 1.02
+    },
+    {
+      "start": 6.55,
+      "end": 8.0,
+      "in": 0.2,
+      "out": 2.6,
+      "z0": 1.12,
+      "z1": 1.0,
+      "title1": "YE HAI",
+      "title2": "3D RESIN PRINTER",
+      "hud": "STEP 1 • RESIN DAALO"
+    },
+    {
+      "start": 8.0,
+      "end": 9.05,
+      "in": 2.9,
+      "out": 7.1,
+      "z0": 1.0,
+      "z1": 1.15,
+      "title1": "YE HAI",
+      "title2": "3D RESIN PRINTER",
+      "hud": "STEP 2 • PRINT START ▶▶"
+    },
+    {
+      "start": 9.05,
+      "end": 10.75,
+      "in": 7.5,
+      "out": 12.2,
+      "z0": 1.25,
+      "z1": 1.05,
+      "title1": "BEHAD",
+      "title2": "BAAREEK DESIGN ✨",
+      "hud": "▶▶ LAYER BY LAYER"
+    },
+    {
+      "start": 10.75,
+      "end": 12.5,
+      "in": 12.5,
+      "out": 18.0,
+      "ease": "ramp",
+      "z0": 1.05,
+      "z1": 1.2,
+      "title1": "BANAO",
+      "title2": "3D MINIATURES",
+      "hud": "STEP 3 • PRINT READY ✅"
+    },
+    {
+      "start": 13.55,
+      "end": 14.5,
+      "in": 24.6,
+      "out": 27.6,
+      "z0": 1.2,
+      "z1": 1.05,
+      "kicker": "Kya bana ke bech sakte hain?",
+      "count": "02 / 03",
+      "label": "CUSTOM GIFTS"
+    },
+    {
+      "start": 14.5,
+      "end": 15.45,
+      "in": 34.0,
+      "out": 36.7,
+      "z0": 1.0,
+      "z1": 1.15,
+      "kicker": "Kya bana ke bech sakte hain?",
+      "count": "03 / 03",
+      "label": "HOME DECOR"
+    },
+    {
+      "start": 21.3,
+      "end": 22.55,
+      "in": 29.6,
+      "out": 33.6,
+      "z0": 1.15,
+      "z1": 1.0
+    },
+    {
+      "start": 23.6,
+      "end": 24.3,
+      "in": 0.4,
+      "out": 2.5,
+      "z0": 1.1,
+      "z1": 1.0,
+      "title1": "GHAR SE",
+      "title2": "SHURU?",
+      "sub": "ONLINE + CUSTOM ORDERS",
+      "hud": "01 • PRINT SETUP"
+    },
+    {
+      "start": 24.3,
+      "end": 25.0,
+      "in": 7.6,
+      "out": 12.2,
+      "z0": 1.2,
+      "z1": 1.05,
+      "title1": "GHAR SE",
+      "title2": "SHURU?",
+      "sub": "ONLINE + CUSTOM ORDERS",
+      "hud": "02 • LAYER BY LAYER ▶▶"
+    },
+    {
+      "start": 25.0,
+      "end": 25.7,
+      "in": 18.0,
+      "out": 20.8,
+      "z0": 1.05,
+      "z1": 1.15,
+      "title1": "GHAR SE",
+      "title2": "SHURU?",
+      "sub": "ONLINE + CUSTOM ORDERS",
+      "hud": "03 • FINISHING"
+    },
+    {
+      "start": 25.7,
+      "end": 26.45,
+      "in": 21.2,
+      "out": 24.2,
+      "z0": 1.15,
+      "z1": 1.0,
+      "title1": "GHAR SE",
+      "title2": "SHURU?",
+      "sub": "ONLINE + CUSTOM ORDERS",
+      "hud": "04 • ONLINE BECHO 🛒"
+    }
+  ]
 }

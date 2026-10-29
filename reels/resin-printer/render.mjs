@@ -24,7 +24,8 @@ const run = (cmd, a) => {
 
 // 1) prerequisites: creator frames, still images, audio
 const creatorDir = path.join(ROOT, 'build/creator');
-if (!fs.existsSync(creatorDir) || fs.readdirSync(creatorDir).length < 100) run('bash', ['scripts/build_base.sh']);
+const demoDir = path.join(ROOT, 'build/demo');
+if (!fs.existsSync(creatorDir) || fs.readdirSync(creatorDir).length < 100 || !fs.existsSync(demoDir)) run('bash', ['scripts/build_base.sh']);
 if (!fs.existsSync(path.join(ROOT, 'assets/images/printer_hero_cutout.png'))) run('python3', ['scripts/prep_images.py']);
 const creatorFrames = fs.readdirSync(creatorDir).filter(f => f.endsWith('.jpg')).length;
 
@@ -43,7 +44,8 @@ let done = 0;
 async function worker(w) {
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
   await page.goto(url);
-  await page.evaluate(([tl, n]) => window.init(tl, n), [TL, creatorFrames]);
+  const demoFrames = fs.readdirSync(demoDir).filter(f => f.endsWith('.jpg')).length;
+  await page.evaluate(([tl, n, d]) => window.init(tl, n, d), [TL, creatorFrames, demoFrames]);
   for (let i = w; i < times.length; i += WORKERS) {
     const t = times[i];
     await page.evaluate(tt => window.renderAt(tt), t);
