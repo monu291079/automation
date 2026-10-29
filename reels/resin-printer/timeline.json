@@ -1,0 +1,149 @@
+{
+  "_help": "Edit text and timings here, then re-render. Times are seconds on the voiceover. See README.md.",
+  "fps": 30,
+  "duration": 44.93,
+  "handle": "@ideaspulse.in",
+  "brand_name": "IdeasPulse.in",
+  "logo": null,
+  "colors": { "navy": "#12213A", "gold": "#A9812E", "gold_light": "#E2BE6A", "cream": "#FAF9F5", "teal": "#218C87", "impact": "#FF5A2C" },
+
+  "scenes": [
+    { "id": "hook",      "start": 0.00,  "end": 2.95 },
+    { "id": "creator",   "start": 2.95,  "end": 6.55 },
+    { "id": "reveal",    "start": 6.55,  "end": 12.50 },
+    { "id": "sell",      "start": 12.50, "end": 15.45 },
+    { "id": "creator",   "start": 15.45, "end": 16.60 },
+    { "id": "photo2mini","start": 16.60, "end": 19.60 },
+    { "id": "creator",   "start": 19.60, "end": 23.60 },
+    { "id": "home",      "start": 23.60, "end": 26.45 },
+    { "id": "cost",      "start": 26.45, "end": 31.75 },
+    { "id": "creator",   "start": 31.75, "end": 36.60 },
+    { "id": "plan",      "start": 36.60, "end": 41.20 },
+    { "id": "cta",       "start": 41.20, "end": 44.93 }
+  ],
+
+  "text": {
+    "hook_line1": "3D MACHINE SE",
+    "hook_line2": "CUSTOM BUSINESS! 😱",
+    "hook_line1_at": 0.12,
+    "hook_line2_at": 1.00,
+    "price_chip": "Sirf ~₹19,000*",
+    "price_chip_at": 0.55,
+    "price_note": "*Approx. online price — kharidne se pehle check karein",
+
+    "reveal_title": "YE HAI 3D RESIN PRINTER",
+    "reveal_labels": [
+      { "text": "7\" 10K MONO LCD", "at": 7.45 },
+      { "text": "BUILD PLATE", "at": 7.85 },
+      { "text": "RESIN VAT", "at": 8.25 }
+    ],
+    "reveal_b_line1": "EK MACHINE SE BANAYEIN",
+    "reveal_b_line2": "3D MINIATURES",
+    "reveal_b_spec": "Print size 153 × 87 × 165 mm",
+    "reveal_b_at": 9.05,
+    "reveal_c_line": "BAAREEK DETAILS",
+    "reveal_c_spec": "9024 × 5120 resolution",
+    "reveal_c_at": 11.05,
+
+    "sell_cards": [
+      { "label": "GAMING FIGURES", "at": 12.50, "visual": "figurine" },
+      { "label": "CUSTOM GIFTS", "at": 13.60, "visual": "gift" },
+      { "label": "COLLECTIBLES", "at": 14.50, "visual": "angel" }
+    ],
+
+    "photo2mini_title": "PHOTO ➜ 3D MINIATURE",
+    "photo2mini_tag": "Concept illustration",
+
+    "home_title": "GHAR SE SHURU?",
+    "home_sub": "ONLINE + CUSTOM ORDERS",
+    "home_steps": ["3D Design", "Print", "Wash & Cure", "Pack", "Online Order"],
+
+    "cost_header": "REALITY CHECK",
+    "cost_formula": "Machine + Resin + Finishing",
+    "cost_rows": [
+      { "text": "MACHINE", "at": 26.60 },
+      { "text": "RAW MATERIAL / RESIN", "at": 28.24 },
+      { "text": "QUALITY + FINISHING", "at": 29.23 },
+      { "text": "ORDERS & DEMAND", "at": 30.37 }
+    ],
+    "cost_stamp": "PEHLE NIKALEIN|POORA COST!",
+    "cost_stamp_at": 30.85,
+    "cost_extra": "Failed prints • Labour • Packaging • Selling price",
+    "cost_note": "Kamai fixed ya guaranteed nahi hai",
+
+    "plan_title1": "POORA BUSINESS",
+    "plan_title2": "PLAN CHAHIYE?",
+    "plan_chips": [
+      { "text": "Machine ki laagat", "at": 38.17 },
+      { "text": "Investment", "at": 39.15 },
+      { "text": "Profit calculation", "at": 39.78 }
+    ],
+
+    "cta_comment": "COMMENT 'PLAN' 👇",
+    "cta_comment_word": "PLAN",
+    "cta_follow": "FOLLOW @IDEASPULSE.IN",
+    "cta_follow_at": 42.31,
+    "cta_end_tag": "Naye business ideas ke liye",
+    "cta_end_at": 43.47
+  },
+
+  "captions": [
+    { "t0": 2.95,  "t1": 4.20,  "text": "GHAR BAITHE 3D REALISTIC", "hl": "3D REALISTIC" },
+    { "t0": 4.20,  "t1": 5.35,  "text": "CUSTOM MODELS", "hl": "CUSTOM" },
+    { "t0": 5.35,  "t1": 6.55,  "text": "KA BUSINESS SHURU!", "hl": "BUSINESS" },
+    { "t0": 15.45, "t1": 16.05, "text": "SOCHIYE... 🤔", "hl": "SOCHIYE" },
+    { "t0": 16.05, "t1": 16.60, "text": "AGAR KOI GRAHAK", "hl": "GRAHAK" },
+    { "t0": 19.60, "t1": 21.30, "text": "YA KOI KHAAS DESIGN", "hl": "KHAAS DESIGN" },
+    { "t0": 21.40, "t1": 22.55, "text": "CUSTOM ORDER PAR", "hl": "CUSTOM ORDER" },
+    { "t0": 22.55, "t1": 23.60, "text": "TAIYAAR! ✅", "hl": "TAIYAAR" },
+    { "t0": 31.80, "t1": 32.80, "text": "SABSE ACCHI BAAT? 😊", "hl": "ACCHI BAAT" },
+    { "t0": 32.85, "t1": 34.65, "text": "CHHOTE STAR SE SHURU", "hl": "CHHOTE STAR" },
+    { "t0": 34.70, "t1": 36.60, "text": "DHEERE-DHEERE APNA BRAND 🚀", "hl": "APNA BRAND" }
+  ],
+
+  "creator_punch_ins": [
+    { "t0": 4.20, "t1": 6.55, "scale": 1.10 },
+    { "t0": 16.05, "t1": 16.60, "scale": 1.08 },
+    { "t0": 21.40, "t1": 23.60, "scale": 1.10 },
+    { "t0": 34.70, "t1": 36.60, "scale": 1.10 }
+  ],
+
+  "sfx": [
+    { "t": 0.00, "type": "impact" },
+    { "t": 0.10, "type": "shimmer" },
+    { "t": 0.55, "type": "pop" },
+    { "t": 1.00, "type": "impact" },
+    { "t": 2.85, "type": "whoosh" },
+    { "t": 6.45, "type": "whoosh" },
+    { "t": 7.45, "type": "tick" },
+    { "t": 7.85, "type": "tick" },
+    { "t": 8.25, "type": "tick" },
+    { "t": 9.00, "type": "whoosh" },
+    { "t": 11.00, "type": "whoosh" },
+    { "t": 12.45, "type": "whoosh" },
+    { "t": 13.55, "type": "whoosh" },
+    { "t": 14.45, "type": "whoosh" },
+    { "t": 15.40, "type": "whoosh" },
+    { "t": 16.55, "type": "shimmer" },
+    { "t": 19.55, "type": "whoosh" },
+    { "t": 23.55, "type": "whoosh" },
+    { "t": 26.40, "type": "whoosh" },
+    { "t": 26.60, "type": "pop" },
+    { "t": 28.24, "type": "pop" },
+    { "t": 29.23, "type": "pop" },
+    { "t": 30.37, "type": "pop" },
+    { "t": 30.85, "type": "impact" },
+    { "t": 31.70, "type": "whoosh" },
+    { "t": 36.00, "type": "riser" },
+    { "t": 36.60, "type": "impact" },
+    { "t": 38.17, "type": "pop" },
+    { "t": 39.15, "type": "pop" },
+    { "t": 39.78, "type": "pop" },
+    { "t": 41.15, "type": "whoosh" },
+    { "t": 41.55, "type": "typing" },
+    { "t": 42.31, "type": "click" },
+    { "t": 43.47, "type": "shimmer" }
+  ],
+
+  "audio": { "voice_gain_db": 0, "music_gain_db": -17, "sfx_gain_db": -9, "target_lufs": -14 }
+}
