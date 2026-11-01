@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<title>IdeasPulse Butter Candle Reel</title>
+<style>
+@font-face { font-family: "Anton"; src: url(assets/fonts/Anton-Regular.ttf); }
+@font-face { font-family: "Khand"; font-weight: 600; src: url(assets/fonts/Khand-SemiBold.ttf); size-adjust: 118%; }
+@font-face { font-family: "Khand"; font-weight: 700; src: url(assets/fonts/Khand-Bold.ttf); size-adjust: 118%; }
+@font-face { font-family: "Poppins"; font-weight: 500; src: url(assets/fonts/Poppins-Medium.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 700; src: url(assets/fonts/Poppins-Bold.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 800; src: url(assets/fonts/Poppins-ExtraBold.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 900; src: url(assets/fonts/Poppins-Black.ttf); }
+:root { --navy: #12213A; --navy2: #0B1526; --gold: #A9812E; --gold-l: #E2BE6A; --gold-xl: #F6E2A6; --cream: #FAF9F5; --teal: #218C87; --teal-l: #39C2BA; --impact: #FF5A2C; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy2); }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: Poppins, "Noto Color Emoji", sans-serif; color: var(--cream); }
+.layer, .scene { position: absolute; inset: 0; }
+.scene { opacity: 0; visibility: hidden; overflow: hidden; }
+.abs { position: absolute; }
+img { display: block; }
+.navy-bg { background:
+  radial-gradient(900px 700px at 50% 38%, rgba(33,140,135,.22), transparent 70%),
+  radial-gradient(700px 520px at 50% 82%, rgba(169,129,46,.22), transparent 70%),
+  linear-gradient(180deg, #172a49 0%, var(--navy) 45%, var(--navy2) 100%); }
+.grid-bg { background-image: linear-gradient(rgba(226,190,106,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(226,190,106,.07) 1px, transparent 1px); background-size: 60px 60px; }
+.anton { font-family: Anton, Khand, "Noto Color Emoji", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.02; }
+.goldtxt {
+  background-image: linear-gradient(110deg, transparent 42%, rgba(255,255,255,.95) 50%, transparent 58%), linear-gradient(180deg, var(--gold-xl) 0%, var(--gold-l) 45%, var(--gold) 100%);
+  background-size: 300% 100%, 100% 100%; background-position: 120% 0, 0 0;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 6px 0 rgba(0,0,0,.55)) drop-shadow(0 0 26px rgba(226,190,106,.25)); }
+.emo { display: inline-block; color: #fff; -webkit-text-fill-color: #fff; background: none; }
+.creamtxt { color: var(--cream); text-shadow: 0 5px 0 rgba(0,0,0,.55), 0 0 30px rgba(0,0,0,.35); }
+.center-x { left: 0; right: 0; text-align: center; }
+.pill { display: inline-flex; align-items: center; gap: 14px; padding: 14px 30px; border-radius: 999px; font-weight: 800; }
+.pill-gold { border: 3px solid var(--gold-l); background: rgba(18,33,58,.88); color: var(--gold-xl); box-shadow: 0 0 30px rgba(226,190,106,.25); }
+.pill-solid { background: linear-gradient(180deg, #F6E2A6, #E2BE6A 50%, #B88E36); color: #12213A; box-shadow: 0 10px 30px rgba(226,190,106,.4); }
+.pill-teal { background: linear-gradient(180deg, #27a39c, var(--teal)); color: #fff; box-shadow: 0 10px 30px rgba(33,140,135,.45); }
+.hud { font-family: Poppins; font-weight: 700; font-size: 30px; letter-spacing: 2px; color: var(--teal-l); text-transform: uppercase; }
+.card { border-radius: 34px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 3px rgba(226,190,106,.6); background: #0d1828; }
+.chip { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+
+#creatorWrap { position: absolute; inset: 0; overflow: hidden; }
+#creatorImg { position: absolute; inset: 0; width: 1080px; height: 1920px; transform-origin: 50% 34%; }
+#creatorShade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,14,26,.35) 0%, rgba(8,14,26,0) 18%, rgba(8,14,26,0) 52%, rgba(8,14,26,.65) 72%, rgba(8,14,26,.85) 100%); }
+
+#brollWrap { position: absolute; inset: 0; overflow: hidden; visibility: hidden; background: #000; }
+#brollImg { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+#brollShade { position: absolute; inset: 0; background:
+  linear-gradient(180deg, rgba(8,14,26,.80) 0%, rgba(8,14,26,.25) 27%, rgba(8,14,26,0) 40%, rgba(8,14,26,0) 58%, rgba(8,14,26,.55) 76%, rgba(8,14,26,.85) 100%),
+  radial-gradient(130% 90% at 50% 50%, transparent 60%, rgba(0,0,0,.45)); }
+#brollOv > * { position: absolute; }
+#bo_hud { left: 50%; top: 1440px; transform: translateX(-50%); white-space: nowrap; }
+#bo_hud span { display: inline-flex; align-items: center; gap: 12px; padding: 12px 28px; border-radius: 14px; background: rgba(11,21,38,.84); border: 2px solid #39C2BA; color: #fff; font-weight: 800; font-size: 36px; letter-spacing: 1px; box-shadow: 0 0 30px rgba(57,194,186,.35); }
+#bo_hud i { width: 16px; height: 16px; border-radius: 50%; background: #FF5A2C; box-shadow: 0 0 14px #FF5A2C; display: inline-block; }
+#bo_frame { inset: 26px; border: 3px solid rgba(226,190,106,.55); border-radius: 28px; }
+#bo_frame::before, #bo_frame::after { content: ""; position: absolute; width: 70px; height: 70px; border: 6px solid #E2BE6A; }
+#bo_frame::before { left: -6px; top: -6px; border-right: 0; border-bottom: 0; border-top-left-radius: 28px; }
+#bo_frame::after { right: -6px; bottom: -6px; border-left: 0; border-top: 0; border-bottom-right-radius: 28px; }
+
+#captions { position: absolute; left: 70px; right: 110px; top: 1215px; text-align: center; }
+#captions .w { display: inline-block; margin: 0 10px; font-family: Anton, Khand, "Noto Color Emoji", sans-serif; font-weight: 700; font-size: 100px; line-height: 1.08; text-transform: uppercase; color: var(--cream);
+  -webkit-text-stroke: 3px rgba(5,10,20,.85); paint-order: stroke fill; text-shadow: 0 7px 0 rgba(0,0,0,.6), 0 0 34px rgba(0,0,0,.45); }
+#captions .w.hl { color: var(--gold-l); font-size: 112px; }
+#captions .w.emoji { -webkit-text-stroke: 0; }
+#captions .bar { display: block; height: 10px; width: 0; margin: 10px auto 0; border-radius: 10px; background: linear-gradient(90deg, var(--teal), var(--gold-l)); }
+
+#tag { position: absolute; left: 60px; top: 222px; display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 28px; color: var(--cream); padding: 6px 22px 6px 6px; border-radius: 999px; background: rgba(18,33,58,.62); border: 2px solid rgba(226,190,106,.6); }
+#tag img { width: 52px; height: 52px; border-radius: 50%; }
+#wipe { position: absolute; left: -600px; top: -200px; width: 380px; height: 2400px; transform: rotate(14deg); opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(246,226,166,.85) 50%, transparent); filter: blur(6px); }
+#flash { position: absolute; inset: 0; background: #fff6df; opacity: 0; mix-blend-mode: screen; }
+#particles { position: absolute; inset: 0; }
+
+/* flavour chips */
+.fchip { position: absolute; left: 50%; display: flex; align-items: center; gap: 18px; padding: 12px 34px 12px 14px; border-radius: 999px; background: rgba(11,21,38,.9); border: 3px solid var(--gold-l); white-space: nowrap; font-weight: 900; font-size: 42px; letter-spacing: 1px; }
+.fchip b { width: 48px; height: 48px; border-radius: 50%; display: inline-block; }
+
+/* pdf pages */
+.page { position: absolute; left: 255px; top: 520px; width: 570px; height: 738px; transform-origin: 0% 50%; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 30px 70px rgba(0,0,0,.6), 0 0 0 2px rgba(226,190,106,.5); }
+.page img { width: 100%; height: 100%; object-fit: cover; }
+.page .shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%); background-size: 300% 100%; background-position: 120% 0; }
+.page .shade { position: absolute; inset: 0; background: #0b1526; opacity: 0; }
+
+/* qr cards */
+.qrcard { position: absolute; top: 800px; width: 400px; border-radius: 30px; overflow: hidden; background: #fff; box-shadow: 0 30px 70px rgba(0,0,0,.6), 0 0 0 4px var(--gold-l), 0 0 50px rgba(226,190,106,.35); }
+.qrcard img { width: 360px; height: 360px; margin: 20px; }
+.qrcard .lbl { display: flex; align-items: center; justify-content: center; gap: 12px; height: 92px; color: #fff; font-weight: 800; font-size: 30px; line-height: 1.1; text-align: center; }
+.qrcard .lbl small { display: block; font-weight: 600; font-size: 24px; opacity: .92; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer navy-bg"></div>
+  <div id="creatorWrap"><img id="creatorImg" alt=""><div id="creatorShade"></div></div>
+  <div id="brollWrap"><img id="brollImg" alt=""><div id="brollShade"></div>
+    <div id="brollOv" class="layer">
+      <div id="bo_frame"></div>
+      <div id="bo_kicker" class="center-x hud" style="top:250px;font-size:38px;text-shadow:0 3px 10px #000"></div>
+      <div id="bo_t1" class="center-x creamtxt" style="top:236px;font-weight:800;font-size:58px;letter-spacing:3px"></div>
+      <div id="bo_t2" class="center-x anton goldtxt" style="top:312px;font-size:140px"></div>
+      <div id="bo_sub" class="center-x" style="top:486px"></div>
+      <div id="bo_label" class="center-x anton goldtxt" style="top:1250px;font-size:150px"></div>
+      <div id="bo_hud"></div>
+    </div>
+  </div>
+  <div id="scenes"></div>
+  <canvas id="particles" width="1080" height="1920"></canvas>
+  <div id="captions"></div>
+  <div id="tag"><img src="assets/images/logo.png" alt=""><span></span></div>
+  <div id="wipe"></div>
+  <div id="flash"></div>
+</div>
+
+<script>
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P = (t, a, b) => cl((t - a) / (b - a));
+const eo = x => 1 - Math.pow(1 - x, 3);
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eob = x => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const $ = h => { const d = document.createElement('div'); d.innerHTML = h.trim(); return d.firstElementChild; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const E = id => document.getElementById(id);
+function setT(el, tr, op) { if (!el) return; if (tr !== undefined) el.style.transform = tr; if (op !== undefined) el.style.opacity = op; }
+function pop(t, at, dur = .32, from = .55) { const x = P(t, at, at + dur); return { o: P(t, at, at + .07), s: from + (1 - from) * eob(x), x }; }
+function burst(t, at) {
+  const x = P(t, at, at + .30);
+  const shake = (t > at && t < at + .22) ? Math.sin((t - at) * 120) * 9 * (1 - (t - at) / .22) : 0;
+  return { o: P(t, at, at + .05), s: lerp(1.75, 1, eo(x)), blur: (1 - eo(x)) * 14, sx: shake };
+}
+function sweepPos(t, a, b) { return lerp(120, -20, eio(P(t, a, b))) + '% 0, 0 0'; }
+function bigIn(el, t, at, extra = '') { const q = burst(t, at); el.style.opacity = q.o; el.style.transform = `translateX(${q.sx}px) ${extra} scale(${q.s})`; el.style.filter = `blur(${q.blur}px) drop-shadow(0 6px 0 rgba(0,0,0,.55))`; el.style.backgroundPosition = sweepPos(t, at + .3, at + 1.1); }
+function popIn(el, t, at, pre = '', dur = .32, from = .55) { const q = pop(t, at, dur, from); el.style.opacity = q.o; el.style.transform = `${pre} scale(${q.s})`; return q; }
+// fit a big single-line title to the safe width
+function fitText(e, txt, maxW = 900) {
+  if (e.dataset.txt === txt) return; e.dataset.txt = txt;
+  if (!e.dataset.base) e.dataset.base = parseFloat(getComputedStyle(e).fontSize);
+  const base = Number(e.dataset.base); e.style.fontSize = base + 'px';
+  e.innerHTML = `<span style="display:inline-block;white-space:nowrap">${esc(txt).replace(/(\p{Extended_Pictographic}[\u{FE0F}\u{200D}\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}]*|[\u{1F1E6}-\u{1F1FF}]{2})/gu, '<span class="emo">$1</span>')}</span>`;
+  const w = e.firstChild.getBoundingClientRect().width / ((e.style.transform.match(/scale\(([\d.]+)\)/) || [0, 1])[1] || 1);
+  if (w > maxW) e.style.fontSize = (base * maxW / w) + 'px';
+}
+
+let TL, SC = {}, COUNTS = {};
+const R = {};
+
+// ------------------------------------------------------------ build scenes
+function build() {
+  const T = TL.text, S = E('scenes');
+  const add = (id, html) => { const el = $(html); el.id = 'sc_' + id; S.appendChild(el); SC[id] = el; return el; };
+
+  add('flavours', `<div class="scene navy-bg">
+    <div class="layer grid-bg" style="opacity:.5"></div>
+    <div class="abs center-x creamtxt" id="fl_1" style="top:236px;font-weight:800;font-size:58px;letter-spacing:3px">${esc(T.flavours_title1)}</div>
+    <div class="abs center-x anton goldtxt" id="fl_2" style="top:312px;font-size:140px">${esc(T.flavours_title2)}</div>
+    <div class="abs card" id="fl_card" style="left:90px;top:520px;width:900px;height:604px"><img id="fl_img" src="assets/images/jars.jpg" style="width:900px;height:604px;object-fit:cover"></div>
+    ${T.flavours.map((f, i) => `<div class="fchip" data-i="${i}" style="top:${1170 + i * 92}px"><b style="background:${['radial-gradient(circle at 35% 35%,#fff3c4,#E2BE6A)', 'radial-gradient(circle at 35% 35%,#ffb199,#d4381c)', 'radial-gradient(circle at 35% 35%,#d9f2c2,#5f9c3a)'][i % 3]}"></b>${esc(f.text)}</div>`).join('')}
+  </div>`);
+
+  add('budget', `<div class="scene navy-bg">
+    <div class="layer grid-bg" style="opacity:.5"></div>
+    <div class="abs center-x creamtxt" id="bu_1" style="top:236px;font-weight:800;font-size:58px;letter-spacing:3px">${esc(T.budget_title1)}</div>
+    <div class="abs center-x anton goldtxt" id="bu_2" style="top:312px;font-size:150px">${esc(T.budget_title2)}</div>
+    <div class="abs card" id="bu_card" style="left:90px;top:520px;width:900px;height:960px;background:#fff">
+      <div id="bu_in" class="abs" style="left:0;top:0;width:900px;height:1165px">
+        <img src="assets/pdf_pages/${esc(T.budget_page)}" style="width:900px;height:1165px">
+        <div id="bu_hl" class="abs" style="left:64px;width:776px;top:996px;height:44px;border:5px solid #FF5A2C;border-radius:10px;box-shadow:0 0 0 2000px rgba(11,21,38,0),0 0 30px rgba(255,90,44,.7)"></div>
+      </div>
+    </div>
+    <div class="abs center-x" id="bu_n" style="top:1500px;font-size:26px;font-weight:600;color:rgba(250,249,245,.8)">${esc(T.budget_note)}</div>
+  </div>`);
+
+  add('pdf', `<div class="scene navy-bg">
+    <div class="layer grid-bg" style="opacity:.45"></div>
+    <div class="abs" style="left:90px;top:470px;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(226,190,106,.32),transparent 65%)"></div>
+    <div class="abs center-x anton creamtxt" id="pd_1" style="top:236px;font-size:96px">${esc(T.pdf_title1)}</div>
+    <div class="abs center-x anton goldtxt" id="pd_2" style="top:345px;font-size:110px">${esc(T.pdf_title2)}</div>
+    <div class="abs" id="pd_book" style="left:0;top:0;width:1080px;height:1920px;perspective:2200px">
+      ${T.pdf_pages.map((p, i) => `<div class="page" data-i="${i}"><img src="assets/pdf_pages/${esc(p)}"><div class="shade"></div><div class="shine"></div></div>`).join('')}
+    </div>
+    <div class="chip" id="pd_chip" style="top:1300px"></div>
+    <div class="abs center-x anton goldtxt" id="pd_c" style="top:1290px;font-size:120px">${esc(T.pdf_comment)}</div>
+    <div class="chip" id="pd_dm" style="top:1430px"><span class="pill pill-teal" style="font-size:42px">${esc(T.pdf_dm)}</span></div>
+  </div>`);
+
+  add('cta', `<div class="scene navy-bg">
+    <div class="layer grid-bg" style="opacity:.4"></div>
+    <div class="abs" id="ct_ring" style="left:405px;top:175px;width:270px;height:270px;border-radius:50%;background:conic-gradient(from 0deg,#E2BE6A,transparent 30%,#39C2BA 50%,transparent 80%,#E2BE6A);filter:blur(6px)"></div>
+    <img id="ct_logo" src="assets/images/logo.png" class="abs" style="left:415px;top:185px;width:250px;height:250px;border-radius:50%">
+    <div class="abs center-x anton creamtxt" id="ct_1" style="top:455px;font-size:86px">${esc(T.cta_title1)}</div>
+    <div class="abs center-x anton goldtxt" id="ct_2" style="top:545px;font-size:112px">${esc(T.cta_title2)}</div>
+    <div class="chip" id="ct_join" style="top:690px"><span class="pill pill-solid" style="font-size:40px;padding:12px 34px">📲 ${esc(T.cta_join)}</span></div>
+    <div class="qrcard" id="ct_yt" style="left:75px"><img src="assets/images/qr_youtube.png"><div class="lbl" style="background:linear-gradient(180deg,#ff3b30,#d4241b)"><span>▶ ${esc(T.cta_youtube)}<small>${esc(T.cta_youtube_handle)}</small></span></div></div>
+    <div class="qrcard" id="ct_tg" style="left:535px"><img src="assets/images/qr_telegram.png"><div class="lbl" style="background:linear-gradient(180deg,#3aa8e8,#1f86c9)"><span>✈ ${esc(T.cta_telegram)}<small>${esc(T.cta_telegram_handle)}</small></span></div></div>
+    <div class="abs center-x" id="ct_sub" style="top:1290px;font-weight:700;font-size:34px;color:#7fd6d0">${esc(T.cta_join_sub)}</div>
+    <div class="chip" id="ct_cm" style="top:1350px"><span class="pill pill-gold" style="font-size:34px;padding:12px 28px">💬 ${esc(T.cta_comment)}</span></div>
+    <div class="abs center-x" id="ct_site" style="top:1440px;font-weight:900;font-size:66px"><span style="color:#FAF9F5">ideaspulse</span><span style="color:#E2BE6A">.in</span></div>
+  </div>`);
+
+  E('tag').querySelector('span').textContent = TL.website;
+}
+
+// ------------------------------------------------------------ scene renderers
+R.flavours = (t, s0) => {
+  const T = TL.text;
+  popIn(E('fl_1'), t, s0 + .02);
+  fitText(E('fl_2'), T.flavours_title2); bigIn(E('fl_2'), t, s0 + .15);
+  const c = popIn(E('fl_card'), t, s0 + .05, '', .4, .85);
+  setT(E('fl_img'), `scale(${lerp(1.0, 1.12, P(t, s0, s0 + 4.6))})`);
+  document.querySelectorAll('#sc_flavours .fchip').forEach((el, i) => {
+    const q = pop(t, T.flavours[i].at, .3, .6);
+    el.style.opacity = q.o; el.style.transform = `translateX(-50%) translateX(${(1 - eo(q.x)) * (i % 2 ? 80 : -80)}px) scale(${q.s})`;
+  });
+};
+
+R.budget = (t, s0) => {
+  popIn(E('bu_1'), t, s0 + .02);
+  fitText(E('bu_2'), TL.text.budget_title2); bigIn(E('bu_2'), t, s0 + .1);
+  popIn(E('bu_card'), t, s0 + .05, '', .4, .85);
+  const sc = eio(P(t, s0 + .35, s0 + 1.4));
+  setT(E('bu_in'), `translateY(${lerp(-80, -360, sc)}px)`);
+  const h = P(t, s0 + 1.35, s0 + 1.6);
+  E('bu_hl').style.opacity = h; E('bu_hl').style.transform = `scale(${lerp(1.15, 1, eo(h))})`;
+  E('bu_hl').style.boxShadow = `0 0 0 2000px rgba(11,21,38,${.28 * h}),0 0 30px rgba(255,90,44,.7)`;
+  E('bu_n').style.opacity = P(t, s0 + .6, s0 + .9);
+};
+
+R.pdf = (t, s0) => {
+  const T = TL.text, pages = document.querySelectorAll('#pd_book .page');
+  popIn(E('pd_1'), t, s0 + .02, '', .3, .6);
+  fitText(E('pd_2'), T.pdf_title2); bigIn(E('pd_2'), t, s0 + .15);
+  const n = pages.length, cAt = T.pdf_comment_at;
+  const step = (cAt - .15 - (s0 + .1)) / n;
+  // book: each page turns in from the right like a page flip, older pages fan to the left
+  const lift = eo(P(t, cAt - .1, cAt + .35));
+  pages.forEach((el, i) => {
+    const at = s0 + .1 + i * step;
+    const x = P(t, at, at + .38);
+    const newer = pages.length ? Math.max(0, Math.min(n - 1, Math.floor((t - (s0 + .1)) / step)) - i) : 0;
+    const vis = t >= at;
+    el.style.visibility = vis ? 'visible' : 'hidden';
+    const rot = i === 0 ? 0 : lerp(-100, 0, eo(x));
+    const sc0 = i === 0 ? lerp(.6, 1, eob(P(t, at, at + .4))) : 1;
+    const fanX = -newer * 26, fanR = -newer * 3.2, fanS = 1 - newer * .035;
+    const y = lerp(0, -40, lift), s = lerp(1, .78, lift);
+    el.style.transformOrigin = i === 0 ? '50% 50%' : '0% 50%';
+    el.style.transform = `translateY(${y}px) scale(${s}) translateX(${fanX}px) rotate(${fanR}deg) scale(${fanS * sc0}) rotateY(${rot}deg)`;
+    el.style.zIndex = 10 + i;
+    el.querySelector('.shade').style.opacity = Math.min(.55, newer * .18) + (i ? (1 - eo(x)) * .4 : 0);
+    el.querySelector('.shine').style.backgroundPosition = lerp(120, -20, P(t, at + .25, at + .75)) + '% 0';
+    el.style.opacity = i === 0 ? P(t, at, at + .1) : 1;
+  });
+  // one chip per page while flipping
+  const cur = Math.max(0, Math.min(n - 1, Math.floor((t - (s0 + .1)) / step)));
+  const chips = T.pdf_chips || [];
+  const chip = E('pd_chip'); const ct = chips[Math.min(chips.length - 1, Math.max(0, cur - 1))] || '';
+  if (chip.dataset.txt !== ct) { chip.innerHTML = ct ? `<span class="pill pill-gold" style="font-size:44px">✔ ${esc(ct)}</span>` : ''; chip.dataset.txt = ct; }
+  const chipAt = s0 + .1 + cur * step;
+  const cq = pop(t, chipAt + .1, .28, .6);
+  chip.style.opacity = (cur >= 1 ? cq.o : 0) * (1 - P(t, cAt - .15, cAt));
+  chip.style.transform = `translateX(-50%) scale(${cq.s})`;
+  fitText(E('pd_c'), T.pdf_comment); bigIn(E('pd_c'), t, cAt);
+  popIn(E('pd_dm'), t, cAt + .3, 'translateX(-50%)');
+};
+
+R.cta = (t, s0) => {
+  const T = TL.text;
+  const l = pop(t, s0 + .02, .45, .3);
+  setT(E('ct_logo'), `scale(${l.s}) rotate(${lerp(-90, 0, eo(l.x))}deg)`, l.o);
+  setT(E('ct_ring'), `rotate(${t * 90}deg) scale(${l.s})`, l.o * .9);
+  popIn(E('ct_1'), t, s0 + .15, '', .3, .6);
+  fitText(E('ct_2'), T.cta_title2); bigIn(E('ct_2'), t, s0 + .3);
+  popIn(E('ct_join'), t, T.cta_qr_at - .25, 'translateX(-50%)');
+  // QR cards pop in, then hold perfectly still so they can be scanned
+  ['ct_yt', 'ct_tg'].forEach((id, i) => { const q = pop(t, T.cta_qr_at + i * .15, .4, .6); setT(E(id), `translateY(${(1 - eo(q.x)) * 120}px) scale(${q.s})`, q.o); });
+  E('ct_sub').style.opacity = P(t, T.cta_qr_at + .4, T.cta_qr_at + .7);
+  popIn(E('ct_cm'), t, T.cta_comment_at, 'translateX(-50%)');
+  popIn(E('ct_site'), t, T.cta_site_at, '', .35, .6);
+};
+
+// ------------------------------------------------------------ b-roll (real footage)
+const brollSrc = (clip, sec) => { const n = COUNTS[clip] || 1; const i = Math.max(0, Math.min(n - 1, Math.round(sec * 30))); return `build/${clip}/${String(i).padStart(5, '0')}.jpg`; };
+function runStart(L, i, key) { let j = i; while (j > 0 && L[j - 1][key] && L[j - 1][key] === L[i][key] && Math.abs(L[j - 1].end - L[j].start) < .01) j--; return L[j].start; }
+function renderBroll(t) {
+  const L = TL.broll || [], wrap = E('brollWrap');
+  const i = L.findIndex(b => t >= b.start && t < b.end);
+  if (i < 0) { wrap.style.visibility = 'hidden'; return false; }
+  const b = L[i], x = P(t, b.start, b.end), m = b.ease === 'ramp' ? eio(x) : x;
+  const img = E('brollImg'), src = brollSrc(b.clip, lerp(b.in, b.out, m));
+  if (img.getAttribute('src') !== src) img.src = src;
+  const punch = 1 + .07 * (1 - eo(P(t, b.start, b.start + .22)));
+  img.style.transformOrigin = `50% ${(b.fy ?? .45) * 100}%`;
+  img.style.transform = `scale(${lerp(b.z0 || 1, b.z1 || 1, eio(x)) * punch})`;
+  wrap.style.visibility = 'visible';
+  const show = (id, txt, at, kind) => {
+    const e = E(id);
+    if (!txt) { e.style.opacity = 0; return; }
+    if (kind === 'big') fitText(e, txt);
+    else if (e.dataset.txt !== txt) { e.innerHTML = kind === 'sub' ? `<span class="pill pill-solid" style="font-size:46px">${esc(txt)}</span>` : kind === 'hud' ? `<span><i></i>${esc(txt)}</span>` : esc(txt); e.dataset.txt = txt; }
+    if (kind === 'big') bigIn(e, t, at);
+    else popIn(e, t, at, kind === 'hud' ? 'translateX(-50%)' : '', .3, .6);
+  };
+  show('bo_t1', b.title1, b.title_at ?? runStart(L, i, 'title1'), 'small');
+  show('bo_t2', b.title2, (b.title_at ?? runStart(L, i, 'title2')) + .05, 'big');
+  show('bo_sub', b.sub, b.sub_at ?? runStart(L, i, 'sub') + .3, 'sub');
+  show('bo_kicker', b.kicker, runStart(L, i, 'kicker'), 'small');
+  show('bo_label', b.label, b.start + .05, 'big');
+  show('bo_hud', b.hud, b.start + .08, 'hud');
+  E('bo_frame').style.opacity = (b.title2 || b.label) ? .9 : .5;
+  return true;
+}
+
+// ------------------------------------------------------------ captions
+let capKey = '';
+function renderCaptions(t, visible) {
+  const box = E('captions');
+  const cap = visible ? TL.captions.find(c => t >= c.t0 && t < c.t1) : null;
+  const key = cap ? cap.t0 + cap.text : '';
+  if (key !== capKey) {
+    capKey = key;
+    if (!cap) box.innerHTML = '';
+    else {
+      const hl = (cap.hl || '').toUpperCase().split(/\s+/).filter(Boolean);
+      box.innerHTML = cap.text.split(/\s+/).map(w => {
+        const isEmoji = /\p{Extended_Pictographic}/u.test(w) && !/[\p{L}]/u.test(w);
+        const clean = w.replace(/[^\p{L}\p{M}\p{N}-]/gu, '').toUpperCase();
+        return `<span class="w${hl.includes(clean) ? ' hl' : ''}${isEmoji ? ' emoji' : ''}">${esc(w)}</span>`;
+      }).join(' ') + '<span class="bar"></span>';
+    }
+  }
+  if (!cap) return;
+  const ws = box.querySelectorAll('.w'), dur = Math.min(.5, (cap.t1 - cap.t0) * .55);
+  ws.forEach((el, i) => {
+    const q = pop(t, cap.t0 + (ws.length > 1 ? dur * i / (ws.length - 1) : 0), .26, .5);
+    el.style.opacity = q.o; el.style.transform = `translateY(${(1 - eo(q.x)) * 40}px) scale(${q.s})`;
+  });
+  box.querySelector('.bar').style.width = (520 * eo(P(t, cap.t0 + .1, cap.t1))) + 'px';
+}
+
+// ------------------------------------------------------------ particles (diya-like gold sparkles)
+function drawParticles(t, amount) {
+  const g = E('particles').getContext('2d');
+  g.clearRect(0, 0, 1080, 1920);
+  if (amount <= 0) return;
+  for (let i = 0; i < 52; i++) {
+    const r1 = Math.abs(Math.sin(i * 12.9898) * 43758.5453 % 1), r2 = Math.abs(Math.sin(i * 78.233) * 12345.678 % 1), r3 = Math.abs(Math.sin(i * 3.7) * 9876.5 % 1);
+    const x = r1 * 1080 + Math.sin(t * .7 + i) * 18;
+    const y = ((r2 * 2100 - t * (30 + r3 * 50)) % 2100 + 2100) % 2100 - 90;
+    const tw = .45 + .55 * Math.sin(t * 3 + i * 1.7), sz = 1.5 + r3 * 3.5;
+    g.globalAlpha = cl(tw * .55 * amount);
+    const grd = g.createRadialGradient(x, y, 0, x, y, sz * 4);
+    grd.addColorStop(0, 'rgba(246,226,166,1)'); grd.addColorStop(1, 'rgba(226,190,106,0)');
+    g.fillStyle = grd; g.beginPath(); g.arc(x, y, sz * 4, 0, Math.PI * 2); g.fill();
+  }
+  g.globalAlpha = 1;
+}
+
+// ------------------------------------------------------------ frame
+async function renderAt(t) {
+  const scenes = TL.scenes;
+  let creatorScene = null, gfx = false;
+  for (const s of scenes) {
+    if (s.id === 'broll') continue;
+    if (s.id === 'creator') { if (t >= s.start && t < s.end) creatorScene = s; continue; }
+    const el = SC[s.id];
+    const fadeIn = P(t, s.start - .02, s.start + .14), fadeOut = 1 - P(t, s.end - .02, s.end + .12);
+    if (t >= s.start - .02 && t < s.end + .12) {
+      el.style.visibility = 'visible'; el.style.opacity = Math.min(fadeIn, fadeOut);
+      el.style.transform = `scale(${lerp(1.06, 1, eo(fadeIn)) * lerp(1, 1.04, P(t, s.end - .02, s.end + .12))})`;
+      R[s.id](t, s.start);
+      if (t >= s.start && t < s.end) gfx = true;
+    } else if (el.style.visibility !== 'hidden') { el.style.visibility = 'hidden'; el.style.opacity = 0; }
+  }
+  // creator: switch between the three lip-synced takes per scene
+  const take = (creatorScene && creatorScene.take) || 'A';
+  const cimg = E('creatorImg');
+  const cn = COUNTS['creator' + take] || 1;
+  const csrc = `build/creator${take}/${String(Math.min(cn - 1, Math.round(t * 30))).padStart(5, '0')}.jpg`;
+  if (creatorScene && cimg.getAttribute('src') !== csrc) cimg.src = csrc;
+  let sc = 1 + .025 * Math.sin(t * .5);
+  for (const pi of TL.creator_punch_ins) if (t >= pi.t0 && t < pi.t1) sc *= lerp(1, pi.scale, eo(P(t, pi.t0, pi.t0 + .18)));
+  cimg.style.transform = `scale(${sc})`;
+  E('creatorWrap').style.visibility = creatorScene ? 'visible' : 'hidden';
+
+  const broll = renderBroll(t);
+  E('tag').style.opacity = creatorScene ? .95 : 0;
+  renderCaptions(t, !!creatorScene || broll);
+  drawParticles(t, gfx ? 1 : (broll ? .5 : .3));
+
+  let wipe = 0, wx = -600;
+  for (const s of [...scenes, ...(TL.broll || [])]) if (s.start > 0) { const x = P(t, s.start - .12, s.start + .16); if (x > 0 && x < 1) { wipe = Math.sin(Math.PI * x); wx = lerp(-500, 1300, x); } }
+  setT(E('wipe'), `translateX(${wx + 600}px) rotate(14deg)`, wipe * .55);
+  let fl = 0;
+  for (const e of TL.sfx) if (e.type === 'impact' && e.t > .05) { const d = t - e.t; if (d >= 0 && d < .2) fl = Math.max(fl, (1 - d / .2) * .4); }
+  E('flash').style.opacity = fl;
+
+  const imgs = [...document.images].filter(i => i.offsetParent !== null || i.id === 'creatorImg' || i.id === 'brollImg');
+  await Promise.all(imgs.map(i => (i.complete && i.naturalWidth) ? null : i.decode().catch(() => null)));
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  return true;
+}
+
+async function init(tl, counts) {
+  TL = tl; COUNTS = counts;
+  build();
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.decode().catch(() => null)));
+  return true;
+}
+window.init = init; window.renderAt = renderAt;
+</script>
+</body>
+</html>

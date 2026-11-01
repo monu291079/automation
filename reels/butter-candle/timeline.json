@@ -1,0 +1,470 @@
+{
+  "_help": "Edit text and timings here, then re-render (node render.mjs). Times are seconds on the voiceover. See README.md.",
+  "fps": 30,
+  "duration": 45.0,
+  "website": "ideaspulse.in",
+  "brand_name": "IdeasPulse.in",
+  "keyword": "BUTTER",
+  "scenes": [
+    {
+      "id": "broll",
+      "start": 0.0,
+      "end": 2.4
+    },
+    {
+      "id": "creator",
+      "start": 2.4,
+      "end": 5.6,
+      "take": "A"
+    },
+    {
+      "id": "broll",
+      "start": 5.6,
+      "end": 10.3
+    },
+    {
+      "id": "creator",
+      "start": 10.3,
+      "end": 12.8,
+      "take": "B"
+    },
+    {
+      "id": "broll",
+      "start": 12.8,
+      "end": 18.19
+    },
+    {
+      "id": "creator",
+      "start": 18.19,
+      "end": 22.4,
+      "take": "C"
+    },
+    {
+      "id": "flavours",
+      "start": 22.4,
+      "end": 27.0
+    },
+    {
+      "id": "broll",
+      "start": 27.0,
+      "end": 32.4
+    },
+    {
+      "id": "creator",
+      "start": 32.4,
+      "end": 34.4,
+      "take": "A"
+    },
+    {
+      "id": "budget",
+      "start": 34.4,
+      "end": 36.85
+    },
+    {
+      "id": "pdf",
+      "start": 36.85,
+      "end": 39.75
+    },
+    {
+      "id": "cta",
+      "start": 39.75,
+      "end": 45.0
+    }
+  ],
+  "_broll_help": "clip = b1/b2/b3 (assets/source/broll_*.mp4). in/out = seconds in that clip, stretched to start..end. ease 'ramp' = speed ramp. z0/z1 zoom, fy = vertical focus (0 top .. 1 bottom).",
+  "broll": [
+    {
+      "start": 0.0,
+      "end": 2.4,
+      "clip": "b1",
+      "in": 0.0,
+      "out": 2.6,
+      "z0": 1.3,
+      "z1": 1.08,
+      "fy": 0.55,
+      "title1": "इस दिवाली 🪔",
+      "title2": "खाने वाली CANDLE! 😱",
+      "title_at": -0.25,
+      "sub": "सिर्फ ₹5,000 से शुरू*",
+      "sub_at": 1.1
+    },
+    {
+      "start": 5.6,
+      "end": 8.15,
+      "clip": "b1",
+      "in": 35.4,
+      "out": 37.9,
+      "z0": 1.2,
+      "z1": 1.02,
+      "fy": 0.55
+    },
+    {
+      "start": 8.15,
+      "end": 10.3,
+      "clip": "b3",
+      "in": 0.0,
+      "out": 1.7,
+      "z0": 1.45,
+      "z1": 1.3,
+      "fy": 0.3,
+      "title1": "जी हाँ, ये है",
+      "title2": "BUTTER CANDLE 🧈",
+      "hud": "🕯️ जलाओ • पिघलाओ • DIP करो"
+    },
+    {
+      "start": 12.8,
+      "end": 14.3,
+      "clip": "b1",
+      "in": 4.0,
+      "out": 9.0,
+      "z0": 1.15,
+      "z1": 1.0,
+      "fy": 0.5,
+      "title1": "अमेरिका में 🇺🇸",
+      "title2": "VIRAL FOOD TREND",
+      "hud": "▶▶ ऐसे बनती है"
+    },
+    {
+      "start": 14.3,
+      "end": 15.8,
+      "clip": "b1",
+      "in": 9.0,
+      "out": 14.0,
+      "z0": 1.0,
+      "z1": 1.15,
+      "fy": 0.5,
+      "title1": "अमेरिका में 🇺🇸",
+      "title2": "VIRAL FOOD TREND",
+      "hud": "❤️ लाखों लोगों को पसंद"
+    },
+    {
+      "start": 15.8,
+      "end": 17.0,
+      "clip": "b1",
+      "in": 15.4,
+      "out": 18.6,
+      "z0": 1.15,
+      "z1": 1.0,
+      "fy": 0.5,
+      "title1": "अमेरिका में 🇺🇸",
+      "title2": "VIRAL FOOD TREND",
+      "hud": "▶ करोड़ों VIEWS 🔥"
+    },
+    {
+      "start": 17.0,
+      "end": 18.19,
+      "clip": "b1",
+      "in": 30.4,
+      "out": 33.6,
+      "z0": 1.0,
+      "z1": 1.12,
+      "fy": 0.5,
+      "title1": "अमेरिका में 🇺🇸",
+      "title2": "VIRAL FOOD TREND",
+      "hud": "▶ करोड़ों VIEWS 🔥"
+    },
+    {
+      "start": 27.0,
+      "end": 29.4,
+      "clip": "b2",
+      "in": 19.6,
+      "out": 23.8,
+      "z0": 1.25,
+      "z1": 1.05,
+      "fy": 0.62,
+      "label": "DIWALI PARTIES 🪔",
+      "kicker": "कहाँ बेचें?"
+    },
+    {
+      "start": 29.4,
+      "end": 30.9,
+      "clip": "b3",
+      "in": 48.0,
+      "out": 51.6,
+      "z0": 1.4,
+      "z1": 1.3,
+      "fy": 0.36,
+      "label": "CAFES ☕",
+      "kicker": "कहाँ बेचें?"
+    },
+    {
+      "start": 30.9,
+      "end": 32.4,
+      "clip": "b3",
+      "in": 52.0,
+      "out": 55.6,
+      "z0": 1.3,
+      "z1": 1.42,
+      "fy": 0.36,
+      "label": "PREMIUM HAMPERS 🎁",
+      "kicker": "कहाँ बेचें?"
+    }
+  ],
+  "text": {
+    "flavours_title1": "अब भारत में 🇮🇳",
+    "flavours_title2": "अपने FLAVOURS",
+    "flavours": [
+      {
+        "text": "GARLIC BUTTER",
+        "at": 23.48
+      },
+      {
+        "text": "CHILLI BUTTER",
+        "at": 24.86
+      },
+      {
+        "text": "ROSEMARY BUTTER",
+        "at": 25.78
+      }
+    ],
+    "flavours_note": "Image: IdeasPulse plan poster",
+    "budget_title1": "STARTING BUDGET",
+    "budget_title2": "सिर्फ ₹5,000*",
+    "budget_page": "page-05.png",
+    "budget_note": "*Pilot batch का example budget — plan PDF से",
+    "pdf_title1": "पूरा BUSINESS PLAN 📘",
+    "pdf_title2": "18 PAGE PLAYBOOK",
+    "pdf_pages": [
+      "page-01.png",
+      "page-03.png",
+      "page-04.png",
+      "page-05.png",
+      "page-11.png"
+    ],
+    "pdf_chips": [
+      "Recipe & steps",
+      "₹5,000 budget",
+      "Pricing & profit",
+      "FSSAI & safety"
+    ],
+    "pdf_comment": "COMMENT 'BUTTER' 👇",
+    "pdf_comment_at": 39.0,
+    "pdf_dm": "Plan सीधा DM में 📩",
+    "cta_title1": "ऐसे VIRAL",
+    "cta_title2": "BUSINESS IDEAS 🚀",
+    "cta_join": "COMMUNITY JOIN करो",
+    "cta_join_sub": "नए ideas + business plans पाओ",
+    "cta_youtube": "YouTube",
+    "cta_youtube_handle": "@ideaspuls",
+    "cta_telegram": "Telegram",
+    "cta_telegram_handle": "@ideaspulse",
+    "cta_comment": "Instagram पर COMMENT 'BUTTER' → Plan DM में",
+    "cta_site": "ideaspulse.in",
+    "cta_qr_at": 40.4,
+    "cta_comment_at": 41.6,
+    "cta_site_at": 42.2
+  },
+  "captions": [
+    {
+      "t0": 2.4,
+      "t1": 4.15,
+      "text": "ऐसा UNIQUE BUSINESS 💡",
+      "hl": "UNIQUE"
+    },
+    {
+      "t0": 4.2,
+      "t1": 5.6,
+      "text": "जिसे देखकर लोग पूछेंगे...",
+      "hl": "पूछेंगे"
+    },
+    {
+      "t0": 5.85,
+      "t1": 8.15,
+      "text": "अरे! ये CANDLE खाते कैसे हैं? 😳",
+      "hl": "खाते"
+    },
+    {
+      "t0": 10.3,
+      "t1": 11.45,
+      "text": "जो जलती भी है 🔥",
+      "hl": "जलती"
+    },
+    {
+      "t0": 11.55,
+      "t1": 12.8,
+      "text": "और खाई भी जाती है! 😋",
+      "hl": "खाई"
+    },
+    {
+      "t0": 18.19,
+      "t1": 20.4,
+      "text": "CHICAGO के RESTAURANTS में भी",
+      "hl": "CHICAGO"
+    },
+    {
+      "t0": 20.45,
+      "t1": 22.4,
+      "text": "खास अंदाज़ में SERVE! 🍽️",
+      "hl": "SERVE"
+    },
+    {
+      "t0": 32.4,
+      "t1": 34.4,
+      "text": "घर से ही शुरुआत 🏠",
+      "hl": "घर से"
+    }
+  ],
+  "creator_punch_ins": [
+    {
+      "t0": 4.2,
+      "t1": 5.6,
+      "scale": 1.1
+    },
+    {
+      "t0": 11.55,
+      "t1": 12.8,
+      "scale": 1.1
+    },
+    {
+      "t0": 20.45,
+      "t1": 22.4,
+      "scale": 1.1
+    },
+    {
+      "t0": 33.3,
+      "t1": 34.4,
+      "scale": 1.08
+    }
+  ],
+  "sfx": [
+    {
+      "t": 0.0,
+      "type": "impact"
+    },
+    {
+      "t": 0.05,
+      "type": "shimmer"
+    },
+    {
+      "t": 1.1,
+      "type": "pop"
+    },
+    {
+      "t": 2.35,
+      "type": "whoosh"
+    },
+    {
+      "t": 5.55,
+      "type": "whoosh"
+    },
+    {
+      "t": 8.1,
+      "type": "impact"
+    },
+    {
+      "t": 8.2,
+      "type": "shimmer"
+    },
+    {
+      "t": 10.25,
+      "type": "whoosh"
+    },
+    {
+      "t": 12.75,
+      "type": "whoosh"
+    },
+    {
+      "t": 14.25,
+      "type": "whoosh"
+    },
+    {
+      "t": 15.75,
+      "type": "whoosh"
+    },
+    {
+      "t": 16.95,
+      "type": "whoosh"
+    },
+    {
+      "t": 18.15,
+      "type": "whoosh"
+    },
+    {
+      "t": 22.35,
+      "type": "whoosh"
+    },
+    {
+      "t": 23.48,
+      "type": "pop"
+    },
+    {
+      "t": 24.86,
+      "type": "pop"
+    },
+    {
+      "t": 25.78,
+      "type": "pop"
+    },
+    {
+      "t": 26.95,
+      "type": "whoosh"
+    },
+    {
+      "t": 29.35,
+      "type": "whoosh"
+    },
+    {
+      "t": 30.85,
+      "type": "whoosh"
+    },
+    {
+      "t": 32.35,
+      "type": "whoosh"
+    },
+    {
+      "t": 34.35,
+      "type": "impact"
+    },
+    {
+      "t": 36.3,
+      "type": "riser"
+    },
+    {
+      "t": 36.85,
+      "type": "whoosh"
+    },
+    {
+      "t": 37.3,
+      "type": "tick"
+    },
+    {
+      "t": 37.75,
+      "type": "tick"
+    },
+    {
+      "t": 38.2,
+      "type": "tick"
+    },
+    {
+      "t": 38.65,
+      "type": "tick"
+    },
+    {
+      "t": 39.0,
+      "type": "impact"
+    },
+    {
+      "t": 39.7,
+      "type": "whoosh"
+    },
+    {
+      "t": 40.4,
+      "type": "shimmer"
+    },
+    {
+      "t": 41.6,
+      "type": "pop"
+    },
+    {
+      "t": 42.2,
+      "type": "click"
+    }
+  ],
+  "audio": {
+    "voice_gain_db": 0,
+    "music_gain_db": -17,
+    "sfx_gain_db": -9,
+    "target_lufs": -14,
+    "bpm": 120
+  }
+}

@@ -1,0 +1,37 @@
+name: Render butter candle reel
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "reels/butter-candle/timeline.json"
+      - "reels/butter-candle/composition.html"
+      - "reels/butter-candle/scripts/**"
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: reels/butter-candle
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: System packages (ffmpeg, emoji font)
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-noto-color-emoji poppler-utils
+      - name: Python packages
+        run: pip install numpy scipy soundfile pillow zxing-cpp
+      - name: Playwright + Chromium
+        run: npm install && npx playwright install --with-deps chromium
+      - name: Render
+        run: node render.mjs --workers 2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: butter-candle-reel-mp4
+          path: |
+            reels/butter-candle/out/ideaspulse_butter_candle_reel.mp4
+            reels/butter-candle/out/preview_540p.mp4
