@@ -1,0 +1,382 @@
+{
+  "_help": "Edit text and timings here, then re-render (node render.mjs). Times are seconds on the voiceover. See README.md.",
+  "fps": 30,
+  "duration": 33.6,
+  "website": "ideaspulse.in",
+  "brand_name": "IdeasPulse.in",
+  "keyword": "NARIYAL",
+  "takes": {
+    "main": {
+      "dir": "creatorMain",
+      "offset": 0.0
+    }
+  },
+  "scenes": [
+    {
+      "id": "broll",
+      "start": 0.0,
+      "end": 4.73
+    },
+    {
+      "id": "creator",
+      "start": 4.73,
+      "end": 9.2,
+      "take": "main"
+    },
+    {
+      "id": "broll",
+      "start": 9.2,
+      "end": 23.92
+    },
+    {
+      "id": "creator",
+      "start": 23.92,
+      "end": 25.76,
+      "take": "main"
+    },
+    {
+      "id": "plan",
+      "start": 25.76,
+      "end": 27.4
+    },
+    {
+      "id": "broll",
+      "start": 27.4,
+      "end": 29.7
+    },
+    {
+      "id": "cta",
+      "start": 29.7,
+      "end": 33.6
+    }
+  ],
+  "_broll_help": "clip = c1 vendor, c2 sanding, c3 polish, c4 products, c5 packing (7.85s each). in/out = seconds in that clip, stretched to start..end. ease 'ramp' = speed ramp. z0/z1 zoom, fy = vertical focus.",
+  "broll": [
+    {
+      "start": 0.0,
+      "end": 1.9,
+      "clip": "c1",
+      "in": 2.0,
+      "out": 7.8,
+      "ease": "ramp",
+      "z0": 1.35,
+      "z1": 1.05,
+      "fy": 0.6,
+      "title1": "NARIYAL KA KHOL 🥥",
+      "title2": "MAT PHENKO! ✋",
+      "title_at": -0.25,
+      "hud": "🗑️ KACHRA? NAHI ➜ 💰 PAISA"
+    },
+    {
+      "start": 1.9,
+      "end": 4.73,
+      "clip": "c4",
+      "in": 0.0,
+      "out": 3.0,
+      "z0": 1.25,
+      "z1": 1.05,
+      "fy": 0.62,
+      "title1": "ISSE BANTA HAI",
+      "title2": "BOWL 🥣",
+      "title_at": 1.95,
+      "sub": "AUR BIKTA BHI HAI! 💰",
+      "sub_at": 3.45
+    },
+    {
+      "start": 9.2,
+      "end": 11.93,
+      "clip": "c1",
+      "in": 0.0,
+      "out": 4.0,
+      "z0": 1.0,
+      "z1": 1.18,
+      "fy": 0.6,
+      "title1": "RAW MATERIAL",
+      "title2": "LAGBHAG FREE! 🆓",
+      "hud": "🥥 NARIYAL PAANI WALON SE"
+    },
+    {
+      "start": 11.93,
+      "end": 14.43,
+      "clip": "c2",
+      "in": 0.0,
+      "out": 7.8,
+      "z0": 1.2,
+      "z1": 1.0,
+      "fy": 0.55,
+      "title1": "AISE BANAO 👇",
+      "title2": "SIMPLE PROCESS",
+      "hud": "STEP 1 • SAAF KARO + SANDPAPER"
+    },
+    {
+      "start": 14.43,
+      "end": 17.27,
+      "clip": "c3",
+      "in": 0.0,
+      "out": 7.8,
+      "z0": 1.0,
+      "z1": 1.18,
+      "fy": 0.5,
+      "title1": "AISE BANAO 👇",
+      "title2": "SIMPLE PROCESS",
+      "hud": "STEP 2 • COCONUT OIL = CHAMAK ✨"
+    },
+    {
+      "start": 17.27,
+      "end": 18.55,
+      "clip": "c4",
+      "in": 0.0,
+      "out": 2.2,
+      "z0": 1.3,
+      "z1": 1.15,
+      "fy": 0.62,
+      "kicker": "TEENO BANTE HAIN 👇",
+      "label": "SMOOTHIE BOWL 🥣"
+    },
+    {
+      "start": 18.55,
+      "end": 19.6,
+      "clip": "c4",
+      "in": 2.2,
+      "out": 3.8,
+      "z0": 1.55,
+      "z1": 1.45,
+      "fy": 0.5,
+      "kicker": "TEENO BANTE HAIN 👇",
+      "label": "CANDLE HOLDER 🕯️"
+    },
+    {
+      "start": 19.6,
+      "end": 21.0,
+      "clip": "c4",
+      "in": 4.0,
+      "out": 7.8,
+      "z0": 1.15,
+      "z1": 1.3,
+      "fy": 0.62,
+      "kicker": "TEENO BANTE HAIN 👇",
+      "label": "PLANTER 🌵"
+    },
+    {
+      "start": 21.0,
+      "end": 23.92,
+      "clip": "c5",
+      "in": 0.0,
+      "out": 7.8,
+      "z0": 1.15,
+      "z1": 1.0,
+      "fy": 0.6,
+      "title1": "CAFES + ECO BRANDS",
+      "title2": "HAATHON-HAATH! 🤝",
+      "hud": "📦 PACK KARO • BECHO"
+    },
+    {
+      "start": 27.4,
+      "end": 29.7,
+      "clip": "c4",
+      "in": 4.0,
+      "out": 7.8,
+      "z0": 1.05,
+      "z1": 1.25,
+      "fy": 0.62,
+      "title1": "KHOL PHENKNA",
+      "title_at": 27.55,
+      "title2": "AB BAND! 🚫",
+      "title2_at": 29.0
+    }
+  ],
+  "text": {
+    "usp_title1": "",
+    "usp_title2": "",
+    "usp_stamp": "",
+    "usp_chip": "",
+    "plan_title1": "SUPPLIER + POORA PLAN 📘",
+    "plan_title2": "DM MEIN PAAO",
+    "plan_items": [
+      "Supplier details",
+      "Step-by-step process",
+      "Kahan bechein",
+      "Poora business plan"
+    ],
+    "plan_comment": "COMMENT 'NARIYAL' 👇",
+    "plan_comment_at": 25.8,
+    "plan_dm": "Plan seedha DM mein 📩",
+    "plan_follow": "✅ FOLLOW IDEASPULSE",
+    "plan_follow_at": 26.55,
+    "cta_title1": "AISE UNIQUE",
+    "cta_title2": "BUSINESS IDEAS 🚀",
+    "cta_join": "COMMUNITY JOIN KARO",
+    "cta_join_sub": "Naye ideas + business plans — scan karo",
+    "cta_youtube_handle": "@ideaspuls",
+    "cta_telegram_handle": "@ideaspulse",
+    "cta_comment": "Plan ke liye COMMENT 'NARIYAL'"
+  },
+  "captions": [
+    {
+      "t0": 4.95,
+      "t1": 5.8,
+      "text": "SOCHIYE... 🤔",
+      "hl": "SOCHIYE"
+    },
+    {
+      "t0": 5.85,
+      "t1": 7.6,
+      "text": "JISE AAP KACHRA SAMAJHTE HO 🗑️",
+      "hl": "KACHRA"
+    },
+    {
+      "t0": 7.65,
+      "t1": 9.2,
+      "text": "USE CAFES KHAREEDTE HAIN! ☕",
+      "hl": "CAFES"
+    },
+    {
+      "t0": 23.92,
+      "t1": 25.76,
+      "text": "SUPPLIER + POORA PLAN CHAHIYE?",
+      "hl": "PLAN"
+    }
+  ],
+  "creator_punch_ins": [
+    {
+      "t0": 5.85,
+      "t1": 7.6,
+      "scale": 1.08
+    },
+    {
+      "t0": 7.65,
+      "t1": 9.2,
+      "scale": 1.14
+    },
+    {
+      "t0": 23.92,
+      "t1": 25.76,
+      "scale": 1.1
+    }
+  ],
+  "sfx": [
+    {
+      "t": 0.0,
+      "type": "impact"
+    },
+    {
+      "t": 0.05,
+      "type": "shimmer"
+    },
+    {
+      "t": 1.85,
+      "type": "whoosh"
+    },
+    {
+      "t": 1.95,
+      "type": "impact"
+    },
+    {
+      "t": 3.45,
+      "type": "pop"
+    },
+    {
+      "t": 4.68,
+      "type": "whoosh"
+    },
+    {
+      "t": 7.65,
+      "type": "pop"
+    },
+    {
+      "t": 9.15,
+      "type": "whoosh"
+    },
+    {
+      "t": 11.88,
+      "type": "whoosh"
+    },
+    {
+      "t": 12.0,
+      "type": "tick"
+    },
+    {
+      "t": 14.38,
+      "type": "whoosh"
+    },
+    {
+      "t": 14.5,
+      "type": "tick"
+    },
+    {
+      "t": 16.4,
+      "type": "shimmer"
+    },
+    {
+      "t": 17.22,
+      "type": "whoosh"
+    },
+    {
+      "t": 17.3,
+      "type": "pop"
+    },
+    {
+      "t": 18.5,
+      "type": "whoosh"
+    },
+    {
+      "t": 18.6,
+      "type": "pop"
+    },
+    {
+      "t": 19.55,
+      "type": "whoosh"
+    },
+    {
+      "t": 19.65,
+      "type": "pop"
+    },
+    {
+      "t": 20.95,
+      "type": "whoosh"
+    },
+    {
+      "t": 23.87,
+      "type": "whoosh"
+    },
+    {
+      "t": 25.2,
+      "type": "riser"
+    },
+    {
+      "t": 25.8,
+      "type": "impact"
+    },
+    {
+      "t": 26.55,
+      "type": "pop"
+    },
+    {
+      "t": 27.35,
+      "type": "whoosh"
+    },
+    {
+      "t": 29.0,
+      "type": "impact"
+    },
+    {
+      "t": 29.65,
+      "type": "whoosh"
+    },
+    {
+      "t": 30.3,
+      "type": "shimmer"
+    },
+    {
+      "t": 31.0,
+      "type": "pop"
+    }
+  ],
+  "audio": {
+    "voice_gain_db": 0,
+    "music_gain_db": -17,
+    "sfx_gain_db": -9,
+    "target_lufs": -14,
+    "bpm": 118
+  }
+}
