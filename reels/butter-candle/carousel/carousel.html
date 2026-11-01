@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<title>IdeasPulse Butter Candle Carousel</title>
+<style>
+@font-face { font-family: "Anton"; src: url(../assets/fonts/Anton-Regular.ttf); }
+@font-face { font-family: "Khand"; font-weight: 600; src: url(../assets/fonts/Khand-SemiBold.ttf); size-adjust: 118%; }
+@font-face { font-family: "Khand"; font-weight: 700; src: url(../assets/fonts/Khand-Bold.ttf); size-adjust: 118%; }
+@font-face { font-family: "Poppins"; font-weight: 500; src: url(../assets/fonts/Poppins-Medium.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 700; src: url(../assets/fonts/Poppins-Bold.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 800; src: url(../assets/fonts/Poppins-ExtraBold.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 900; src: url(../assets/fonts/Poppins-Black.ttf); }
+:root { --navy: #12213A; --navy2: #0B1526; --gold: #A9812E; --gold-l: #E2BE6A; --gold-xl: #F6E2A6; --cream: #FAF9F5; --teal: #218C87; --teal-l: #39C2BA; --impact: #FF5A2C; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #222; font-family: Poppins, Khand, "Noto Color Emoji", sans-serif; color: var(--cream); }
+.slide { position: relative; width: 1080px; height: 1350px; overflow: hidden; margin: 0 0 20px;
+  background: radial-gradient(900px 700px at 50% 30%, rgba(33,140,135,.22), transparent 70%),
+              radial-gradient(800px 600px at 50% 90%, rgba(169,129,46,.24), transparent 70%),
+              linear-gradient(180deg, #172a49 0%, var(--navy) 45%, var(--navy2) 100%); }
+.slide::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(226,190,106,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(226,190,106,.06) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.abs { position: absolute; }
+.cx { left: 0; right: 0; text-align: center; }
+img { display: block; }
+.anton { font-family: Anton, Khand, "Noto Color Emoji", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.04; }
+.gold { background: linear-gradient(180deg, var(--gold-xl) 0%, var(--gold-l) 45%, var(--gold) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 6px 0 rgba(0,0,0,.5)) drop-shadow(0 0 24px rgba(226,190,106,.25)); }
+.emo { display: inline-block; color: #fff; -webkit-text-fill-color: #fff; background: none; }
+.cream { color: var(--cream); text-shadow: 0 5px 0 rgba(0,0,0,.5), 0 0 26px rgba(0,0,0,.35); }
+.pill { display: inline-flex; align-items: center; gap: 12px; padding: 14px 30px; border-radius: 999px; font-weight: 800; white-space: nowrap; }
+.p-gold { border: 3px solid var(--gold-l); background: rgba(18,33,58,.9); color: var(--gold-xl); }
+.p-solid { background: linear-gradient(180deg, #F6E2A6, #E2BE6A 50%, #B88E36); color: #12213A; box-shadow: 0 10px 30px rgba(226,190,106,.35); }
+.p-teal { background: linear-gradient(180deg, #27a39c, var(--teal)); color: #fff; box-shadow: 0 10px 30px rgba(33,140,135,.4); }
+.card { border-radius: 30px; overflow: hidden; box-shadow: 0 26px 70px rgba(0,0,0,.55), 0 0 0 3px rgba(226,190,106,.6); background: #0d1828; }
+.card img { width: 100%; height: 100%; object-fit: cover; }
+
+/* shared chrome */
+.top { position: absolute; left: 50px; right: 50px; top: 40px; display: flex; align-items: center; justify-content: space-between; z-index: 5; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 30px; }
+.brand img { width: 62px; height: 62px; border-radius: 50%; }
+.brand span b { color: var(--gold-l); }
+.count { font-family: Anton; font-size: 30px; color: rgba(250,249,245,.75); padding: 6px 18px; border-radius: 999px; background: rgba(11,21,38,.6); border: 2px solid rgba(226,190,106,.45); }
+.bottom { position: absolute; left: 50px; right: 50px; bottom: 40px; display: flex; align-items: center; justify-content: space-between; z-index: 5; }
+.bottom .cm { font-weight: 800; font-size: 28px; padding: 12px 24px; border-radius: 999px; background: rgba(11,21,38,.85); border: 2px solid var(--gold-l); color: var(--gold-xl); }
+.bottom .sw { font-family: Anton; font-size: 40px; letter-spacing: 2px; color: var(--cream); display: flex; align-items: center; gap: 10px; }
+.bottom .sw i { font-style: normal; display: inline-flex; width: 58px; height: 58px; border-radius: 50%; align-items: center; justify-content: center; background: var(--gold-l); color: var(--navy); font-size: 36px; }
+.frame { position: absolute; inset: 20px; border: 3px solid rgba(226,190,106,.45); border-radius: 26px; pointer-events: none; z-index: 4; }
+
+.step { display: flex; align-items: center; gap: 22px; padding: 18px 26px; border-radius: 22px; background: rgba(250,249,245,.07); border-left: 8px solid var(--gold-l); font-weight: 700; font-size: 36px; line-height: 1.25; }
+.step .n { flex: none; width: 74px; height: 74px; border-radius: 22px; background: rgba(18,33,58,.95); border: 3px solid var(--gold-l); display: flex; align-items: center; justify-content: center; font-size: 40px; }
+.row { display: flex; justify-content: space-between; align-items: center; padding: 0 30px; height: 76px; font-weight: 700; font-size: 32px; border-bottom: 1px solid rgba(226,190,106,.18); }
+.row b { font-family: Anton; font-weight: 400; font-size: 40px; color: var(--gold-xl); letter-spacing: 1px; }
+.chipg { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; }
+.chipg span { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 20px; background: rgba(18,33,58,.92); border: 3px solid rgba(226,190,106,.7); font-weight: 800; font-size: 31px; }
+.qrcard { position: absolute; width: 400px; border-radius: 28px; overflow: hidden; background: #fff; box-shadow: 0 26px 60px rgba(0,0,0,.55), 0 0 0 4px var(--gold-l); }
+.qrcard img { width: 360px; height: 360px; margin: 20px; }
+.qrcard .lbl { display: flex; align-items: center; justify-content: center; height: 96px; color: #fff; font-weight: 800; font-size: 32px; line-height: 1.1; text-align: center; }
+.qrcard .lbl small { display: block; font-weight: 600; font-size: 24px; }
+.page { position: absolute; width: 380px; height: 492px; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 0 2px rgba(226,190,106,.5); }
+.page img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.lock { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+
+<!-- 1. COVER -->
+<section class="slide" id="s1">
+  <img class="abs" src="img/cover.jpg" style="left:0;top:-230px;width:1080px;height:1920px;object-fit:cover">
+  <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(11,21,38,.92) 0%,rgba(11,21,38,.55) 30%,rgba(11,21,38,0) 46%,rgba(11,21,38,0) 62%,rgba(11,21,38,.85) 82%,rgba(11,21,38,.95) 100%)"></div>
+  <div class="frame"></div>
+  <div class="abs cx cream" style="top:140px;font-weight:800;font-size:44px;letter-spacing:2px">इस दिवाली 🪔 नया BUSINESS IDEA</div>
+  <div class="abs cx anton cream" style="top:205px;font-size:120px">खाने वाली</div>
+  <div class="abs cx anton gold fit" style="top:330px;font-size:150px">BUTTER CANDLE 🕯️</div>
+  <div class="abs cx" style="top:1010px"><span class="pill p-solid" style="font-size:46px">सिर्फ ₹5,000 से शुरू*</span></div>
+  <div class="abs cx cream" style="top:1110px;font-weight:800;font-size:42px">जलाओ • पिघलाओ • DIP करो 😋</div>
+  <div class="abs cx" style="top:1182px;font-size:22px;font-weight:500;color:rgba(250,249,245,.7)">*Pilot batch का example budget — पूरा plan PDF में</div>
+</section>
+
+<!-- 2. WHAT IS IT -->
+<section class="slide" id="s2">
+  <div class="frame"></div>
+  <div class="abs cx cream" style="top:140px;font-weight:800;font-size:46px">ये है क्या? 🤔</div>
+  <div class="abs cx anton gold fit" style="top:205px;font-size:104px">जलती भी है, खाई भी जाती है!</div>
+  <div class="abs card" style="left:60px;top:370px;width:440px;height:640px"><img src="img/garlic.jpg" style="object-position:50% 30%;transform:scale(1.25);transform-origin:50% 35%"></div>
+  <div class="abs" style="left:530px;top:370px;width:490px;display:flex;flex-direction:column;gap:22px">
+    <div class="step"><div class="n">🧊</div><div>Fridge में chilled रखें</div></div>
+    <div class="step"><div class="n">🔥</div><div>थोड़ी देर जलाएं — butter पिघलेगा</div></div>
+    <div class="step"><div class="n">🥖</div><div>Bread / garlic bread से DIP करें</div></div>
+  </div>
+  <div class="abs cx" style="top:1050px"><span class="pill" style="font-size:28px;background:rgba(255,90,44,.14);border:3px solid #FF5A2C;color:#FFC2AE">⚠️ Wick edible नहीं • निगरानी में जलाएं • बच्चों से दूर</span></div>
+  <div class="abs cx cream" style="top:1130px;font-weight:700;font-size:34px">Flavoured butter + food-safe wick = <b style="color:#E2BE6A">Butter Candle</b></div>
+</section>
+
+<!-- 3. TREND -->
+<section class="slide" id="s3">
+  <div class="frame"></div>
+  <div class="abs cx cream" style="top:140px;font-weight:800;font-size:46px">अमेरिका में 🇺🇸</div>
+  <div class="abs cx anton gold fit" style="top:205px;font-size:130px">VIRAL FOOD TREND</div>
+  <div class="abs card" style="left:60px;top:380px;width:300px;height:560px"><img src="img/mix.jpg"></div>
+  <div class="abs card" style="left:390px;top:380px;width:300px;height:560px"><img src="img/wick.jpg"></div>
+  <div class="abs card" style="left:720px;top:380px;width:300px;height:560px"><img src="img/set.jpg"></div>
+  <div class="abs" style="left:60px;top:900px;width:960px;display:flex;justify-content:space-around"><span class="pill p-gold" style="font-size:30px">1 • MIX</span><span class="pill p-gold" style="font-size:30px">2 • WICK</span><span class="pill p-gold" style="font-size:30px">3 • SET</span></div>
+  <div class="abs cx cream" style="top:1010px;font-weight:800;font-size:44px">अब भारत में — Diwali & party season 🪔</div>
+  <div class="abs cx" style="top:1085px;font-weight:600;font-size:32px;color:#7fd6d0">घर की kitchen से छोटा pilot शुरू करो</div>
+</section>
+
+<!-- 4. FLAVOURS + TEST PRICES -->
+<section class="slide" id="s4">
+  <div class="frame"></div>
+  <div class="abs cx cream" style="top:140px;font-weight:800;font-size:46px">क्या बेचें? 🧈</div>
+  <div class="abs cx anton gold fit" style="top:205px;font-size:120px">अपने FLAVOURS</div>
+  <div class="abs card" style="left:90px;top:360px;width:900px;height:430px"><img src="../assets/images/jars.jpg"></div>
+  <div class="abs" style="left:90px;top:820px;width:900px;border-radius:24px;overflow:hidden;background:rgba(11,21,38,.85);border:3px solid rgba(226,190,106,.6)">
+    <div class="row" style="background:rgba(226,190,106,.9);color:#12213A;height:62px;font-size:28px"><span>PRODUCT</span><span>TEST PRICE*</span></div>
+    <div class="row"><span>🧄 Classic Garlic Herb — 100 g</span><b>₹249</b></div>
+    <div class="row"><span>🌶️ Chilli Garlic — 100 g</span><b>₹269</b></div>
+    <div class="row"><span>🔥 Smoky Tandoori — 100 g</span><b>₹279</b></div>
+    <div class="row" style="border:0"><span>🎁 Mini Duo Pack — 2 × 50 g</span><b>₹299–349</b></div>
+  </div>
+  <div class="abs cx" style="top:1188px;font-size:22px;font-weight:500;color:rgba(250,249,245,.7)">*Plan की शुरुआती test prices — verified market rates नहीं। Local customers से test करें।</div>
+</section>
+
+<!-- 5. WHERE TO SELL -->
+<section class="slide" id="s5">
+  <div class="frame"></div>
+  <div class="abs cx cream" style="top:140px;font-weight:800;font-size:46px">ग्राहक कौन? 🛍️</div>
+  <div class="abs cx anton gold fit" style="top:205px;font-size:130px">कहाँ बेचें?</div>
+  <div class="abs card" style="left:90px;top:370px;width:900px;height:440px"><img src="img/party.jpg" style="object-position:50% 55%"></div>
+  <div class="abs chipg" style="left:60px;top:850px;width:960px">
+    <span>🪔 Diwali parties</span><span>☕ Cafés</span><span>🎁 Premium hampers</span>
+    <span>🍽️ Caterers</span><span>🏠 Home-party hosts</span><span>📦 Online pre-orders</span>
+  </div>
+  <div class="abs cx" style="top:1170px;font-weight:600;font-size:28px;color:#7fd6d0">पहले अपने शहर में pre-orders + chilled delivery से शुरू करें</div>
+</section>
+
+<!-- 6. BUDGET (teaser) -->
+<section class="slide" id="s6">
+  <div class="frame"></div>
+  <div class="abs cx cream" style="top:140px;font-weight:800;font-size:46px">STARTING BUDGET</div>
+  <div class="abs cx anton gold fit" style="top:205px;font-size:140px">सिर्फ ₹5,000*</div>
+  <div class="abs" style="left:90px;top:385px;width:900px;border-radius:24px;overflow:hidden;background:rgba(11,21,38,.88);border:3px solid rgba(226,190,106,.6)">
+    <div class="row" style="background:rgba(226,190,106,.9);color:#12213A;height:62px;font-size:28px"><span>खर्च</span><span>BUDGET</span></div>
+    <div class="row"><span>Butter — लगभग 2 kg</span><b>₹1,280</b></div>
+    <div class="row"><span>Seasoning / garlic / herbs</span><b>₹350</b></div>
+    <div class="row"><span>Food-contact wick (trial)</span><b>₹250</b></div>
+    <div class="row"><span>Food-grade silicone mould</span><b>₹700</b></div>
+    <div style="position:relative">
+      <div style="filter:blur(9px);opacity:.75">
+        <div class="row"><span>Scale + bowl + spatula</span><b>₹500</b></div>
+        <div class="row"><span>Cups / boxes / labels</span><b>₹500</b></div>
+        <div class="row"><span>Insulated bag + gel packs</span><b>₹650</b></div>
+      </div>
+      <div class="lock"><span class="pill p-solid" style="font-size:34px">🔒 पूरा breakdown PLAN में</span></div>
+    </div>
+    <div class="row" style="background:rgba(33,140,135,.35);border:0"><span style="font-weight:900">TOTAL</span><b style="font-size:48px">₹5,000</b></div>
+  </div>
+  <div class="abs cx cream" style="top:1100px;font-weight:800;font-size:38px">≈ 16–18 saleable candles (pilot batch)*</div>
+  <div class="abs cx" style="top:1160px;font-size:22px;font-weight:500;color:rgba(250,249,245,.7)">*Plan PDF का planning example — असली खर्च शहर और supplier पर निर्भर</div>
+</section>
+
+<!-- 7. GET THE PLAN -->
+<section class="slide" id="s7">
+  <div class="frame"></div>
+  <div class="abs" style="left:90px;top:330px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(226,190,106,.35),transparent 65%)"></div>
+  <div class="abs cx cream" style="top:140px;font-weight:800;font-size:46px">18 PAGE BUSINESS PLAYBOOK 📘</div>
+  <div class="abs cx anton gold fit" style="top:205px;font-size:118px">पूरा PLAN DM में पाओ</div>
+  <div class="page" style="left:70px;top:420px;transform:rotate(-9deg)"><img src="../assets/pdf_pages/page-05.png"></div>
+  <div class="page" style="left:130px;top:395px;transform:rotate(-4deg)"><img src="../assets/pdf_pages/page-04.png"></div>
+  <div class="page" style="left:190px;top:380px;transform:rotate(2deg)"><img src="../assets/pdf_pages/page-01.png"></div>
+  <div class="abs" style="left:620px;top:400px;width:410px;display:flex;flex-direction:column;gap:14px;font-weight:700;font-size:30px;line-height:1.25">
+    <div>✅ कैसे बनाएं (steps)</div><div>✅ ₹5,000 में कितनी candle</div><div>✅ कीमत & मुनाफा</div><div>✅ कहाँ बेचें (online + offline)</div><div>✅ FSSAI, packing, safety</div><div>✅ 10 ज़रूरी सवाल-जवाब</div>
+  </div>
+  <div class="abs cx anton gold" style="top:930px;font-size:120px">COMMENT 'BUTTER' 👇</div>
+  <div class="abs cx" style="top:1080px"><span class="pill p-teal" style="font-size:42px">Plan सीधा आपके DM में 📩</span></div>
+</section>
+
+<!-- 8. WATCH THE REEL -->
+<section class="slide" id="s8">
+  <div class="frame"></div>
+  <div class="abs cx cream" style="top:140px;font-weight:800;font-size:46px">45 sec में पूरा idea 🎬</div>
+  <div class="abs cx anton gold fit" style="top:205px;font-size:130px">REEL देखो ▶</div>
+  <div class="abs" style="left:330px;top:370px;width:420px;height:746px;border-radius:56px;background:#05080f;padding:14px;box-shadow:0 0 0 4px #E2BE6A,0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(226,190,106,.35)">
+    <div style="position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden">
+      <img src="img/creator.jpg" style="width:100%;height:100%;object-fit:cover">
+      <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(11,21,38,.75),transparent 35%,transparent 65%,rgba(11,21,38,.8))"></div>
+      <div class="abs cx anton gold" style="top:44px;font-size:34px;white-space:nowrap">खाने वाली CANDLE! 😱</div>
+      <div class="abs" style="left:150px;top:300px;width:92px;height:92px;border-radius:50%;background:rgba(250,249,245,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(250,249,245,.25)"><div style="margin-left:8px;width:0;height:0;border-left:34px solid #12213A;border-top:22px solid transparent;border-bottom:22px solid transparent"></div></div>
+      <div class="abs" style="left:18px;bottom:24px;font-weight:800;font-size:22px">ideaspulse.in • Reels</div>
+    </div>
+  </div>
+  <div class="abs" style="left:60px;top:470px;width:250px;font-weight:800;font-size:34px;line-height:1.3;text-align:right">Profile पर<br><span style="color:#E2BE6A">Reels tab</span><br>खोलो 👉</div>
+  <div class="abs" style="left:770px;top:520px;width:260px;font-weight:700;font-size:28px;line-height:1.35;color:#7fd6d0">✔ Real footage<br>✔ कैसे बनती है<br>✔ कहाँ बेचें<br>✔ ₹5,000 budget</div>
+  <div class="abs cx" style="top:1150px"><span class="pill p-solid" style="font-size:40px">👆 Profile पर Tap करो → REEL देखो</span></div>
+</section>
+
+<!-- 9. COMMUNITY -->
+<section class="slide" id="s9">
+  <div class="frame"></div>
+  <img class="abs" src="../assets/images/logo.png" style="left:450px;top:60px;width:180px;height:180px;border-radius:50%;box-shadow:0 0 0 5px #E2BE6A,0 0 50px rgba(226,190,106,.45)">
+  <div class="abs cx anton gold fit" style="top:262px;font-size:96px">COMMUNITY JOIN करो 🚀</div>
+  <div class="abs cx cream" style="top:375px;font-weight:700;font-size:34px">नए business ideas + guided plans — हर हफ्ते</div>
+  <div class="qrcard" style="left:75px;top:450px"><img src="../assets/images/qr_youtube.png"><div class="lbl" style="background:linear-gradient(180deg,#ff3b30,#d4241b)"><span>▶ YouTube<small>@ideaspuls</small></span></div></div>
+  <div class="qrcard" style="left:605px;top:450px"><img src="../assets/images/qr_telegram.png"><div class="lbl" style="background:linear-gradient(180deg,#3aa8e8,#1f86c9)"><span>✈ Telegram<small>@ideaspulse</small></span></div></div>
+  <div class="abs cx" style="top:960px;font-weight:600;font-size:28px;color:#7fd6d0">📱 Screenshot लो या दूसरे phone से scan करो</div>
+  <div class="abs cx" style="top:1015px"><span class="pill p-gold" style="font-size:36px">💬 Plan के लिए COMMENT 'BUTTER'</span></div>
+  <div class="abs cx" style="top:1105px;font-weight:900;font-size:66px">🌐 <span style="color:#FAF9F5">ideaspulse</span><span style="color:#E2BE6A">.in</span></div>
+  <div class="abs cx" style="top:1192px;font-weight:700;font-size:28px;color:rgba(250,249,245,.8)">Link bio में • Follow करो for daily business ideas</div>
+</section>
+
+<script>
+// shared top/bottom bars + emoji fix + auto-fit titles
+const slides = [...document.querySelectorAll('.slide')], N = slides.length;
+slides.forEach((s, i) => {
+  s.insertAdjacentHTML('beforeend', `<div class="top"><div class="brand"><img src="../assets/images/logo.png"><span>Ideas<b>Pulse</b></span></div><div class="count">${String(i + 1).padStart(2, '0')} / ${String(N).padStart(2, '0')}</div></div>`);
+  if (i < N - 1) s.insertAdjacentHTML('beforeend', `<div class="bottom"><div class="cm">💬 Plan: COMMENT 'BUTTER'</div><div class="sw">SWIPE <i>➜</i></div></div>`);
+  else s.insertAdjacentHTML('beforeend', `<div class="bottom" style="justify-content:center"><div class="cm">🔁 SAVE करो • SHARE करो</div></div>`);
+});
+const EMO = /(\p{Extended_Pictographic}[\u{FE0F}\u{200D}\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}]*|[\u{1F1E6}-\u{1F1FF}]{2})/gu;
+document.querySelectorAll('.gold').forEach(el => { el.innerHTML = el.innerHTML.replace(EMO, '<span class="emo">$1</span>'); });
+window.fitAll = () => document.querySelectorAll('.fit').forEach(el => {
+  el.style.whiteSpace = 'nowrap';
+  const span = document.createElement('span'); span.style.display = 'inline-block';
+  while (el.firstChild) span.appendChild(el.firstChild); el.appendChild(span);
+  const w = span.getBoundingClientRect().width, max = 940;
+  if (w > max) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * max / w) + 'px';
+});
+</script>
+</body>
+</html>
