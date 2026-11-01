@@ -1,3 +1,11 @@
 build/
 node_modules/
 out/stills/
+# The full plan PDF is the DM lead magnet: keep it out of this public repo.
+assets/source/Butter_Candle_Plan.pdf
+assets/pdf_pages/*
+!assets/pdf_pages/page-01.png
+!assets/pdf_pages/page-03.png
+!assets/pdf_pages/page-04.png
+!assets/pdf_pages/page-05.png
+!assets/pdf_pages/page-11.png

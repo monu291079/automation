@@ -22,7 +22,7 @@ const run = (cmd, a) => { const r = spawnSync(cmd, a, { stdio: 'inherit', cwd: R
 // 1) prerequisites
 const dirs = ['creatorA', 'creatorB', 'creatorC', 'b1', 'b2', 'b3'];
 if (dirs.some(d => !fs.existsSync(path.join(ROOT, 'build', d)))) run('bash', ['scripts/build_base.sh']);
-if (!fs.existsSync(path.join(ROOT, 'assets/images/qr_youtube.png')) || !fs.existsSync(path.join(ROOT, 'assets/pdf_pages/page-01.png'))) run('python3', ['scripts/prep_assets.py']);
+if (!fs.existsSync(path.join(ROOT, "assets/images/qr_youtube.png")) || !fs.existsSync(path.join(ROOT, "assets/pdf_pages/page-01.png"))) run('python3', ['scripts/prep_assets.py']);
 const counts = Object.fromEntries(dirs.map(d => [d, fs.readdirSync(path.join(ROOT, 'build', d)).filter(f => f.endsWith('.jpg')).length]));
 
 const FPS = TL.fps, total = Math.round(TL.duration * FPS);

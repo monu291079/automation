@@ -28,7 +28,7 @@ On-screen text mixes Hindi (Devanagari, Khand font) with English words (Anton / 
 
 - `voiceover.mp3`: master audio. `creator_takeA/B/C.mp4` are three lip-synced takes; the reel cuts between them.
 - `broll_b1/b2/b3.mp4`: the recipe clips you supplied. Only hands and food shots are used. These look like other creators' videos, so make sure you have the right to use them.
-- `Butter_Candle_Plan.pdf`: its pages are rendered to `assets/pdf_pages/`.
+- `Butter_Candle_Plan.pdf` is **not committed** (the repo is public and the plan is your DM lead magnet). Only the 5 pages shown in the reel are committed under `assets/pdf_pages/`. To show other pages, put the PDF back in `assets/source/` and run `python3 scripts/prep_assets.py`.
 - `assets/images/`: logo, QR codes (both checked to decode: `youtube.com/@ideaspuls`, `t.me/ideaspulse`), and the jars cropped from the plan poster.
 
 Music and sound effects are synthesized by `scripts/make_audio.py` (original, no licence needed).

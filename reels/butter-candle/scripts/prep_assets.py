@@ -25,7 +25,7 @@ poster.crop((400, 650, 1086, 1110)).save(A / "jars.jpg", quality=93)
 pdf = ROOT / "assets" / "source" / "Butter_Candle_Plan.pdf"
 out = ROOT / "assets" / "pdf_pages"
 out.mkdir(exist_ok=True)
-if not (out / "page-01.png").exists():
+if pdf.exists() and not (out / "page-02.png").exists():
     subprocess.run(["pdftoppm", "-r", "150", "-png", str(pdf), str(out / "page")], check=True,
                    stderr=subprocess.DEVNULL)
 
