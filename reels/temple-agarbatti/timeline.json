@@ -1,0 +1,532 @@
+{
+  "_help": "Edit text and timings here, then re-render (node render.mjs). Times are seconds on the voiceover. See README.md.",
+  "fps": 30,
+  "duration": 66.0,
+  "website": "ideaspulse.in",
+  "brand_name": "IdeasPulse.in",
+  "keyword": "PHOOL",
+  "takes": {
+    "main": {
+      "dir": "creatorMain",
+      "offset": 0.0
+    },
+    "part2": {
+      "dir": "creatorPart2",
+      "offset": 47.45
+    }
+  },
+  "scenes": [
+    {
+      "id": "broll",
+      "start": 0.0,
+      "end": 4.3
+    },
+    {
+      "id": "creator",
+      "start": 4.3,
+      "end": 7.6,
+      "take": "main"
+    },
+    {
+      "id": "broll",
+      "start": 7.6,
+      "end": 13.3
+    },
+    {
+      "id": "creator",
+      "start": 13.3,
+      "end": 19.1,
+      "take": "main"
+    },
+    {
+      "id": "broll",
+      "start": 19.1,
+      "end": 36.75
+    },
+    {
+      "id": "creator",
+      "start": 36.75,
+      "end": 39.75,
+      "take": "main"
+    },
+    {
+      "id": "usp",
+      "start": 39.75,
+      "end": 42.3
+    },
+    {
+      "id": "broll",
+      "start": 42.3,
+      "end": 47.45
+    },
+    {
+      "id": "creator",
+      "start": 47.45,
+      "end": 52.25,
+      "take": "part2"
+    },
+    {
+      "id": "plan",
+      "start": 52.25,
+      "end": 56.9
+    },
+    {
+      "id": "broll",
+      "start": 56.9,
+      "end": 62.55
+    },
+    {
+      "id": "cta",
+      "start": 62.55,
+      "end": 66.0
+    }
+  ],
+  "_broll_help": "clip = c1..c6 (assets/source/broll_c*.mp4, 7.9s each). in/out = seconds in that clip, stretched to start..end. ease 'ramp' = speed ramp. z0/z1 zoom, fy = vertical focus.",
+  "broll": [
+    {
+      "start": 0.0,
+      "end": 4.3,
+      "clip": "c1",
+      "in": 4.6,
+      "out": 7.9,
+      "ease": "ramp",
+      "z0": 1.35,
+      "z1": 1.05,
+      "fy": 0.62,
+      "title1": "KYA AAP JAANTE HAIN? 🤔",
+      "title2": "MANDIR KE PHOOL 🌸",
+      "title_at": -0.25,
+      "hud": "TONON PHOOL ➜ WASTE 🗑️",
+      "sub": "KACHRE MEIN?! 😱",
+      "sub_at": 1.6
+    },
+    {
+      "start": 7.6,
+      "end": 10.3,
+      "clip": "c3",
+      "in": 0.0,
+      "out": 4.0,
+      "z0": 1.15,
+      "z1": 1.0,
+      "fy": 0.55,
+      "title1": "JI HAAN! 🙌",
+      "title2": "INHI PHOOLON SE"
+    },
+    {
+      "start": 10.3,
+      "end": 13.3,
+      "clip": "c5",
+      "in": 0.0,
+      "out": 7.9,
+      "z0": 1.0,
+      "z1": 1.15,
+      "fy": 0.6,
+      "title1": "BANAO KHUSHBOODAR",
+      "title2": "AGARBATTI + DHOOP 🪔",
+      "hud": "✨ 100% FLOWER WASTE SE"
+    },
+    {
+      "start": 19.1,
+      "end": 22.7,
+      "clip": "c1",
+      "in": 3.5,
+      "out": 7.9,
+      "z0": 1.0,
+      "z1": 1.18,
+      "fy": 0.6,
+      "kicker": "Mathura • Vrindavan 🛕"
+    },
+    {
+      "start": 22.7,
+      "end": 24.55,
+      "clip": "c3",
+      "in": 0.5,
+      "out": 3.6,
+      "z0": 1.15,
+      "z1": 1.0,
+      "fy": 0.55,
+      "title1": "AISE BANAO 👇",
+      "title2": "SIMPLE PROCESS",
+      "hud": "STEP 1 • MANDIR SE SAMPARK"
+    },
+    {
+      "start": 24.55,
+      "end": 26.8,
+      "clip": "c3",
+      "in": 3.6,
+      "out": 7.9,
+      "z0": 1.0,
+      "z1": 1.15,
+      "fy": 0.6,
+      "title1": "AISE BANAO 👇",
+      "title2": "SIMPLE PROCESS",
+      "hud": "STEP 2 • PHOOL COLLECT KARO"
+    },
+    {
+      "start": 26.8,
+      "end": 28.2,
+      "clip": "c4",
+      "in": 0.0,
+      "out": 2.6,
+      "z0": 1.15,
+      "z1": 1.0,
+      "fy": 0.5,
+      "title1": "AISE BANAO 👇",
+      "title2": "SIMPLE PROCESS",
+      "hud": "STEP 3 • DHOOP MEIN SUKHAO ☀️"
+    },
+    {
+      "start": 28.2,
+      "end": 29.8,
+      "clip": "c4",
+      "in": 3.6,
+      "out": 7.9,
+      "z0": 1.0,
+      "z1": 1.15,
+      "fy": 0.55,
+      "title1": "AISE BANAO 👇",
+      "title2": "SIMPLE PROCESS",
+      "hud": "STEP 4 • PEESKAR POWDER"
+    },
+    {
+      "start": 29.8,
+      "end": 32.2,
+      "clip": "c2",
+      "in": 0.0,
+      "out": 3.6,
+      "z0": 1.15,
+      "z1": 1.0,
+      "fy": 0.55,
+      "title1": "AISE BANAO 👇",
+      "title2": "SIMPLE PROCESS",
+      "hud": "STEP 5 • BINDER + FRAGRANCE"
+    },
+    {
+      "start": 32.2,
+      "end": 34.4,
+      "clip": "c2",
+      "in": 3.8,
+      "out": 7.9,
+      "z0": 1.0,
+      "z1": 1.15,
+      "fy": 0.55,
+      "title1": "AISE BANAO 👇",
+      "title2": "SIMPLE PROCESS",
+      "hud": "STEP 6 • AGARBATTI / DHOOP CONE"
+    },
+    {
+      "start": 34.4,
+      "end": 36.75,
+      "clip": "c6",
+      "in": 0.0,
+      "out": 4.0,
+      "z0": 1.15,
+      "z1": 1.0,
+      "fy": 0.55,
+      "title1": "PACKAGING KARO",
+      "title2": "APNA BRAND 📦",
+      "hud": "STEP 7 • SUNDAR PACKAGING"
+    },
+    {
+      "start": 42.3,
+      "end": 44.2,
+      "clip": "c6",
+      "in": 4.0,
+      "out": 6.0,
+      "z0": 1.2,
+      "z1": 1.05,
+      "fy": 0.55,
+      "kicker": "KAHAN BECHEIN? 🛍️",
+      "label": "POOJA SHOPS"
+    },
+    {
+      "start": 44.2,
+      "end": 45.8,
+      "clip": "c3",
+      "in": 5.0,
+      "out": 7.9,
+      "z0": 1.05,
+      "z1": 1.2,
+      "fy": 0.5,
+      "kicker": "KAHAN BECHEIN? 🛍️",
+      "label": "MANDIR KE PAAS 🛕"
+    },
+    {
+      "start": 45.8,
+      "end": 47.45,
+      "clip": "c6",
+      "in": 6.0,
+      "out": 7.9,
+      "z0": 1.0,
+      "z1": 1.15,
+      "fy": 0.55,
+      "kicker": "KAHAN BECHEIN? 🛍️",
+      "label": "ONLINE 📱"
+    },
+    {
+      "start": 56.9,
+      "end": 62.55,
+      "clip": "c5",
+      "in": 0.0,
+      "out": 7.9,
+      "z0": 1.05,
+      "z1": 1.25,
+      "fy": 0.6,
+      "title1": "KAL TAK BEKAAR PHOOL...",
+      "title_at": 57.45,
+      "title2": "AAJ ROZGAAR + KHUSHBOO 🌸",
+      "title2_at": 59.85
+    }
+  ],
+  "text": {
+    "usp_title1": "AAPKE BRAND KI PEHCHAAN",
+    "usp_title2": "TEMPLE FLOWER AGARBATTI",
+    "usp_stamp": "100%<br>TEMPLE<br>FLOWERS",
+    "usp_chip": "🌸 Mandir ke phoolon se bani",
+    "plan_title1": "POORA BUSINESS PLAN 📘",
+    "plan_title2": "KHARCHA + MUNAFA",
+    "plan_items": [
+      "Kaise banayein (steps)",
+      "₹5,000 mein shuruaat*",
+      "Laagat per packet",
+      "Kahan bechein",
+      "Zaroori permissions",
+      "10 sawaal-jawaab"
+    ],
+    "plan_comment": "COMMENT 'PHOOL' 👇",
+    "plan_comment_at": 52.5,
+    "plan_dm": "Plan seedha DM mein 📩",
+    "plan_follow": "✅ FOLLOW IDEASPULSE",
+    "plan_follow_at": 55.3,
+    "cta_title1": "AISE UNIQUE",
+    "cta_title2": "BUSINESS IDEAS 🚀",
+    "cta_join": "COMMUNITY JOIN KARO",
+    "cta_join_sub": "Naye ideas + business plans — scan karo",
+    "cta_youtube_handle": "@ideaspuls",
+    "cta_telegram_handle": "@ideaspulse",
+    "cta_comment": "Plan ke liye COMMENT 'PHOOL'"
+  },
+  "captions": [
+    {
+      "t0": 4.3,
+      "t1": 7.6,
+      "text": "INHI SE LAKHON KA BUSINESS! 💰",
+      "hl": "LAKHON"
+    },
+    {
+      "t0": 13.3,
+      "t1": 16.6,
+      "text": "MATHURA • VRINDAVAN JAISE SHEHRON MEIN 🛕",
+      "hl": "MATHURA VRINDAVAN"
+    },
+    {
+      "t0": 16.6,
+      "t1": 19.1,
+      "text": "JAHAN PHOOL POOJA MEIN CHADHTE HAIN",
+      "hl": "POOJA"
+    },
+    {
+      "t0": 19.3,
+      "t1": 22.7,
+      "text": "YE PHOOL BAN SAKTE HAIN KAMAI KA ZARIYA 💸",
+      "hl": "KAMAI"
+    },
+    {
+      "t0": 36.75,
+      "t1": 39.75,
+      "text": "AAPKE BRAND KI SABSE KHAAS PEHCHAAN...",
+      "hl": "KHAAS"
+    },
+    {
+      "t0": 47.5,
+      "t1": 50.2,
+      "text": "LEKIN KITNA KHARCHA AAYEGA? 🤔",
+      "hl": "KHARCHA"
+    },
+    {
+      "t0": 50.25,
+      "t1": 52.25,
+      "text": "EK PACKET PAR KITNA MUNAFA? 💰",
+      "hl": "MUNAFA"
+    }
+  ],
+  "creator_punch_ins": [
+    {
+      "t0": 5.8,
+      "t1": 7.6,
+      "scale": 1.1
+    },
+    {
+      "t0": 16.6,
+      "t1": 19.1,
+      "scale": 1.08
+    },
+    {
+      "t0": 38.0,
+      "t1": 39.75,
+      "scale": 1.1
+    },
+    {
+      "t0": 50.25,
+      "t1": 52.25,
+      "scale": 1.1
+    }
+  ],
+  "sfx": [
+    {
+      "t": 0.0,
+      "type": "impact"
+    },
+    {
+      "t": 0.05,
+      "type": "shimmer"
+    },
+    {
+      "t": 4.25,
+      "type": "whoosh"
+    },
+    {
+      "t": 7.55,
+      "type": "whoosh"
+    },
+    {
+      "t": 10.25,
+      "type": "whoosh"
+    },
+    {
+      "t": 10.4,
+      "type": "shimmer"
+    },
+    {
+      "t": 13.25,
+      "type": "whoosh"
+    },
+    {
+      "t": 19.05,
+      "type": "whoosh"
+    },
+    {
+      "t": 22.65,
+      "type": "whoosh"
+    },
+    {
+      "t": 22.8,
+      "type": "tick"
+    },
+    {
+      "t": 24.5,
+      "type": "whoosh"
+    },
+    {
+      "t": 24.65,
+      "type": "tick"
+    },
+    {
+      "t": 26.75,
+      "type": "whoosh"
+    },
+    {
+      "t": 26.9,
+      "type": "tick"
+    },
+    {
+      "t": 28.15,
+      "type": "whoosh"
+    },
+    {
+      "t": 28.3,
+      "type": "tick"
+    },
+    {
+      "t": 29.75,
+      "type": "whoosh"
+    },
+    {
+      "t": 29.9,
+      "type": "tick"
+    },
+    {
+      "t": 32.15,
+      "type": "whoosh"
+    },
+    {
+      "t": 32.3,
+      "type": "tick"
+    },
+    {
+      "t": 34.35,
+      "type": "whoosh"
+    },
+    {
+      "t": 34.5,
+      "type": "tick"
+    },
+    {
+      "t": 36.7,
+      "type": "whoosh"
+    },
+    {
+      "t": 39.7,
+      "type": "whoosh"
+    },
+    {
+      "t": 40.2,
+      "type": "impact"
+    },
+    {
+      "t": 42.25,
+      "type": "whoosh"
+    },
+    {
+      "t": 44.15,
+      "type": "whoosh"
+    },
+    {
+      "t": 45.75,
+      "type": "whoosh"
+    },
+    {
+      "t": 47.4,
+      "type": "whoosh"
+    },
+    {
+      "t": 52.2,
+      "type": "whoosh"
+    },
+    {
+      "t": 52.5,
+      "type": "impact"
+    },
+    {
+      "t": 55.3,
+      "type": "pop"
+    },
+    {
+      "t": 56.85,
+      "type": "whoosh"
+    },
+    {
+      "t": 59.85,
+      "type": "shimmer"
+    },
+    {
+      "t": 62.5,
+      "type": "whoosh"
+    },
+    {
+      "t": 63.2,
+      "type": "shimmer"
+    },
+    {
+      "t": 63.8,
+      "type": "pop"
+    }
+  ],
+  "audio": {
+    "voice_gain_db": 0,
+    "music_gain_db": -18,
+    "sfx_gain_db": -10,
+    "target_lufs": -14,
+    "bpm": 104
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ideaspulse-temple-agarbatti-reel",
+  "private": true,
+  "type": "module",
+  "scripts": { "render": "node render.mjs", "stills": "node render.mjs --stills" },
+  "devDependencies": { "playwright": "1.63.0" }
+}
