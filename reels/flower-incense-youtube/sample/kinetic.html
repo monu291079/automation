@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<title>Kinetic hook sample</title>
+<style>
+@font-face { font-family: "Anton"; src: url(../assets/fonts/Anton-Regular.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 800; src: url(../assets/fonts/Poppins-ExtraBold.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 900; src: url(../assets/fonts/Poppins-Black.ttf); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0B1526; }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: Poppins, "Noto Color Emoji", sans-serif; color: #FAF9F5; }
+#world { position: absolute; inset: -60px; transform-origin: 50% 50%; }
+#bgwrap { position: absolute; inset: 60px; overflow: hidden; }
+.bg { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform-origin: 0 0; }
+.ab { position: absolute; }
+#tint, #glow, #flash, #base, #vig { position: absolute; inset: 60px; pointer-events: none; }
+#base { background: rgba(8,14,26,.5); }
+#vig { background: radial-gradient(110% 90% at 50% 50%, transparent 45%, rgba(0,0,0,.65)), radial-gradient(900px 380px at 50% 50%, rgba(8,14,26,.55), transparent 70%); }
+#lines { position: absolute; inset: 60px; }
+.line { position: absolute; left: 0; right: 0; text-align: center; white-space: nowrap; transform-origin: 50% 50%; }
+.u { display: inline-block; font-family: Anton, "Noto Color Emoji", sans-serif; text-transform: uppercase; letter-spacing: 2px; line-height: 1.05; margin: 0 .16em; color: #FAF9F5; opacity: 0;
+  text-shadow: 0 6px 0 rgba(0,0,0,.7), 0 0 50px rgba(0,0,0,.7); -webkit-text-stroke: 2px rgba(5,10,20,.55); paint-order: stroke fill; }
+.u.g, .u.s { background: linear-gradient(180deg, #F6E2A6, #E2BE6A 50%, #A9812E); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; filter: drop-shadow(0 6px 0 rgba(0,0,0,.65)); }
+.u.r { color: #FF6B3D; }
+.u.d { color: #9DB8FF; }
+.emo { display: inline-block; color: #fff; -webkit-text-fill-color: #fff; background: none; text-shadow: none; }
+#sky { position: absolute; left: 640px; top: 130px; width: 640px; height: 190px; opacity: 0; transform: scale(1.35); transform-origin: 50% 0; }
+#sky .pill { position: absolute; top: 140px; font-weight: 900; font-size: 26px; letter-spacing: 2px; padding: 6px 18px; border-radius: 999px; background: rgba(11,21,38,.8); border: 2px solid rgba(226,190,106,.7); color: #F6E2A6; }
+#petals { position: absolute; inset: 60px; }
+#logo { position: absolute; right: 100px; top: 90px; width: 92px; height: 92px; border-radius: 50%; box-shadow: 0 0 0 3px #E2BE6A, 0 8px 24px rgba(0,0,0,.5); }
+#site { position: absolute; right: 208px; top: 118px; font-weight: 900; font-size: 28px; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+#site b { color: #E2BE6A; }
+#endcard { position: absolute; inset: 60px; opacity: 0; background: radial-gradient(900px 600px at 50% 40%, rgba(33,140,135,.3), transparent 70%), linear-gradient(180deg, #172a49, #12213A 50%, #0B1526); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
+#endcard img { width: 190px; height: 190px; border-radius: 50%; box-shadow: 0 0 0 5px #E2BE6A, 0 0 60px rgba(226,190,106,.5); }
+#endcard .t { font-family: Anton; font-size: 150px; text-transform: uppercase; background: linear-gradient(180deg, #F6E2A6, #E2BE6A 50%, #A9812E); -webkit-background-clip: text; color: transparent; filter: drop-shadow(0 6px 0 rgba(0,0,0,.6)); }
+#endcard .s { font-weight: 900; font-size: 44px; }
+#endcard .s b { color: #E2BE6A; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="world">
+  <div id="bgwrap"><img class="bg" id="bgA" alt=""><img class="bg" id="bgB" alt=""></div>
+  <div id="base"></div><div id="tint"></div><div id="glow"></div><div id="vig"></div>
+  <canvas id="petals" width="1920" height="1080"></canvas>
+  <div id="sky"><svg width="640" height="190" viewBox="0 0 640 190">
+    <path d="M20 135 A300 125 0 0 1 620 135" fill="none" stroke="rgba(246,226,166,.55)" stroke-width="5" stroke-dasharray="3 14" stroke-linecap="round"/>
+    <line x1="0" y1="135" x2="640" y2="135" stroke="rgba(250,249,245,.35)" stroke-width="3"/>
+    <circle id="sun" r="24" cx="20" cy="135" fill="#FFD36B"/><circle id="sunglow" r="56" cx="20" cy="135" fill="url(#sg)"/>
+    <defs><radialGradient id="sg"><stop offset="0" stop-color="#FFD36B" stop-opacity=".75"/><stop offset="1" stop-color="#FFD36B" stop-opacity="0"/></radialGradient></defs></svg>
+    <div class="pill" style="left:0">SUBAH 🌅</div><div class="pill" style="right:0">SHAAM 🌇</div></div>
+  <div id="lines"></div>
+  <img id="logo" src="../assets/images/logo.png" alt=""><div id="site">ideaspulse<b>.in</b></div>
+  <div id="flash"></div>
+  <div id="endcard"><img src="../assets/images/logo.png" alt=""><div class="t" id="et">LEKIN SOCHIYE...</div><div class="s">ideaspulse<b>.in</b></div></div>
+</div></div>
+<script>
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P = (t, a, b) => cl((t - a) / (b - a));
+const eo = x => 1 - Math.pow(1 - x, 3);
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eob = x => { const c1 = 2.1, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const E = id => document.getElementById(id);
+const EMO = /(\p{Extended_Pictographic}[\u{FE0F}\u{200D}\p{Extended_Pictographic}]*)/gu;
+const LINE = { A: [150, 470], B: [160, 470], C: [150, 470], D: [300, 390], E: [250, 380], F: [170, 560], G: [200, 560], H: [250, 430] };
+// where each line leaves the screen (a new line pushes the old one out)
+const EXIT = { A: 1.38, B: 2.41, C: 4.1, D: 5.86, E: 7.3, F: 9.85, G: 11.05, H: 14.3 };
+const BG = [
+  { t0: 0.0, kind: 'img', name: 'img_temple_sunrise', z: [1.3, 1.08], c: [.5, .6, .5, .5] },
+  { t0: 4.82, kind: 'clip', name: 'w01b_flowers_dumped', start: 0.2, z: [1.15, 1.3], c: [.5, .6, .5, .6] },
+  { t0: 5.88, kind: 'clip', name: 'w01_temple_waste', start: 0.5, z: [1.1, 1.3], c: [.5, .7, .5, .6] },
+  { t0: 7.40, kind: 'img', name: 'img_puja_cone', z: [1.3, 1.05], c: [.55, .55, .5, .5] },
+  { t0: 9.88, kind: 'img', name: 'img_temple_sunrise', z: [1.05, 1.25], c: [.5, .55, .5, .6] },
+  { t0: 11.05, kind: 'clip', name: 'w01b_flowers_dumped', start: 1.0, z: [1.05, 1.4], c: [.5, .6, .5, .7] },
+  { t0: 14.3, kind: 'img', name: 'img_workshop', z: [1.0, 1.0], c: [.5, .5, .5, .5] }
+];
+const IMPACTS = [[4.86, 8, .3], [5.91, 18, .45], [13.14, 26, .6]];
+const COUNT = { w01b_flowers_dumped: 235, w01_temple_waste: 299 };
+let U = [], lineEls = {};
+const sty = { A: 'n', B: 'n' };
+
+function build(units) {
+  U = units; const root = E('lines');
+  const ids = [...new Set(units.map(u => u.line))];
+  for (const id of ids) {
+    const d = document.createElement('div'); d.className = 'line'; d.id = 'L' + id;
+    d.style.top = LINE[id][1] + 'px'; d.style.fontSize = LINE[id][0] + 'px';
+    d.innerHTML = units.filter(u => u.line === id).map((u, i) => `<span class="u ${u.style}" data-i="${units.indexOf(u)}">${u.text.replace(EMO, '<span class="emo">$1</span>')}</span>`).join(' ');
+    root.appendChild(d); lineEls[id] = d;
+  }
+  if (units.some(u => u.line === 'E')) { const d = lineEls.E; const em = document.createElement('span'); em.className = 'u r'; em.dataset.i = 'bin'; em.innerHTML = '<span class="emo">🗑️</span>'; d.appendChild(em); }
+}
+function fitLines() { for (const id in lineEls) { const d = lineEls[id]; d.style.transform = 'none'; const w = d.scrollWidth; d.dataset.fit = Math.min(1, 1640 / w); } }
+
+// ---- petals
+const PET = Array.from({ length: 70 }, (_, i) => { const r = k => Math.abs(Math.sin(i * k) * 43758.5453 % 1); return { x: r(12.99) * 1920, y: r(78.23) * 1200, s: 9 + r(3.7) * 20, a: r(5.1) * 6.28, w: .6 + r(9.3) * 1.6, ph: r(2.2) * 6.28, c: i % 3 }; });
+const COL = ['#F59E0B', '#FB923C', '#BE123C'];
+function vel(t) { return t < 4.8 ? 70 : t < 5.9 ? lerp(70, 140, P(t, 4.8, 5.9)) : t < 7.4 ? 520 : t < 9.55 ? -260 : t < 11.1 ? 140 : 320; }
+function drawPetals(t) {
+  const g = E('petals').getContext('2d'); g.clearRect(0, 0, 1920, 1080);
+  let Y = 0; for (let s = 0; s < t; s += 1 / 30) Y += vel(s) / 30;
+  const dusk = P(t, 9.9, 10.9), alpha = t < 4.8 ? .6 : t < 7.4 ? .85 : t < 9.6 ? .95 : .7 * (1 - .4 * dusk);
+  for (const p of PET) {
+    const y = (((p.y + Y) % 1200) + 1200) % 1200 - 70, x = p.x + Math.sin(t * p.w + p.ph) * 50;
+    g.save(); g.translate(x, y); g.rotate(p.a + t * p.w * .8); g.scale(1, .55 + .4 * Math.abs(Math.sin(t * p.w + p.ph)));
+    g.globalAlpha = alpha * (.55 + .45 * Math.sin(p.ph * 3 + t));
+    g.fillStyle = COL[p.c]; g.beginPath(); g.ellipse(0, 0, p.s, p.s * .55, 0, 0, 6.28); g.fill(); g.restore();
+  }
+  for (const [ti, col] of [[4.86, '226,190,106'], [5.91, '255,107,61'], [11.11, '226,190,106'], [11.62, '226,190,106'], [13.14, '255,107,61']]) {
+    const d = t - ti; if (d >= 0 && d < .55) { const k = d / .55; g.strokeStyle = `rgba(${col},${.7 * (1 - k)})`; g.lineWidth = 14 * (1 - k) + 2; g.beginPath(); g.arc(960, 540, 120 + 1100 * (1 - Math.pow(1 - k, 3)), 0, 6.28); g.stroke(); }
+  }
+  if (t > 7.4 && t < 9.7) { // golden sparkles while the flowers are "beautiful"
+    for (let i = 0; i < 40; i++) {
+      const r = k => Math.abs(Math.sin(i * k) * 9876.5 % 1), x = r(3.1) * 1920, y = r(7.7) * 1000 + 40, tw = .5 + .5 * Math.sin(t * 7 + i * 2);
+      const gr = g.createRadialGradient(x, y, 0, x, y, 16); gr.addColorStop(0, `rgba(255,236,170,${.9 * tw})`); gr.addColorStop(1, 'rgba(255,236,170,0)');
+      g.fillStyle = gr; g.beginPath(); g.arc(x, y, 16, 0, 6.28); g.fill();
+    }
+  }
+}
+
+function bgSrc(b, t) {
+  if (b.kind === 'img') return `../assets/images/${b.name}.jpg`;
+  const n = COUNT[b.name], i = Math.min(n - 1, Math.max(0, Math.round((b.start + (t - b.t0)) * 30)));
+  return `../build/clips/${b.name}/${String(i).padStart(5, '0')}.jpg`;
+}
+function bgTf(b, t, tEnd) {
+  const x = eio(P(t, b.t0, tEnd)), z = lerp(b.z[0], b.z[1], x), cx = lerp(b.c[0], b.c[2], x), cy = lerp(b.c[1], b.c[3], x);
+  const tx = cl(-(cx * 1920 * z - 960), 1920 - 1920 * z, 0), ty = cl(-(cy * 1080 * z - 540), 1080 - 1080 * z, 0);
+  return `translate(${tx}px,${ty}px) scale(${z})`;
+}
+const setSrc = (im, s) => { if (im.getAttribute('src') !== s) im.src = s; };
+
+async function renderAt(t) {
+  // background
+  let i = BG.length - 1; while (i > 0 && t < BG[i].t0) i--;
+  const b = BG[i], nxt = BG[i + 1], prev = BG[i - 1], tEnd = nxt ? nxt.t0 : 15;
+  const A = E('bgA'), B = E('bgB'), fade = prev ? P(t, b.t0, b.t0 + .1) : 1;
+  setSrc(B, bgSrc(b, t)); B.style.transform = bgTf(b, t, tEnd); B.style.opacity = fade;
+  if (prev && fade < 1) { setSrc(A, bgSrc(prev, t)); A.style.transform = bgTf(prev, t, b.t0); A.style.visibility = 'visible'; } else A.style.visibility = 'hidden';
+
+  // grading per beat
+  const kach = P(t, 5.88, 6.2) * (1 - P(t, 7.3, 7.45)), subah = P(t, 7.4, 7.9) * (1 - P(t, 9.6, 9.9)), dusk = P(t, 9.9, 10.9) * (1 - P(t, 11.05, 11.4)), pile = P(t, 11.05, 13.1);
+  E('bgwrap').style.filter = `saturate(${lerp(1, .55, kach) * lerp(1, 1.3, subah) * lerp(1, .55, dusk)}) brightness(${lerp(1, 1.12, subah) * lerp(1, .78, dusk) * lerp(1, .92, pile)})`;
+  E('tint').style.background = `rgba(${Math.round(lerp(30, 255, 1 - dusk))},${Math.round(lerp(50, 190, 1 - dusk))},${Math.round(lerp(110, 90, 1 - dusk))},${.42 * dusk + .1 * subah + .2 * kach * (1 - dusk)})`;
+  E('tint').style.background = (t > 11.4 && t < 14.3) ? `rgba(40,60,140,${.18 + .12 * pile})` : dusk > 0 ? `rgba(28,48,120,${.5 * dusk})` : kach > 0 ? `rgba(120,10,0,${.28 * kach})` : subah > 0 ? `rgba(255,190,90,${.14 * subah})` : 'transparent';
+  E('glow').style.background = subah > 0 ? `radial-gradient(700px 500px at 18% 18%, rgba(255,226,150,${.55 * subah}), transparent 70%)` : 'transparent';
+
+  // world: camera punch on every word + shake on impacts
+  let sh = 0, sx = 0, sy = 0, flash = 0;
+  for (const [ti, amp, dur] of IMPACTS) { const d = t - ti; if (d >= 0 && d < dur) { const k = 1 - d / dur; sx += Math.sin(d * 95) * amp * k; sy += Math.cos(d * 80) * amp * .7 * k; flash = Math.max(flash, k * (amp > 15 ? .55 : .25)); } }
+  let punch = 0; for (const u of U) { const d = t - u.t0; if (d >= 0 && d < .22) punch = Math.max(punch, (1 - d / .22) * (u.style === 'r' || u.style === 's' ? .05 : .022)); }
+  E('world').style.transform = `translate(${sx}px,${sy}px) scale(${1 + punch})`;
+  E('flash').style.background = '#fff2d8'; E('flash').style.opacity = flash;
+
+  // text
+  for (const id in lineEls) {
+    const d = lineEls[id], fit = +d.dataset.fit || 1, us = [...d.querySelectorAll('.u')];
+    const first = U.find(u => u.line === id).t0, ex = EXIT[id], xo = P(t, ex, ex + .24);
+    d.style.transform = `scale(${fit})`; d.querySelectorAll('.u').forEach(e => { const uu = e.dataset.i === 'bin' ? U.find(v => v.line === 'E') : U[+e.dataset.i]; e.style.display = t >= uu.t0 - .05 + (e.dataset.i === 'bin' ? .12 : 0) ? 'inline-block' : 'none'; });
+    d.style.visibility = (t >= first - .05 && t < ex + .3) ? 'visible' : 'hidden';
+    us.forEach(el => {
+      const u = el.dataset.i === 'bin' ? U.find(v => v.line === 'E') : U[+el.dataset.i], t0 = u.t0 + (el.dataset.i === 'bin' ? .12 : 0);
+      const slam = u.style === 's' || u.style === 'r', pi = P(t, t0 - .03, t0 + (slam ? .17 : .22));
+      const sc = slam ? lerp(2.4, 1, eo(pi)) : lerp(.5, 1, eob(pi)), ty = slam ? 0 : (1 - eo(pi)) * 60;
+      const act = t >= t0 && t < u.t1 + .14 && !slam ? 1 : 0;
+      el.style.opacity = P(t, t0 - .03, t0 + .05) * (1 - xo);
+      el.style.transform = `translateY(${ty - xo * 90}px) scale(${sc * (1 + .12 * act)})`;
+      el.style.filter = `blur(${(1 - pi) * (slam ? 14 : 9) + xo * 12}px)` + (el.classList.contains('g') || el.classList.contains('s') ? ' drop-shadow(0 6px 0 rgba(0,0,0,.65))' : '');
+      if (act && !el.classList.contains('g') && !el.classList.contains('s')) el.style.textShadow = '0 6px 0 rgba(0,0,0,.65), 0 0 50px rgba(246,226,166,.75)'; else if (!el.classList.contains('g') && !el.classList.contains('s')) el.style.textShadow = '';
+      if (act && el.classList.contains('n')) el.style.color = '#F6E2A6'; else if (el.classList.contains('n')) el.style.color = '';
+    });
+  }
+
+  // sun / moon widget (SUBAH -> SHAAM)
+  const sk = E('sky'), sv = P(t, 7.3, 7.5) * (1 - P(t, 11.0, 11.2)); sk.style.opacity = sv;
+  const s = P(t, 7.44, 10.75), ang = Math.PI * s;
+  const sx2 = 320 - 300 * Math.cos(ang), sy2 = 135 - 125 * Math.sin(ang) + (s > .97 ? (s - .97) * 600 : 0);
+  const warm = s < .75 ? '#FFD36B' : '#FF7A3D';
+  E('sun').setAttribute('cx', sx2); E('sun').setAttribute('cy', sy2); E('sun').setAttribute('fill', warm);
+  E('sunglow').setAttribute('cx', sx2); E('sunglow').setAttribute('cy', sy2);
+
+  drawPetals(t);
+  const ec = P(t, 14.3, 14.5); E('endcard').style.opacity = ec;
+  const et = E('et'); const q = P(t, 14.4, 14.65); et.style.transform = `scale(${lerp(1.6, 1, eo(q))})`; et.style.opacity = q;
+  const hide = ec > .5 ? 0 : 1; E('logo').style.opacity = hide; E('site').style.opacity = hide;
+
+  const imgs = [...document.images]; await Promise.all(imgs.map(im => (im.complete && im.naturalWidth) ? null : im.decode().catch(() => null)));
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+}
+async function init(units) { build(units); await Promise.all([document.fonts.load('150px Anton'), document.fonts.load('900 40px Poppins'), document.fonts.load('40px "Noto Color Emoji"')]); await document.fonts.ready; fitLines(); await Promise.all([...document.images].map(im => im.decode().catch(() => null))); }
+window.init = init; window.renderAt = renderAt;
+</script>
+</body>
+</html>

@@ -8,7 +8,9 @@ from pathlib import Path
 from scipy.signal import lfilter
 
 ROOT = Path(__file__).resolve().parent.parent
-PLAN = json.loads((ROOT / "build" / "audio_plan.json").read_text())
+import os
+BUILD = Path(os.environ.get("BUILD_DIR", ROOT / "build"))
+PLAN = json.loads((BUILD / "audio_plan.json").read_text())
 SR = 44100
 DUR = PLAN["duration"] + 0.5
 N = int(SR * DUR)
@@ -83,8 +85,8 @@ for c in PLAN["chapters"]:
     add(mus, bell(74, 3.5) * 3, c + .1, pan=.5); add(mus, bell(81, 3.0) * 2, c + .35, pan=.65)
 fo = int(2.5 * SR); mus[-fo:] *= np.linspace(1, 0, fo)[:, None]
 mus /= np.max(np.abs(mus)) + 1e-9; mus *= .85
-(ROOT / "build").mkdir(exist_ok=True)
-sf.write(ROOT / "build" / "music.wav", mus.astype(np.float32), SR)
+BUILD.mkdir(exist_ok=True)
+sf.write(BUILD / "music.wav", mus.astype(np.float32), SR)
 
 # ---------------------------------------------------------------- sound effects
 sfx = np.zeros((N, 2))
@@ -114,5 +116,5 @@ GAIN = {"impact": .8, "whoosh": .7, "pop": .5, "tick": .5, "shimmer": .7, "riser
 for e in PLAN["sfx"]:
     add(sfx, MAKE[e["type"]](), e["t"], GAIN[e["type"]], pan=.5)
 sfx /= max(1.0, np.max(np.abs(sfx)) / .95)
-sf.write(ROOT / "build" / "sfx.wav", sfx.astype(np.float32), SR)
+sf.write(BUILD / "sfx.wav", sfx.astype(np.float32), SR)
 print("music + sfx", round(DUR, 1), "s")
