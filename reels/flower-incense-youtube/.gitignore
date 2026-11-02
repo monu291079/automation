@@ -8,3 +8,9 @@ sample/frames/
 sample/stills/
 sample/build/
 sample/render.log
+assets/audio/P8a.wav
+assets/audio/P8b.wav
+build_glass/
+remotion/out/
+remotion/public/clips/
+remotion/public/images/*.png
