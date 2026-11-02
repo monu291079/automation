@@ -2,3 +2,5 @@ build/
 node_modules/
 out/stills/
 build_render.log
+# full-quality master (283 MB) stays local; GitHub limit is 100 MB per file
+out/ideaspulse_flower_incense_youtube.mp4
