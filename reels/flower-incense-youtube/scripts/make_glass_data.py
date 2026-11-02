@@ -12,10 +12,38 @@ R = Path(__file__).resolve().parent.parent
 g = runpy.run_path(str(R / "scripts/make_timeline.py"))          # also rewrites timeline.json (harmless)
 T, S, L, PN, I, BG = g["T"], g["S"], g["L"], g["PN"], g["I"], g["BG"]
 P = {p["id"]: copy.deepcopy(p) for p in g["parts"]}
-INTRO, GAP, END = 3.5, 1.6, 20.0
+GAP, END = 1.6, 20.0
 
 def dur(path):
     return float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(R / path)]).decode())
+
+INTRO = round(dur("assets/audio/P0.wav") + 0.5, 1)      # cold-open hook (P0) replaces the old silent title card
+
+# ---------------------------------------------------------------- hook (P0): words timed to the voice
+import numpy as np, soundfile as sf
+def hook_units():
+    a, sr = sf.read(str(R / "assets/audio/P0.wav")); h = int(sr * .01); n = len(a) // h
+    db = 20 * np.log10(np.array([np.sqrt(np.mean(a[i*h:(i+1)*h] ** 2)) for i in range(n)]) + 1e-9); sm = np.convolve(db, np.ones(3) / 3, mode="same")
+    # (speech segment start, end) from the loudness envelope; units spoken in it: (text, syllables, line, style)
+    SEG = [((0.16, 1.57), [("MANDIR KE", 3, "A", "n"), ("KACHRE SE 🗑️", 3, "A", "n"), ("KAMAI? 💰", 2, "A", "g")]),
+           ((2.62, 3.70), [("SUNNE MEIN", 3, "B", "n"), ("AJEEB", 2, "B", "n"), ("LAGTA HAI", 3, "B", "n")]),
+           ((4.02, 6.01), [("LEKIN AAJ", 3, "C", "n"), ("MAIN ISKA", 3, "C", "n"), ("POORA HISAAB", 4, "D", "g"), ("DIKHAUNGA", 3, "D", "g")]),
+           ((6.72, 7.99), [("₹5,000 KE", 4, "E", "g"), ("TEST SE", 2, "E", "n")]),
+           ((8.24, 9.40), [("90 DIN", 2, "F", "g"), ("KE PLAN", 2, "F", "n"), ("TAK", 1, "F", "n")])]
+    out = []
+    for (s0, e0), us in SEG:
+        tot = sum(u[1] for u in us); cum = 0; b = [s0]
+        for u in us[:-1]:
+            cum += u[1]; est = s0 + (e0 - s0) * cum / tot; lo, hi = int((est - .08) * 100), int((est + .08) * 100)
+            b.append((lo + int(np.argmin(sm[lo:hi]))) / 100)
+        b.append(e0)
+        for k, u in enumerate(us): out.append(dict(text=u[0], t0=round(b[k], 2), t1=round(b[k + 1], 2), line=u[2], style=u[3]))
+    return out
+HOOK_UNITS = hook_units()
+HOOK_LINES = {"A": dict(top=340, size=124, exit=2.45), "B": dict(top=340, size=124, exit=3.95), "C": dict(top=230, size=130, exit=6.5), "D": dict(top=430, size=150, exit=6.5),
+              "E": dict(top=340, size=160, exit=8.15), "F": dict(top=340, size=170, exit=9.4)}
+HOOK_CHIPS = [dict(at=5.1, text="🧮 POORA HISAAB"), dict(at=7.0, text="₹5,000 TEST"), dict(at=8.5, text="90 DIN PLAN")]
+HOOK_BG = [(0.0, "clip:w01b_flowers_dumped", 0.3), (2.6, "clip:w01_temple_waste", 1.0), (4.0, "img:img_packs_money", 0), (6.7, "img:img_workshop", 0), (8.2, "clip:x03_two_cones_burn", 1.0)]
 
 # ---------------------------------------------------------------- new clips in the existing parts
 def setbg(pid, t, src=None, inn=None, insert=False):
@@ -120,7 +148,14 @@ def absolute(o, d):
     return o
 
 cur = INTRO; parts, chapters, bgs, ovs, voice, sfx = [], [], [], [], [], []
-sfx += [dict(t=0.0, type="shimmer"), dict(t=0.75, type="impact")]
+voice.append(dict(file="assets/audio/P0.wav", start=0.0))
+for i, (t0, src, inn) in enumerate(HOOK_BG):
+    kind, name = src.split(":", 1)
+    bgs.append(dict(t0=t0, t1=HOOK_BG[i + 1][0] if i + 1 < len(HOOK_BG) else INTRO, kind=kind, name=name, inn=inn))
+    if i: sfx.append(dict(t=t0 - 0.06, type="whoosh"))
+ovs.append(dict(type="hook", t0=0.0, t1=INTRO, at=0.0, units=HOOK_UNITS, lines=HOOK_LINES, chips=HOOK_CHIPS, brand_at=round(HOOK_UNITS[-1]["t1"] + 0.06, 2), part=0))
+sfx += [dict(t=0.12, type="impact"), dict(t=3.3, type="riser"), dict(t=4.02, type="impact"), dict(t=6.72, type="impact"), dict(t=round(HOOK_UNITS[-1]["t1"] + 0.06, 2), type="shimmer")]
+sfx += [dict(t=u["t0"], type="pop") for u in HOOK_UNITS] + [dict(t=c["at"], type="whoosh") for c in HOOK_CHIPS]
 for k, p in enumerate(ORDER):
     if k > 0:
         chapters.append(dict(n=k + 1, title=p["chapter"], tease=TEASE[p["id"]], t0=cur, t1=cur + GAP))

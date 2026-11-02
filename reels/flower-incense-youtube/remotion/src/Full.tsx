@@ -279,6 +279,36 @@ const QAItem: React.FC<{ q: any }> = ({ q }) => {
 };
 const QA: React.FC<{ o: any }> = ({ o }) => <>{o.items.map((q: any, i: number) => <QAItem key={i} q={q} />)}</>;
 
+
+// ---------------------------------------------------------------- cold-open hook: words land with the voice, picture stays still
+const HookWord: React.FC<{ u: any; size: number; exit: number }> = ({ u, size, exit }) => {
+  const f = useAF(); const s = spring({ frame: Math.max(0, f - F(u.t0) + 1), fps: FPS, config: u.style === "g" ? SP.bouncy : SP.snappy });
+  const x = pr(f, F(exit), F(exit) + 8); const live = f >= F(u.t0) && f < F(u.t1) + 4;
+  if (f < F(u.t0) - 1) return null;
+  const base: React.CSSProperties = u.style === "g" ? GOLD : { color: live ? "#F6E2A6" : "#fff", textShadow: `0 7px 0 rgba(0,0,0,.6), 0 0 ${live ? 60 : 30}px ${live ? "rgba(246,226,166,.7)" : "rgba(0,0,0,.6)"}`, WebkitTextStroke: "2px rgba(5,10,20,.5)" };
+  return <span style={{ display: "inline-block", fontFamily: FONT.display, fontSize: size, textTransform: "uppercase", letterSpacing: 2, lineHeight: 1.05, opacity: Math.min(1, s * 3) * (1 - x), transform: `translateY(${(1 - s) * 70 - x * 70}px) scale(${lerp(1.7, 1, s)})`, filter: `blur(${(1 - s) * 12 + x * 8}px)`, ...base }}>{gt(u.text)}</span>;
+};
+const HookView: React.FC<{ o: any }> = ({ o }) => {
+  const f = useAF(); const ids = Object.keys(o.lines);
+  const bs = spring({ frame: Math.max(0, f - F(o.brand_at)), fps: FPS, config: SP.bouncy }); const be = enter(bs, "Z");
+  if (f >= F(o.t1) + 2) return null;                                   // hand over cleanly to chapter 1
+  return (
+    <AbsoluteFill style={{ opacity: 1 - pr(f, F(o.t1) - 5, F(o.t1) + 1) }}>
+      {ids.map((id) => { const L = o.lines[id]; const us = o.units.filter((u: any) => u.line === id); const chars = us.reduce((n: number, u: any) => n + u.text.length + 1, 0);
+        const fit = Math.min(1, 1700 / (chars * L.size * 0.52)); if (f > F(L.exit) + 12) return null;
+        return <div key={id} style={{ position: "absolute", left: 0, right: 0, top: L.top, display: "flex", justifyContent: "center", gap: L.size * 0.2, transform: `scale(${fit})`, whiteSpace: "nowrap" }}>{us.map((u: any, i: number) => <HookWord key={i} u={u} size={L.size} exit={L.exit} />)}</div>; })}
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: 150, display: "flex", justifyContent: "center", gap: 20, opacity: 1 - pr(f, F(o.brand_at) - 2, F(o.brand_at) + 6) }}>
+        {o.chips.map((c: any, i: number) => <Chip key={i} c={{ ...c, hl: i === 1 }} i={i} arrows={false} />)}
+      </div>
+      {f >= F(o.brand_at) - 1 ? <div style={{ position: "absolute", left: 0, right: 0, top: 300, display: "flex", justifyContent: "center", opacity: be.opacity, transform: be.transform }}>
+        <Glass flow shineAt={o.brand_at} style={{ padding: "30px 70px", display: "flex", alignItems: "center", gap: 34 }}>
+          <Img src={staticFile("images/logo.png")} style={{ width: 150, height: 150, borderRadius: 75, boxShadow: "0 0 0 5px #E2BE6A" }} />
+          <div><div style={{ fontFamily: FONT.display, fontSize: 96, textTransform: "uppercase", ...GOLD }}>IDEASPULSE</div><div style={TX({ fontSize: 40, color: "#EDEFF5" })}>Poora business plan ▶</div></div>
+        </Glass></div> : null}
+    </AbsoluteFill>
+  );
+};
+
 let ovCount = 0;
 const Overlay: React.FC<{ o: any; k: number }> = ({ o, k }) => {
   switch (o.type) {
@@ -291,6 +321,7 @@ const Overlay: React.FC<{ o: any; k: number }> = ({ o, k }) => {
     case "cards": return <Cards o={o} />;
     case "compare": return <Compare o={o} />;
     case "qa": return <QA o={o} />;
+    case "hook": return <HookView o={o} />;
     default: return null;
   }
 };
@@ -415,12 +446,11 @@ export const Full: React.FC = () => {
       <AbsoluteFill style={{ background: "rgba(8,14,26,.42)" }} />
       <AbsoluteFill style={{ background: "radial-gradient(110% 90% at 50% 50%, transparent 50%, rgba(0,0,0,.55))" }} />
       {D.ov.map((o: any, i: number) => {
-        const base = F(o.t0) - 2;
+        const base = Math.max(0, F(o.t0) - 2);
         return <Sequence key={i} from={base} durationInFrames={F(o.t1) - base + 16}><BaseCtx.Provider value={base}><AccCtx.Provider value={ACC[partOf(o.t0) % 3]}><Overlay o={o} k={i} /></AccCtx.Provider></BaseCtx.Provider></Sequence>;
       })}
       <Chrome />
       {D.chapters.map((c: any, i: number) => <Sequence key={i} from={F(c.t0)} durationInFrames={F(c.t1 - c.t0) + 8}><ChapterCard c={c} /></Sequence>)}
-      <Sequence from={0} durationInFrames={F(D.intro.t1) + 6}><Intro /></Sequence>
       <Sequence from={F(D.end.t0)} durationInFrames={F(D.total) - F(D.end.t0)}><BaseCtx.Provider value={F(D.end.t0)}><End /></BaseCtx.Provider></Sequence>
     </AbsoluteFill>
   );

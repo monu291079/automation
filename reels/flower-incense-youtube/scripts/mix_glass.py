@@ -19,7 +19,7 @@ mix = ";".join([
   "[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0,highpass=f=70,acompressor=threshold=-20dB:ratio=3:attack=5:release=150:makeup=3dB,asplit=2[vo][key]",
   "[2:a]aresample=48000,volume=-19dB[mus]", "[mus][key]sidechaincompress=threshold=0.025:ratio=5:attack=20:release=450[duck]",
   "[3:a]aresample=48000,volume=-12dB[sfx]", "[vo][duck][sfx]amix=inputs=3:duration=first:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=11[aout]"])
-silent = R / "remotion/out/full_silent.mp4"
+silent = Path(os.environ.get("SILENT", R / "remotion/out/full_silent.mp4"))
 out = R / "out/ideaspulse_flower_incense_glass.mp4"
 run("ffmpeg", "-loglevel", "error", "-y", "-i", silent, "-i", B / "voiceover_full.wav", "-i", B / "music.wav", "-i", B / "sfx.wav",
     "-filter_complex", mix, "-map", "0:v", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", "-t", f"{DUR:.3f}", out)
