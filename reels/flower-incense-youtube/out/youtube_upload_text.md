@@ -15,6 +15,7 @@ Is video mein inhi phoolon se dhoop cone aur agarbatti banane ka poora, simple b
 ✅ Phool kahan se, bechna kahan, pehle 30 din + 90 din
 ✅ 1 saal ka anumaan + machine kab lein
 ✅ Suraksha, kaanoon aur zaroori saavdhaaniyaan
+✅ Go / No-Go scorecard + 7 sawaal-jawaab
 
 📘 Poora business plan, guide aur template chahiye? Comment karo: FLOWER
 🌐 ideaspulse.in
@@ -30,7 +31,15 @@ Is video mein inhi phoolon se dhoop cone aur agarbatti banane ka poora, simple b
 6:12 06. PHOOL KAHAN SE • BECHNA KAHAN
 7:55 07. 1 SAAL KI KAMAI + MACHINE
 9:14 08. SURAKSHA + KAANOON
-10:40 Community + End
+10:18 09. GO / NO-GO SCORECARD
+11:22 10. SAWAAL-JAWAAB + SOURCES
+12:41 11. AAKHRI SANDESH
+13:04 Community + End
+
+📚 Sources
+• NITI for States — temple flower waste → agarbatti: https://www.nitiforstates.gov.in/public-assets/Policy/policy_files/GNC491E000169.pdf
+• ThePrint — temple flowers recycling: https://theprint.in/feature/ayodhya-badrinath-kanpur-temple-flowers-dont-go-to-trash-anymore-get-a-market-makeover/2206999/
+• PIB — BIS IS 19412:2025: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2208829&lang=1&reg=3
 
 ⚠️ Disclaimer: Is video mein diye gaye kharch, daam aur kamai sirf anumaan/udaharan hain — guaranteed profit nahi. Machine ke daam online listing ke udaharan hain. Product banane, bechne aur daave karne se pehle BIS standard, registration, GST aur local niyamon ki jaanch karein.
 🎬 Kuch b-roll shots AI se banaye gaye hain (illustrative).
