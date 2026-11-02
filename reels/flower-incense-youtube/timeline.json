@@ -1,0 +1,2182 @@
+{
+ "_help": "All on-screen text and timings. Times are seconds from the start of each voiceover part. Regenerate with scripts/make_timeline.py or edit here, then: node render.mjs",
+ "fps": 30,
+ "intro": 3.5,
+ "gap": 1.6,
+ "end_screen": 20.0,
+ "intro_card": {
+  "kicker": "IDEASPULSE BUSINESS PLAN",
+  "title": "MANDIR KE PHOOLON SE AGARBATTI + DHOOP",
+  "sub": "Poora plan • ₹5,000 se test • 8 steps"
+ },
+ "end_card": {
+  "title": "SUBSCRIBE KARO 🔔",
+  "sub": "Har hafte naye business ideas + plans"
+ },
+ "parts": [
+  {
+   "id": "P1",
+   "file": "assets/audio/P1.wav",
+   "chapter": "PHOOL SE BUSINESS",
+   "short": "HOOK + INTRO",
+   "bg": [
+    {
+     "t": 0,
+     "src": "img:img_temple_sunrise",
+     "from": [
+      0.45,
+      0.6,
+      1.25
+     ],
+     "to": [
+      0.5,
+      0.5,
+      1.0
+     ]
+    },
+    {
+     "t": 4.9,
+     "src": "clip:w01_temple_waste"
+    },
+    {
+     "t": 9.9,
+     "src": "clip:w01b_flowers_dumped"
+    },
+    {
+     "t": 14.5,
+     "src": "clip:w02_sorting"
+    },
+    {
+     "t": 16.0,
+     "src": "clip:w03_drying"
+    },
+    {
+     "t": 17.6,
+     "src": "clip:w04_grinding"
+    },
+    {
+     "t": 19.1,
+     "src": "img:img_puja_cone",
+     "from": [
+      0.45,
+      0.55,
+      1.25
+     ],
+     "to": [
+      0.45,
+      0.5,
+      1.05
+     ]
+    },
+    {
+     "t": 23.9,
+     "src": "img:img_cones_sticks"
+    },
+    {
+     "t": 32.8,
+     "src": "img:img_workshop",
+     "from": [
+      0.5,
+      0.5,
+      1.0
+     ],
+     "to": [
+      0.4,
+      0.6,
+      1.15
+     ]
+    },
+    {
+     "t": 41.0,
+     "src": "img:img_packs_money"
+    },
+    {
+     "t": 48.2,
+     "src": "clip:w07_burning"
+    }
+   ],
+   "ov": [
+    {
+     "type": "title",
+     "t0": 0.2,
+     "t1": 4.8,
+     "at": 0.2,
+     "title": "MANDIR KE PHOOL KAHAN JAATE HAIN?",
+     "kicker": "KABHI SOCHA HAI? 🤔",
+     "sub": null,
+     "sub_at": null,
+     "pos": "center",
+     "size": 104,
+     "subcls": null
+    },
+    {
+     "type": "stamp",
+     "t0": 5.0,
+     "t1": 9.8,
+     "at": 5.0,
+     "text": "KACHRE MEIN! 🗑️",
+     "color": "red",
+     "top": 420,
+     "size": 110,
+     "rot": -4
+    },
+    {
+     "type": "lower",
+     "t0": 10.0,
+     "t1": 14.4,
+     "at": 10.0,
+     "arrows": true,
+     "chips": [
+      {
+       "at": 10.1,
+       "text": "SUBAH: KHUSHBOO 🌸",
+       "hl": false
+      },
+      {
+       "at": 12.0,
+       "text": "SHAAM: BAS EK DHER",
+       "hl": true
+      }
+     ]
+    },
+    {
+     "type": "lower",
+     "t0": 14.5,
+     "t1": 19.0,
+     "at": 14.5,
+     "arrows": true,
+     "chips": [
+      {
+       "at": 14.7,
+       "text": "SAAF KARO",
+       "hl": false
+      },
+      {
+       "at": 16.1,
+       "text": "SUKHAO ☀️",
+       "hl": false
+      },
+      {
+       "at": 17.7,
+       "text": "PEESO",
+       "hl": true
+      }
+     ]
+    },
+    {
+     "type": "title",
+     "t0": 19.2,
+     "t1": 23.8,
+     "at": 19.2,
+     "title": "PHOOLON SE DHOOP + AGARBATTI",
+     "kicker": "AAJ KA BUSINESS IDEA 💡",
+     "sub": "🌸 ➜ 🪔",
+     "sub_at": 21.5,
+     "pos": "center",
+     "size": 120,
+     "subcls": null
+    },
+    {
+     "type": "lower",
+     "t0": 24.0,
+     "t1": 28.3,
+     "at": 24.0,
+     "arrows": false,
+     "chips": [
+      {
+       "at": 24.2,
+       "text": "🎙️ MANISH • IDEASPULSE.IN",
+       "hl": true
+      }
+     ]
+    },
+    {
+     "type": "lower",
+     "t0": 28.5,
+     "t1": 32.7,
+     "at": 28.5,
+     "arrows": false,
+     "chips": [
+      {
+       "at": 28.6,
+       "text": "ITNA AASAAN — 8TH CLASS KA BACHCHA BHI SAMJHE ✅",
+       "hl": false
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 32.9,
+     "t1": 40.9,
+     "at": 32.9,
+     "title": "IS VIDEO MEIN 👇",
+     "kicker": null,
+     "style": "list",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 33.1,
+       "text": "Phool kahan se aayenge?",
+       "icon": "🌸"
+      },
+      {
+       "at": 34.6,
+       "text": "Cheezein kaise banengi?",
+       "icon": "🛠️"
+      },
+      {
+       "at": 35.7,
+       "text": "Kitna kharcha hoga?",
+       "icon": "💰"
+      },
+      {
+       "at": 37.1,
+       "text": "Kitni kamai ho sakti hai?",
+       "icon": "📈"
+      },
+      {
+       "at": 38.6,
+       "text": "Kin galtiyon se bachna hai?",
+       "icon": "⚠️"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 41.1,
+     "t1": 48.0,
+     "at": 41.1,
+     "title": "SAAF BAAT 🙏",
+     "kicker": null,
+     "style": "list",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 42.0,
+       "text": "Raaton-raat ameer bano scheme",
+       "icon": "❌",
+       "warn": true
+      },
+      {
+       "at": 44.6,
+       "text": "Chhota, samajhdaari wala shuruaati plan",
+       "icon": "✅"
+      }
+     ]
+    },
+    {
+     "type": "lower",
+     "t0": 48.3,
+     "t1": 57.8,
+     "at": 48.3,
+     "arrows": true,
+     "chips": [
+      {
+       "at": 49.4,
+       "text": "1 • CHHOTA TEST",
+       "hl": false
+      },
+      {
+       "at": 52.9,
+       "text": "2 • GRAHAK KI RAAY",
+       "hl": false
+      },
+      {
+       "at": 55.0,
+       "text": "3 • PHIR BADA KADAM 🚀",
+       "hl": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P2",
+   "file": "assets/audio/P2.wav",
+   "chapter": "BUSINESS KYA HAI + PRODUCTS",
+   "short": "BUSINESS + PRODUCTS",
+   "bg": [
+    {
+     "t": 0,
+     "src": "img:img_temple_sunrise",
+     "from": [
+      0.55,
+      0.75,
+      1.3
+     ],
+     "to": [
+      0.5,
+      0.7,
+      1.12
+     ]
+    },
+    {
+     "t": 5.1,
+     "src": "clip:r_collect_vertical"
+    },
+    {
+     "t": 9.8,
+     "src": "clip:w02_sorting",
+     "in": 3
+    },
+    {
+     "t": 12.2,
+     "src": "clip:w03_drying",
+     "in": 2
+    },
+    {
+     "t": 13.6,
+     "src": "clip:w05_sieving"
+    },
+    {
+     "t": 14.7,
+     "src": "clip:w06_mould"
+    },
+    {
+     "t": 18.0,
+     "src": "clip:w01b_flowers_dumped"
+    },
+    {
+     "t": 26.1,
+     "src": "clip:w09_flower_market"
+    },
+    {
+     "t": 31.0,
+     "src": "clip:w03_drying",
+     "in": 5
+    },
+    {
+     "t": 36.7,
+     "src": "img:img_cones_sticks"
+    },
+    {
+     "t": 42.3,
+     "src": "img:img_puja_cone",
+     "from": [
+      0.45,
+      0.5,
+      1.3
+     ],
+     "to": [
+      0.45,
+      0.45,
+      1.1
+     ]
+    },
+    {
+     "t": 49.0,
+     "src": "img:img_cones_sticks",
+     "from": [
+      0.8,
+      0.65,
+      1.5
+     ],
+     "to": [
+      0.75,
+      0.65,
+      1.3
+     ]
+    },
+    {
+     "t": 57.0,
+     "src": "clip:r_smoke_vertical"
+    },
+    {
+     "t": 61.4,
+     "src": "clip:w11_gift_box"
+    },
+    {
+     "t": 66.8,
+     "src": "img:img_cones_sticks",
+     "from": [
+      0.4,
+      0.55,
+      1.3
+     ],
+     "to": [
+      0.5,
+      0.5,
+      1.05
+     ]
+    }
+   ],
+   "ov": [
+    {
+     "type": "title",
+     "t0": 0.2,
+     "t1": 5.0,
+     "at": 0.2,
+     "title": "YE BUSINESS HAI KYA? 🤔",
+     "kicker": null,
+     "sub": null,
+     "sub_at": null,
+     "pos": "center",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "panel",
+     "t0": 5.2,
+     "t1": 17.8,
+     "at": 5.2,
+     "title": "BAHUT SEEDHI BAAT",
+     "kicker": "BUSINESS MODEL",
+     "style": "list",
+     "pos": "left",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 5.4,
+       "text": "Ijazat lekar saaf phool ikattha karo",
+       "icon": "📝"
+      },
+      {
+       "at": 9.9,
+       "text": "Chhaanto",
+       "icon": "🧹"
+      },
+      {
+       "at": 11.3,
+       "text": "Sukhao",
+       "icon": "☀️"
+      },
+      {
+       "at": 12.6,
+       "text": "Peeso",
+       "icon": "⚙️"
+      },
+      {
+       "at": 14.8,
+       "text": "Dhoop cone / agarbatti banao",
+       "icon": "🔺"
+      }
+     ]
+    },
+    {
+     "type": "stamp",
+     "t0": 18.0,
+     "t1": 21.4,
+     "at": 18.0,
+     "text": "BADI GALATFAHMI ⚠️",
+     "color": "red",
+     "top": 430,
+     "size": 84,
+     "rot": -4
+    },
+    {
+     "type": "panel",
+     "t0": 21.5,
+     "t1": 36.6,
+     "at": 21.5,
+     "title": "MYTH: 'MANDIR KE PHOOL FREE!'",
+     "kicker": "SACH KYA HAI ✅",
+     "style": "list",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 21.7,
+       "text": "Free milenge — zaroori nahi",
+       "icon": "❌",
+       "warn": true
+      },
+      {
+       "at": 26.2,
+       "text": "Pehle ijazat leni hogi",
+       "icon": "📝"
+      },
+      {
+       "at": 28.2,
+       "text": "Laane-le jaane ka kharcha",
+       "icon": "🚚"
+      },
+      {
+       "at": 31.0,
+       "text": "Chhantai mein mehnat",
+       "icon": "🧤"
+      },
+      {
+       "at": 33.6,
+       "text": "Sookhne ke baad wazan bahut kam",
+       "icon": "⚖️"
+      }
+     ]
+    },
+    {
+     "type": "lower",
+     "t0": 36.8,
+     "t1": 41.4,
+     "at": 36.8,
+     "arrows": false,
+     "chips": [
+      {
+       "at": 36.9,
+       "text": "SAB SHURU SE HISAAB MEIN JODO 🧮",
+       "hl": true
+      }
+     ]
+    },
+    {
+     "type": "title",
+     "t0": 41.5,
+     "t1": 42.2,
+     "at": 41.5,
+     "title": "PRODUCTS 🛍️",
+     "kicker": null,
+     "sub": null,
+     "sub_at": null,
+     "pos": "center",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "title",
+     "t0": 42.3,
+     "t1": 48.9,
+     "at": 42.3,
+     "title": "DHOOP CONE ⭐",
+     "kicker": "PRODUCT #1",
+     "sub": "Roz ki pooja • Pehle yahi banao",
+     "sub_at": null,
+     "pos": "top",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "title",
+     "t0": 49.0,
+     "t1": 56.9,
+     "at": 49.0,
+     "title": "AGARBATTI",
+     "kicker": "PRODUCT #2",
+     "sub": "Baans ki dandi + mixture chipkana = extra kaam",
+     "sub_at": null,
+     "pos": "top",
+     "size": 130,
+     "subcls": "p-gold"
+    },
+    {
+     "type": "title",
+     "t0": 57.0,
+     "t1": 61.3,
+     "at": 57.0,
+     "title": "DHOOP CUP",
+     "kicker": "PRODUCT #3",
+     "sub": "Ghar ya mandir ke liye",
+     "sub_at": null,
+     "pos": "top",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "title",
+     "t0": 61.4,
+     "t1": 66.6,
+     "at": 61.4,
+     "title": "FESTIVAL GIFT PACK 🎁",
+     "kicker": "PRODUCT #4",
+     "sub": "Tyohar mein return gift",
+     "sub_at": null,
+     "pos": "top",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "stamp",
+     "t0": 66.8,
+     "t1": 71.2,
+     "at": 66.8,
+     "text": "PEHLE EK CHEEZ ACHHE SE ✅",
+     "color": "teal",
+     "top": 430,
+     "size": 76,
+     "rot": -4
+    }
+   ]
+  },
+  {
+   "id": "P3",
+   "file": "assets/audio/P3.wav",
+   "chapter": "BANANE KE 8 STEPS",
+   "short": "8 STEPS PROCESS",
+   "bg": [
+    {
+     "t": 0,
+     "src": "img:img_workshop",
+     "from": [
+      0.5,
+      0.5,
+      1.05
+     ],
+     "to": [
+      0.5,
+      0.55,
+      1.2
+     ]
+    },
+    {
+     "t": 5.6,
+     "src": "clip:r_collect_vertical"
+    },
+    {
+     "t": 12.3,
+     "src": "clip:w09_flower_market",
+     "in": 4
+    },
+    {
+     "t": 16.8,
+     "src": "clip:w02_sorting"
+    },
+    {
+     "t": 25.9,
+     "src": "clip:w03_drying"
+    },
+    {
+     "t": 36.5,
+     "src": "clip:w04_grinding"
+    },
+    {
+     "t": 41.8,
+     "src": "clip:w05_sieving"
+    },
+    {
+     "t": 46.4,
+     "src": "clip:w12_mixing_mask"
+    },
+    {
+     "t": 61.7,
+     "src": "clip:w06_mould"
+    },
+    {
+     "t": 70.5,
+     "src": "clip:w07_burning"
+    },
+    {
+     "t": 79.6,
+     "src": "clip:w08_packing"
+    }
+   ],
+   "ov": [
+    {
+     "type": "title",
+     "t0": 0.2,
+     "t1": 5.4,
+     "at": 0.2,
+     "title": "8 STEPS MEIN BANAO 👇",
+     "kicker": "AB AATA HAI ASLI MAZA 😎",
+     "sub": null,
+     "sub_at": null,
+     "pos": "center",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "panel",
+     "t0": 5.7,
+     "t1": 16.7,
+     "at": 5.7,
+     "title": "IJAZAT + PHOOL IKATTHA",
+     "kicker": "STEP 1 / 8",
+     "style": "list",
+     "pos": "left",
+     "w": 960,
+     "top": 150,
+     "badge": null,
+     "dots": [
+      1,
+      8
+     ],
+     "footer": null,
+     "items": [
+      {
+       "at": 7.5,
+       "text": "Likhkar ya saaf shabdon mein ijazat lo",
+       "icon": "📝"
+      },
+      {
+       "at": 12.5,
+       "text": "Kab • kis dibbe mein • kaun le jayega — tay karo",
+       "icon": "📦"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 16.9,
+     "t1": 25.8,
+     "at": 16.9,
+     "title": "CHHANTAI",
+     "kicker": "STEP 2 / 8",
+     "style": "list",
+     "pos": "left",
+     "w": 960,
+     "top": 150,
+     "badge": null,
+     "dots": [
+      2,
+      8
+     ],
+     "footer": null,
+     "items": [
+      {
+       "at": 17.6,
+       "text": "Plastic • dhaaga • foil • mitti alag",
+       "icon": "❌"
+      },
+      {
+       "at": 19.6,
+       "text": "Khaane ka kachra • sade phool alag",
+       "icon": "❌"
+      },
+      {
+       "at": 21.6,
+       "text": "Ek gandi cheez = poora batch kharab!",
+       "icon": "⚠️",
+       "warn": true
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 26.0,
+     "t1": 36.4,
+     "at": 26.0,
+     "title": "SAFAI + SUKHANA ☀️",
+     "kicker": "STEP 3 / 8",
+     "style": "list",
+     "pos": "left",
+     "w": 960,
+     "top": 150,
+     "badge": null,
+     "dots": [
+      3,
+      8
+     ],
+     "footer": null,
+     "items": [
+      {
+       "at": 31.6,
+       "text": "Dhoop ya dryer mein poori tarah sukhao",
+       "icon": "☀️"
+      },
+      {
+       "at": 34.6,
+       "text": "Zara bhi nami = fafoond + badbu",
+       "icon": "⚠️",
+       "warn": true
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 36.6,
+     "t1": 46.3,
+     "at": 36.6,
+     "title": "PEESNA + CHHAANNA",
+     "kicker": "STEP 4 / 8",
+     "style": "list",
+     "pos": "left",
+     "w": 960,
+     "top": 150,
+     "badge": null,
+     "dots": [
+      4,
+      8
+     ],
+     "footer": null,
+     "items": [
+      {
+       "at": 41.9,
+       "text": "Sookhe phool peeso, phir chhaano",
+       "icon": "⚙️"
+      },
+      {
+       "at": 43.8,
+       "text": "Saaf, sookhe dibbe mein • label lagao",
+       "icon": "🏷️"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 46.5,
+     "t1": 61.6,
+     "at": 46.5,
+     "title": "MIXTURE KA CHHOTA TRIAL 🧪",
+     "kicker": "STEP 5 / 8",
+     "style": "list",
+     "pos": "left",
+     "w": 960,
+     "top": 150,
+     "badge": null,
+     "dots": [
+      5,
+      8
+     ],
+     "footer": null,
+     "items": [
+      {
+       "at": 47.6,
+       "text": "Powder + chipkane wala padarth",
+       "icon": "🧪"
+      },
+      {
+       "at": 51.0,
+       "text": "Koi ek FIXED formula nahi",
+       "icon": "⚠️",
+       "warn": true
+      },
+      {
+       "at": 57.2,
+       "text": "Har phool alag — jaankaar se salah zaroor lo",
+       "icon": "🧑‍🔬"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 61.8,
+     "t1": 70.4,
+     "at": 61.8,
+     "title": "AAKAAR + SUKHANA",
+     "kicker": "STEP 6 / 8",
+     "style": "list",
+     "pos": "left",
+     "w": 960,
+     "top": 150,
+     "badge": null,
+     "dots": [
+      6,
+      8
+     ],
+     "footer": null,
+     "items": [
+      {
+       "at": 62.6,
+       "text": "Mould se cone banao",
+       "icon": "🔺"
+      },
+      {
+       "at": 66.3,
+       "text": "Ek jaisa aakaar • daraar nahi • poora sookha",
+       "icon": "✅"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 70.6,
+     "t1": 79.5,
+     "at": 70.6,
+     "title": "JALAKAR JAANCH 🔥",
+     "kicker": "STEP 7 / 8",
+     "style": "list",
+     "pos": "left",
+     "w": 960,
+     "top": 150,
+     "badge": null,
+     "dots": [
+      7,
+      8
+     ],
+     "footer": null,
+     "items": [
+      {
+       "at": 71.0,
+       "text": "Kitni der jalta hai?",
+       "icon": "⏱️"
+      },
+      {
+       "at": 72.6,
+       "text": "Dhuaan kitna?",
+       "icon": "💨"
+      },
+      {
+       "at": 74.0,
+       "text": "Raakh kaisi?",
+       "icon": "⚪"
+      },
+      {
+       "at": 75.3,
+       "text": "Khushboo kaisi?",
+       "icon": "🌸"
+      },
+      {
+       "at": 77.0,
+       "text": "Ye jaanch bahut zaroori!",
+       "icon": "✅"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 79.7,
+     "t1": 87.4,
+     "at": 79.7,
+     "title": "PACKING 📦",
+     "kicker": "STEP 8 / 8",
+     "style": "list",
+     "pos": "left",
+     "w": 960,
+     "top": 150,
+     "badge": null,
+     "dots": [
+      8,
+      8
+     ],
+     "footer": null,
+     "items": [
+      {
+       "at": 80.6,
+       "text": "Nami se bachane wala pack",
+       "icon": "🛡️"
+      },
+      {
+       "at": 82.6,
+       "text": "Wazan • batch no. • taareekh",
+       "icon": "🏷️"
+      },
+      {
+       "at": 84.8,
+       "text": "Banane wale ka naam",
+       "icon": "✍️"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P4",
+   "file": "assets/audio/P4.wav",
+   "chapter": "₹5,000 STARTING BUDGET",
+   "short": "₹5,000 BUDGET",
+   "bg": [
+    {
+     "t": 0,
+     "src": "img:img_packs_money",
+     "from": [
+      0.5,
+      0.6,
+      1.2
+     ],
+     "to": [
+      0.5,
+      0.5,
+      1.0
+     ]
+    },
+    {
+     "t": 9.9,
+     "src": "img:img_workshop",
+     "from": [
+      0.3,
+      0.5,
+      1.3
+     ],
+     "to": [
+      0.7,
+      0.5,
+      1.3
+     ]
+    },
+    {
+     "t": 47.9,
+     "src": "img:img_packs_money",
+     "from": [
+      0.75,
+      0.7,
+      1.4
+     ],
+     "to": [
+      0.7,
+      0.7,
+      1.2
+     ]
+    },
+    {
+     "t": 52.2,
+     "src": "img:img_workshop"
+    },
+    {
+     "t": 63.2,
+     "src": "clip:w07_burning"
+    }
+   ],
+   "ov": [
+    {
+     "type": "title",
+     "t0": 0.2,
+     "t1": 4.3,
+     "at": 0.2,
+     "title": "KITNE PAISE CHAHIYE? 💰",
+     "kicker": "SABSE ZAROORI SAWAAL",
+     "sub": null,
+     "sub_at": null,
+     "pos": "center",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "stat",
+     "t0": 4.5,
+     "t1": 14.3,
+     "at": 4.6,
+     "kicker": "SIRF",
+     "value": 5000,
+     "sub": "⚠️ Factory nahi — ghar se chhota TEST",
+     "sub_at": 7.8
+    },
+    {
+     "type": "panel",
+     "t0": 14.5,
+     "t1": 52.0,
+     "at": 14.5,
+     "title": "₹5,000 BUDGET BREAKDOWN",
+     "kicker": "KHARCHA KAHAN HOGA?",
+     "style": "bars",
+     "pos": "center",
+     "w": 1300,
+     "top": 110,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 18.6,
+       "text": "Dibbe + dastane + mask",
+       "val": 500
+      },
+      {
+       "at": 21.6,
+       "text": "Sukhane ki tray + stand",
+       "val": 900
+      },
+      {
+       "at": 23.8,
+       "text": "Taraazu + chhalni",
+       "val": 600
+      },
+      {
+       "at": 27.8,
+       "text": "Peesne-milane ke auzaar",
+       "val": 700
+      },
+      {
+       "at": 30.2,
+       "text": "Cone ke saanche",
+       "val": 500
+      },
+      {
+       "at": 32.6,
+       "text": "Trial saamaan (binder + test khushboo)",
+       "val": 700
+      },
+      {
+       "at": 40.6,
+       "text": "Pouch + label",
+       "val": 500
+      },
+      {
+       "at": 43.6,
+       "text": "Aana-jaana + achanak kharch",
+       "val": 600
+      },
+      {
+       "at": 48.0,
+       "text": "TOTAL",
+       "val": 5000,
+       "total": true
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 52.3,
+     "t1": 63.0,
+     "at": 52.3,
+     "title": "IS BUDGET MEIN SHAMIL NAHI",
+     "kicker": "DHYAN DO ⚠️",
+     "style": "cross",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 53.0,
+       "text": "Dukaan ka kiraya"
+      },
+      {
+       "at": 53.9,
+       "text": "Mazdoori"
+      },
+      {
+       "at": 54.8,
+       "text": "Badi machine"
+      },
+      {
+       "at": 55.8,
+       "text": "Lab test"
+      },
+      {
+       "at": 57.2,
+       "text": "Registration"
+      },
+      {
+       "at": 58.6,
+       "text": "Bada stock"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 63.3,
+     "t1": 68.6,
+     "at": 63.3,
+     "title": "₹5,000 SIRF YE JAANNE KE LIYE",
+     "kicker": null,
+     "style": "check",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 63.6,
+       "text": "Product sach mein banta hai?"
+      },
+      {
+       "at": 66.0,
+       "text": "Log use pasand karte hain?"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P5",
+   "file": "assets/audio/P5.wav",
+   "chapter": "EK PACK KA HISAAB",
+   "short": "PACK KA HISAAB",
+   "bg": [
+    {
+     "t": 0,
+     "src": "img:img_packs_money",
+     "from": [
+      0.55,
+      0.55,
+      1.0
+     ],
+     "to": [
+      0.5,
+      0.5,
+      1.15
+     ]
+    },
+    {
+     "t": 6.4,
+     "src": "clip:w08_packing"
+    },
+    {
+     "t": 26.3,
+     "src": "img:img_packs_money",
+     "from": [
+      0.4,
+      0.65,
+      1.5
+     ],
+     "to": [
+      0.45,
+      0.65,
+      1.3
+     ]
+    },
+    {
+     "t": 46.8,
+     "src": "clip:w08_packing",
+     "in": 5
+    },
+    {
+     "t": 65.4,
+     "src": "img:img_packs_money"
+    }
+   ],
+   "ov": [
+    {
+     "type": "title",
+     "t0": 0.2,
+     "t1": 6.2,
+     "at": 0.2,
+     "title": "EK PACK KA HISAAB 🧮",
+     "kicker": "AB AATE HAIN HISAAB PAR",
+     "sub": "20g TEST PACK",
+     "sub_at": 3.5,
+     "pos": "center",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "panel",
+     "t0": 6.5,
+     "t1": 26.1,
+     "at": 6.5,
+     "title": "KHARCHA: 20g PACK",
+     "kicker": "EK PACK",
+     "style": "money",
+     "pos": "left",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 7.2,
+       "text": "Phool powder + chhantai nuksaan",
+       "val": "₹4"
+      },
+      {
+       "at": 11.6,
+       "text": "Chipkane wala padarth",
+       "val": "₹4"
+      },
+      {
+       "at": 17.0,
+       "text": "Khushboo + baaki saamaan",
+       "val": "₹2"
+      },
+      {
+       "at": 19.2,
+       "text": "Mazdoori + sukhana + bijli",
+       "val": "₹3"
+      },
+      {
+       "at": 21.8,
+       "text": "Pouch + label",
+       "val": "₹2"
+      },
+      {
+       "at": 24.4,
+       "text": "SEEDHA KHARCHA",
+       "val": "₹16",
+       "total": true
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 26.4,
+     "t1": 34.2,
+     "at": 26.4,
+     "title": "AGAR ₹39 MEIN BECHEIN",
+     "kicker": null,
+     "style": "money",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 26.6,
+       "text": "Daam",
+       "icon": "💰",
+       "val": "₹39"
+      },
+      {
+       "at": 28.4,
+       "text": "Kharcha",
+       "icon": "➖",
+       "val": "−₹16"
+      },
+      {
+       "at": 31.0,
+       "text": "BACHAT / PACK 🎉",
+       "icon": "🟰",
+       "val": "₹23",
+       "total": true
+      }
+     ]
+    },
+    {
+     "type": "stamp",
+     "t0": 34.3,
+     "t1": 35.7,
+     "at": 34.3,
+     "text": "RUKO! ✋",
+     "color": "red",
+     "top": 430,
+     "size": 120,
+     "rot": -4
+    },
+    {
+     "type": "panel",
+     "t0": 35.8,
+     "t1": 46.6,
+     "at": 35.8,
+     "title": "ABHI GHATANA BAAKI",
+     "kicker": "₹23 POORI BACHAT NAHI",
+     "style": "cross",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 36.5,
+       "text": "Kiraya"
+      },
+      {
+       "at": 37.2,
+       "text": "Prachaar"
+      },
+      {
+       "at": 38.0,
+       "text": "Delivery"
+      },
+      {
+       "at": 38.9,
+       "text": "Wapas aaya maal"
+      },
+      {
+       "at": 41.0,
+       "text": "Aapki apni tankhwah"
+      },
+      {
+       "at": 42.6,
+       "text": "Tax"
+      },
+      {
+       "at": 43.6,
+       "text": "Machine ki ghisaai"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 46.9,
+     "t1": 65.2,
+     "at": 46.9,
+     "title": "PEHLA BATCH: 100 PACK",
+     "kicker": null,
+     "style": "money",
+     "pos": "center",
+     "w": 1150,
+     "top": 170,
+     "badge": null,
+     "dots": null,
+     "footer": "*Sirf chhota anumaan",
+     "items": [
+      {
+       "at": 48.6,
+       "text": "Bikri: 100 × ₹39",
+       "icon": "📦",
+       "val": "₹3,900"
+      },
+      {
+       "at": 52.6,
+       "text": "Kharcha: 100 × ₹16",
+       "icon": "➖",
+       "val": "−₹1,600"
+      },
+      {
+       "at": 58.4,
+       "text": "Bechna + local delivery test",
+       "icon": "🚚",
+       "val": "−₹500"
+      },
+      {
+       "at": 62.0,
+       "text": "ANUMANIT BACHAT",
+       "icon": "🟰",
+       "val": "≈ ₹1,800",
+       "total": true
+      }
+     ]
+    },
+    {
+     "type": "stamp",
+     "t0": 65.5,
+     "t1": 70.6,
+     "at": 65.5,
+     "text": "GUARANTEED PROFIT NAHI ⚠️",
+     "color": "red",
+     "top": 430,
+     "size": 80,
+     "rot": -4
+    },
+    {
+     "type": "lower",
+     "t0": 70.8,
+     "t1": 76.9,
+     "at": 70.8,
+     "arrows": false,
+     "chips": [
+      {
+       "at": 71.0,
+       "text": "NA BIKA YA WAPAS AAYA MAAL = ALAG NUKSAAN",
+       "hl": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P6",
+   "file": "assets/audio/P6.wav",
+   "chapter": "PHOOL KAHAN SE • BECHNA KAHAN",
+   "short": "SOURCE + SELLING + 90 DIN",
+   "bg": [
+    {
+     "t": 0,
+     "src": "clip:w09_flower_market"
+    },
+    {
+     "t": 4.2,
+     "src": "img:img_temple_sunrise"
+    },
+    {
+     "t": 9.1,
+     "src": "clip:w09_flower_market",
+     "in": 5
+    },
+    {
+     "t": 13.2,
+     "src": "clip:r_collect_vertical"
+    },
+    {
+     "t": 17.3,
+     "src": "img:img_cones_sticks",
+     "from": [
+      0.8,
+      0.65,
+      1.4
+     ],
+     "to": [
+      0.7,
+      0.6,
+      1.2
+     ]
+    },
+    {
+     "t": 23.2,
+     "src": "clip:r_shop_vertical"
+    },
+    {
+     "t": 32.4,
+     "src": "clip:w07_burning"
+    },
+    {
+     "t": 36.9,
+     "src": "clip:w11_gift_box"
+    },
+    {
+     "t": 41.6,
+     "src": "img:img_packs_money"
+    },
+    {
+     "t": 48.1,
+     "src": "img:img_workshop"
+    },
+    {
+     "t": 69.6,
+     "src": "clip:w08_packing"
+    },
+    {
+     "t": 74.2,
+     "src": "clip:r_shop_vertical"
+    },
+    {
+     "t": 81.0,
+     "src": "img:img_puja_cone",
+     "from": [
+      0.45,
+      0.5,
+      1.0
+     ],
+     "to": [
+      0.45,
+      0.45,
+      1.15
+     ]
+    }
+   ],
+   "ov": [
+    {
+     "type": "panel",
+     "t0": 0.2,
+     "t1": 23.0,
+     "at": 0.2,
+     "title": "PHOOL KAHAN SE? 🌸",
+     "kicker": "4 RAASTE",
+     "style": "list",
+     "pos": "left",
+     "w": 900,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 4.3,
+       "text": "Mandir / dharmik sthal — ijazat, samay, dibbe tay",
+       "icon": "🛕"
+      },
+      {
+       "at": 9.2,
+       "text": "Phool mandi / florist — roz ke bache phool",
+       "icon": "💐"
+      },
+      {
+       "at": 13.3,
+       "text": "Event decorator — karyakram ke baad",
+       "icon": "🎉"
+      },
+      {
+       "at": 17.4,
+       "text": "Baaki kachcha maal: baans dandi + manzoor khushboo (sahi bill)",
+       "icon": "🎋"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 23.3,
+     "t1": 47.9,
+     "at": 23.3,
+     "title": "KAHAN BECHEIN? 🛒",
+     "kicker": "4 CHANNELS",
+     "style": "list",
+     "pos": "right",
+     "w": 900,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 26.6,
+       "text": "Pooja dukaan — sample pack + unki raay",
+       "icon": "🏪"
+      },
+      {
+       "at": 32.5,
+       "text": "WhatsApp + Instagram — demo + apni kahani",
+       "icon": "📱"
+      },
+      {
+       "at": 37.0,
+       "text": "Tyohar gift box + corporate gifting",
+       "icon": "🎁"
+      },
+      {
+       "at": 39.6,
+       "text": "Online marketplace",
+       "icon": "🌐"
+      },
+      {
+       "at": 42.0,
+       "text": "Pehle packing, fees, toot-phoot ka hisaab",
+       "icon": "⚠️",
+       "warn": true
+      }
+     ]
+    },
+    {
+     "type": "timeline",
+     "t0": 48.2,
+     "t1": 80.8,
+     "at": 48.2,
+     "title": "PEHLE 30 DIN ⏳",
+     "blocks": [
+      {
+       "at": 50.6,
+       "day": "DIN 1–5",
+       "text": "Ijazat + 2-3 phool srot tay"
+      },
+      {
+       "at": 53.6,
+       "day": "6–10",
+       "text": "Chhantai, sukhana, peesna"
+      },
+      {
+       "at": 58.6,
+       "day": "11–15",
+       "text": "Chhote cone ke trial"
+      },
+      {
+       "at": 63.4,
+       "day": "16–20",
+       "text": "Jalakar + nami jaanch"
+      },
+      {
+       "at": 69.7,
+       "day": "21–25",
+       "text": "Packing, label, daam test"
+      },
+      {
+       "at": 74.3,
+       "day": "26–30",
+       "text": "Raay + pehla asli order 🎉"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 81.1,
+     "t1": 101.4,
+     "at": 81.1,
+     "title": "90 DIN — 3 SAWAAL",
+     "kicker": null,
+     "style": "list",
+     "pos": "right",
+     "w": 920,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 84.6,
+       "text": "Mahina 1: Har baar theek sookhta + jalta hai?",
+       "icon": "1️⃣"
+      },
+      {
+       "at": 89.0,
+       "text": "Mahina 2: Grahak dobara khareedta hai?",
+       "icon": "2️⃣"
+      },
+      {
+       "at": 93.4,
+       "text": "Mahina 3: Munafa + quality dono tik rahe?",
+       "icon": "3️⃣"
+      },
+      {
+       "at": 97.8,
+       "text": "Jawab HAAN? Tab aage badho 🚀",
+       "icon": "✅",
+       "total": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P7",
+   "file": "assets/audio/P7.wav",
+   "chapter": "1 SAAL KI KAMAI + MACHINE",
+   "short": "1 SAAL + MACHINE",
+   "bg": [
+    {
+     "t": 0,
+     "src": "img:img_packs_money",
+     "from": [
+      0.6,
+      0.6,
+      1.25
+     ],
+     "to": [
+      0.5,
+      0.55,
+      1.05
+     ]
+    },
+    {
+     "t": 6.8,
+     "src": "clip:w08_packing"
+    },
+    {
+     "t": 26.0,
+     "src": "clip:w11_gift_box"
+    },
+    {
+     "t": 49.0,
+     "src": "img:img_workshop"
+    },
+    {
+     "t": 53.6,
+     "src": "img:img_workshop",
+     "from": [
+      0.55,
+      0.45,
+      1.3
+     ],
+     "to": [
+      0.45,
+      0.5,
+      1.15
+     ]
+    },
+    {
+     "t": 70.4,
+     "src": "clip:w06_mould"
+    }
+   ],
+   "ov": [
+    {
+     "type": "title",
+     "t0": 0.2,
+     "t1": 6.6,
+     "at": 0.2,
+     "title": "1 SAAL MEIN KITNI KAMAI? 📈",
+     "kicker": null,
+     "sub": "Sirf anumaan — GUARANTEE NAHI",
+     "sub_at": 4.0,
+     "pos": "center",
+     "size": 120,
+     "subcls": "p-red"
+    },
+    {
+     "type": "compare",
+     "t0": 6.9,
+     "t1": 48.8,
+     "at": 6.9,
+     "footer": "*Anumaan — asli nateeja demand, daam, barbaadi aur bechne ke tareeke par",
+     "cols": [
+      {
+       "kicker": "RAASTA 1",
+       "title": "DHEERE BADHNA 🐢",
+       "rows": [
+        {
+         "at": 8.6,
+         "text": "Packs / saal",
+         "val": "4,500"
+        },
+        {
+         "at": 11.0,
+         "text": "Bikri",
+         "val": "₹1,75,500"
+        },
+        {
+         "at": 14.6,
+         "text": "Seedha kharcha",
+         "val": "−₹72,000"
+        },
+        {
+         "at": 17.6,
+         "text": "Bachat",
+         "val": "₹1,03,500"
+        },
+        {
+         "at": 20.6,
+         "text": "Fixed kharcha",
+         "val": "−₹48,000"
+        },
+        {
+         "at": 23.4,
+         "text": "ANUMANIT",
+         "val": "≈ ₹55,500",
+         "total": true
+        }
+       ]
+      },
+      {
+       "kicker": "RAASTA 2",
+       "title": "TEZI SE BADHNA 🚀",
+       "rows": [
+        {
+         "at": 28.6,
+         "text": "Packs / saal",
+         "val": "11,150"
+        },
+        {
+         "at": 32.0,
+         "text": "Bikri",
+         "val": "₹4,34,850"
+        },
+        {
+         "at": 36.0,
+         "text": "Seedha kharcha",
+         "val": "−₹1,78,400"
+        },
+        {
+         "at": 39.6,
+         "text": "Bachat",
+         "val": "₹2,56,450"
+        },
+        {
+         "at": 43.0,
+         "text": "Fixed kharcha",
+         "val": "−₹1,20,000"
+        },
+        {
+         "at": 46.0,
+         "text": "ANUMANIT",
+         "val": "≈ ₹1,36,450",
+         "total": true
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "lower",
+     "t0": 49.1,
+     "t1": 53.4,
+     "at": 49.1,
+     "arrows": false,
+     "chips": [
+      {
+       "at": 49.2,
+       "text": "DEMAND",
+       "hl": false
+      },
+      {
+       "at": 50.2,
+       "text": "DAAM",
+       "hl": false
+      },
+      {
+       "at": 51.0,
+       "text": "BARBAADI",
+       "hl": false
+      },
+      {
+       "at": 51.9,
+       "text": "BECHNE KA TAREEKA",
+       "hl": true
+      }
+     ]
+    },
+    {
+     "type": "title",
+     "t0": 53.7,
+     "t1": 59.0,
+     "at": 53.7,
+     "title": "MACHINE KAB LEIN? 🤔",
+     "kicker": null,
+     "sub": null,
+     "sub_at": null,
+     "pos": "center",
+     "size": 130,
+     "subcls": null
+    },
+    {
+     "type": "stamp",
+     "t0": 59.2,
+     "t1": 61.0,
+     "at": 59.2,
+     "text": "JALDI BILKUL NAHI! ✋",
+     "color": "red",
+     "top": 430,
+     "size": 100,
+     "rot": -4
+    },
+    {
+     "type": "cards",
+     "t0": 61.1,
+     "t1": 70.2,
+     "at": 61.1,
+     "title": "ONLINE LISTING EXAMPLES",
+     "footer": "*Sirf listing ke udaharan — daam badalte rehte hain",
+     "cards": [
+      {
+       "at": 61.4,
+       "icon": "🪔",
+       "label": "Agarbatti machine",
+       "val": "~₹65,000"
+      },
+      {
+       "at": 64.0,
+       "icon": "☀️",
+       "label": "Dryer",
+       "val": "~₹10,000"
+      },
+      {
+       "at": 65.6,
+       "icon": "⚙️",
+       "label": "Mixer",
+       "val": "~₹22,000"
+      },
+      {
+       "at": 67.4,
+       "icon": "🔺",
+       "label": "Dry dhoop cone machine",
+       "val": "~₹35,000"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 70.5,
+     "t1": 77.7,
+     "at": 70.5,
+     "title": "MACHINE TAB LO JAB…",
+     "kicker": null,
+     "style": "check",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 71.6,
+       "text": "Baar-baar order aa rahe hon"
+      },
+      {
+       "at": 75.8,
+       "text": "Haath se banana sach mein rukawat ban jaye"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P8",
+   "file": "assets/audio/P8.wav",
+   "chapter": "SURAKSHA + KAANOON",
+   "short": "SURAKSHA + KAANOON",
+   "bg": [
+    {
+     "t": 0,
+     "src": "img:img_workshop",
+     "from": [
+      0.85,
+      0.7,
+      1.6
+     ],
+     "to": [
+      0.8,
+      0.7,
+      1.35
+     ]
+    },
+    {
+     "t": 5.2,
+     "src": "clip:w02_sorting"
+    },
+    {
+     "t": 14.5,
+     "src": "clip:w07_burning"
+    },
+    {
+     "t": 27.4,
+     "src": "img:img_cones_sticks"
+    },
+    {
+     "t": 37.4,
+     "src": "img:img_packs_money"
+    },
+    {
+     "t": 44.0,
+     "src": "clip:w12_mixing_mask"
+    },
+    {
+     "t": 51.2,
+     "src": "img:img_temple_sunrise"
+    },
+    {
+     "t": 56.4,
+     "src": "clip:r_smoke_vertical"
+    },
+    {
+     "t": 62.8,
+     "src": "img:img_temple_sunrise",
+     "from": [
+      0.5,
+      0.5,
+      1.15
+     ],
+     "to": [
+      0.5,
+      0.5,
+      1.0
+     ]
+    },
+    {
+     "t": 68.5,
+     "src": "img:img_puja_cone"
+    },
+    {
+     "t": 73.1,
+     "src": "clip:w11_gift_box"
+    },
+    {
+     "t": 78.3,
+     "src": "img:img_puja_cone",
+     "from": [
+      0.45,
+      0.5,
+      1.25
+     ],
+     "to": [
+      0.45,
+      0.5,
+      1.05
+     ]
+    }
+   ],
+   "ov": [
+    {
+     "type": "title",
+     "t0": 0.2,
+     "t1": 5.0,
+     "at": 0.2,
+     "title": "SURAKSHA + KAANOON ⚖️",
+     "kicker": null,
+     "sub": "Yahan laaparwaahi mat karna",
+     "sub_at": 2.6,
+     "pos": "center",
+     "size": 130,
+     "subcls": "p-red"
+    },
+    {
+     "type": "panel",
+     "t0": 5.2,
+     "t1": 56.2,
+     "at": 5.2,
+     "title": "7 ZAROORI NIYAM",
+     "kicker": null,
+     "style": "num",
+     "pos": "center",
+     "w": 1640,
+     "top": 110,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 5.4,
+       "text": "Nami, fafoond, baahri cheez ya badbu? Use mat karo"
+      },
+      {
+       "at": 10.4,
+       "text": "Har batch: jalne ka samay, dhuaan, raakh, khushboo likho"
+      },
+      {
+       "at": 14.6,
+       "text": "Bina jaanch 'chemical-free / non-toxic / dhuaan-rahit' ya sehat ke daave NAHI"
+      },
+      {
+       "at": 26.0,
+       "text": "Agarbatti BIS standard IS 19412:2025 samjho • roke gaye padarth se bacho"
+      },
+      {
+       "at": 37.5,
+       "text": "Registration, GST, packing ghoshnaayein, local anumati check"
+      },
+      {
+       "at": 44.0,
+       "text": "Mask, dastane, hawa • powder ki dhool saans mein nahi"
+      },
+      {
+       "at": 51.3,
+       "text": "Mandir ka naam/logo bina likhit ijazat NAHI"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "t0": 56.4,
+     "t1": 62.6,
+     "at": 56.4,
+     "title": "GRAHAK KO LIKHKAR BATAO",
+     "kicker": null,
+     "style": "list",
+     "pos": "right",
+     "w": null,
+     "top": null,
+     "badge": null,
+     "dots": null,
+     "footer": null,
+     "items": [
+      {
+       "at": 56.6,
+       "text": "Jalti cheez akeli na chhodein",
+       "icon": "🔥"
+      },
+      {
+       "at": 59.4,
+       "text": "Bachchon + pets se door rakhein",
+       "icon": "👶"
+      }
+     ]
+    },
+    {
+     "type": "lower",
+     "t0": 62.9,
+     "t1": 69.0,
+     "at": 62.9,
+     "arrows": false,
+     "chips": [
+      {
+       "at": 63.0,
+       "text": "CHHOTA SHURU",
+       "hl": false
+      },
+      {
+       "at": 64.5,
+       "text": "HISAAB SAAF",
+       "hl": false
+      },
+      {
+       "at": 66.0,
+       "text": "QUALITY PAR SAMJHAUTA NAHI",
+       "hl": true
+      }
+     ]
+    },
+    {
+     "type": "title",
+     "t0": 69.1,
+     "t1": 75.8,
+     "at": 69.1,
+     "title": "KAL KA KACHRA ➜ AAJ BUSINESS KI KHUSHBOO 🌸",
+     "kicker": "YAAD RAKHIYE",
+     "sub": null,
+     "sub_at": null,
+     "pos": "center",
+     "size": 96,
+     "subcls": null
+    },
+    {
+     "type": "title",
+     "t0": 75.9,
+     "t1": 83.8,
+     "at": 75.9,
+     "title": "COMMENT 'FLOWER' 👇",
+     "kicker": "POORA PLAN + GUIDE + TEMPLATE? 📘",
+     "sub": "🌐 ideaspulse.in",
+     "sub_at": 79.4,
+     "pos": "center",
+     "size": 150,
+     "subcls": null
+    }
+   ]
+  }
+ ],
+ "sfx_rules": {
+  "bg_cut": "whoosh",
+  "title": "impact",
+  "stamp": "impact",
+  "item": "pop",
+  "chapter": "riser"
+ }
+}

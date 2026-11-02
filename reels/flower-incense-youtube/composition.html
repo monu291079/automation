@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<title>IdeasPulse Flower Incense YouTube Video</title>
+<style>
+@font-face { font-family: "Anton"; src: url(assets/fonts/Anton-Regular.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 500; src: url(assets/fonts/Poppins-Medium.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 700; src: url(assets/fonts/Poppins-Bold.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 800; src: url(assets/fonts/Poppins-ExtraBold.ttf); }
+@font-face { font-family: "Poppins"; font-weight: 900; src: url(assets/fonts/Poppins-Black.ttf); }
+:root { --navy: #12213A; --navy2: #0B1526; --gold: #A9812E; --gold-l: #E2BE6A; --gold-xl: #F6E2A6; --cream: #FAF9F5; --teal: #218C87; --teal-l: #39C2BA; --red: #FF5A2C; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--navy2); }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: Poppins, "Noto Color Emoji", sans-serif; color: var(--cream); }
+.abs { position: absolute; }
+.layer { position: absolute; inset: 0; }
+img { display: block; }
+.anton { font-family: Anton, "Noto Color Emoji", sans-serif; text-transform: uppercase; letter-spacing: 1px; line-height: 1.05; }
+.gold { background: linear-gradient(110deg, transparent 42%, rgba(255,255,255,.95) 50%, transparent 58%), linear-gradient(180deg, var(--gold-xl) 0%, var(--gold-l) 45%, var(--gold) 100%);
+  background-size: 300% 100%, 100% 100%; background-position: 120% 0, 0 0; -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 5px 0 rgba(0,0,0,.5)) drop-shadow(0 0 22px rgba(226,190,106,.22)); }
+.emo { display: inline-block; color: #fff; -webkit-text-fill-color: #fff; background: none; }
+.cream { color: var(--cream); text-shadow: 0 4px 0 rgba(0,0,0,.5), 0 0 24px rgba(0,0,0,.4); }
+.pill { display: inline-flex; align-items: center; gap: 12px; padding: 12px 30px; border-radius: 999px; font-weight: 800; white-space: nowrap; }
+.p-gold { border: 3px solid var(--gold-l); background: rgba(18,33,58,.9); color: var(--gold-xl); }
+.p-solid { background: linear-gradient(180deg, #F6E2A6, #E2BE6A 50%, #B88E36); color: #12213A; box-shadow: 0 10px 30px rgba(226,190,106,.35); }
+.p-teal { background: linear-gradient(180deg, #27a39c, var(--teal)); color: #fff; box-shadow: 0 10px 30px rgba(33,140,135,.4); }
+.p-red { background: rgba(80,16,8,.85); border: 3px solid var(--red); color: #FFC7B5; }
+.glass { background: linear-gradient(180deg, rgba(23,42,73,.92), rgba(11,21,38,.94)); border: 2px solid rgba(226,190,106,.55); border-radius: 28px; box-shadow: 0 30px 80px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); }
+
+/* background */
+#bgWrap { position: absolute; inset: 0; overflow: hidden; background: #000; }
+.bgimg { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform-origin: 0 0; }
+#dim { position: absolute; inset: 0; background: rgba(8,14,26,.25); }
+#vig { position: absolute; inset: 0; background: radial-gradient(120% 95% at 50% 45%, transparent 55%, rgba(0,0,0,.55)), linear-gradient(180deg, rgba(8,14,26,.45) 0%, transparent 18%, transparent 70%, rgba(8,14,26,.75) 100%); }
+
+/* overlays */
+.ov { position: absolute; inset: 0; opacity: 0; visibility: hidden; }
+.panel { position: absolute; padding: 34px 40px; }
+.panel .ph { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.panel .kick { font-weight: 800; font-size: 30px; letter-spacing: 3px; color: var(--teal-l); text-transform: uppercase; }
+.panel .ttl { font-family: Anton, "Noto Color Emoji"; font-size: 68px; text-transform: uppercase; line-height: 1.05; }
+.row { display: flex; align-items: center; gap: 18px; padding: 14px 18px; margin: 10px 0; border-radius: 16px; background: rgba(250,249,245,.06); border-left: 6px solid var(--gold-l); font-weight: 700; font-size: 37px; line-height: 1.22; }
+.row .ic { flex: none; width: 54px; text-align: center; font-size: 34px; }
+.row .tx { flex: 1; }
+.row .val { flex: none; font-family: Anton; font-size: 46px; color: var(--gold-xl); letter-spacing: 1px; }
+.row.warn { border-left-color: var(--red); background: rgba(255,90,44,.14); color: #FFD3C6; }
+.row.total { background: linear-gradient(90deg, rgba(33,140,135,.55), rgba(33,140,135,.2)); border-left-color: var(--teal-l); font-weight: 900; }
+.row.total .val { font-size: 50px; color: #fff; }
+.row.cross .ic { color: var(--red); }
+.bar { position: relative; height: 62px; margin: 9px 0; border-radius: 12px; background: rgba(250,249,245,.06); overflow: hidden; }
+.bar .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(90deg, var(--teal), var(--gold-l)); border-radius: 12px; }
+.bar .lbl { position: absolute; left: 20px; top: 0; bottom: 0; display: flex; align-items: center; font-weight: 800; font-size: 32px; text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+.bar .bv { position: absolute; right: 18px; top: 0; bottom: 0; display: flex; align-items: center; font-family: Anton; font-size: 40px; color: var(--gold-xl); }
+.badge { display: inline-flex; align-items: center; padding: 8px 22px; border-radius: 999px; background: var(--teal); font-weight: 900; font-size: 26px; letter-spacing: 2px; }
+.dots { display: flex; gap: 10px; margin-left: auto; }
+.dots i { width: 18px; height: 18px; border-radius: 50%; background: rgba(250,249,245,.18); display: inline-block; }
+.dots i.on { background: var(--gold-l); box-shadow: 0 0 12px var(--gold-l); }
+.stamp { position: absolute; padding: 18px 44px; border: 7px solid currentColor; border-radius: 18px; font-family: Anton, "Noto Color Emoji"; font-size: 84px; text-transform: uppercase; white-space: nowrap; background: rgba(11,21,38,.72); }
+.tl { position: absolute; left: 90px; right: 90px; top: 360px; display: flex; gap: 18px; }
+.tl .blk { flex: 1; padding: 22px 18px 26px; border-radius: 22px; text-align: center; }
+.tl .day { font-family: Anton; font-size: 50px; color: var(--gold-xl); }
+.tl .bt { margin-top: 12px; font-weight: 700; font-size: 30px; line-height: 1.3; }
+.cards { position: absolute; left: 110px; right: 110px; top: 380px; display: flex; gap: 26px; }
+.cards .cd { flex: 1; padding: 30px 22px; text-align: center; }
+.cards .ci { font-size: 64px; }
+.cards .cl { margin-top: 10px; font-weight: 800; font-size: 30px; line-height: 1.2; min-height: 72px; }
+.cards .cv { margin-top: 10px; font-family: Anton; font-size: 54px; color: var(--gold-xl); }
+.cmp { position: absolute; top: 250px; width: 800px; }
+.lower { position: absolute; left: 0; right: 0; bottom: 120px; text-align: center; }
+.lower .chip { display: inline-flex; align-items: center; gap: 10px; margin: 0 10px; padding: 16px 34px; border-radius: 20px; font-family: Anton, "Noto Color Emoji"; font-size: 54px; text-transform: uppercase; letter-spacing: 1px; background: rgba(11,21,38,.86); border: 3px solid var(--gold-l); color: var(--cream); box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+.lower .chip.hl { background: linear-gradient(180deg, #F6E2A6, #E2BE6A 50%, #B88E36); color: #12213A; border-color: #F6E2A6; }
+.lower .arrow { display: inline-block; font-family: Anton; font-size: 54px; color: var(--gold-l); margin: 0 4px; }
+
+/* chrome */
+#logo { position: absolute; right: 40px; top: 30px; width: 96px; height: 96px; border-radius: 50%; box-shadow: 0 0 0 3px #E2BE6A, 0 8px 24px rgba(0,0,0,.5); }
+#site { position: absolute; right: 150px; top: 58px; font-weight: 900; font-size: 30px; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+#site b { color: var(--gold-l); }
+#prog { position: absolute; left: 40px; right: 40px; bottom: 26px; height: 50px; display: flex; gap: 8px; align-items: flex-end; }
+#prog .seg { position: relative; flex: 1; height: 8px; border-radius: 6px; background: rgba(250,249,245,.18); overflow: hidden; }
+#prog .seg i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(90deg, var(--teal-l), var(--gold-l)); }
+#chap { position: absolute; left: 40px; bottom: 48px; font-weight: 800; font-size: 24px; letter-spacing: 2px; padding: 6px 18px; border-radius: 999px; background: rgba(11,21,38,.8); border: 2px solid rgba(226,190,106,.6); color: var(--gold-xl); text-transform: uppercase; }
+#particles { position: absolute; inset: 0; }
+#wipe { position: absolute; left: -700px; top: -300px; width: 420px; height: 1700px; transform: rotate(16deg); opacity: 0; background: linear-gradient(90deg, transparent, rgba(246,226,166,.8) 50%, transparent); filter: blur(8px); }
+#flash { position: absolute; inset: 0; background: #fff6df; opacity: 0; mix-blend-mode: screen; }
+.full { position: absolute; inset: 0; background: radial-gradient(900px 600px at 50% 40%, rgba(33,140,135,.25), transparent 70%), radial-gradient(800px 500px at 50% 90%, rgba(169,129,46,.25), transparent 70%), linear-gradient(180deg, #172a49, var(--navy) 50%, var(--navy2)); }
+.full::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(226,190,106,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(226,190,106,.06) 1px, transparent 1px); background-size: 64px 64px; }
+.qrcard { position: absolute; width: 330px; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 24px 60px rgba(0,0,0,.55), 0 0 0 4px var(--gold-l); }
+.qrcard img { width: 300px; height: 300px; margin: 15px; }
+.qrcard .lbl { display: flex; align-items: center; justify-content: center; height: 80px; color: #fff; font-weight: 800; font-size: 28px; line-height: 1.1; text-align: center; }
+.qrcard .lbl small { display: block; font-weight: 600; font-size: 22px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bgWrap"><img class="bgimg" id="bgA" alt=""><img class="bgimg" id="bgB" alt=""><div id="dim"></div><div id="vig"></div></div>
+  <div id="ovs"></div>
+  <canvas id="particles" width="1920" height="1080"></canvas>
+  <div id="chap"></div>
+  <div id="prog"></div>
+  <div id="site">ideaspulse<b>.in</b></div>
+  <img id="logo" src="assets/images/logo.png" alt="">
+  <div id="fulls"></div>
+  <div id="wipe"></div>
+  <div id="flash"></div>
+</div>
+<script>
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P = (t, a, b) => cl((t - a) / (b - a));
+const eo = x => 1 - Math.pow(1 - x, 3);
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eob = x => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, x) => a + (b - a) * x;
+const E = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const EMO = /(\p{Extended_Pictographic}[\u{FE0F}\u{200D}\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}]*|[\u{1F1E6}-\u{1F1FF}]{2})/gu;
+const gesc = s => esc(s).replace(EMO, '<span class="emo">$1</span>');   // emoji-safe for gold gradient text
+function pop(t, at, dur = .32, from = .55) { const x = P(t, at, at + dur); return { o: P(t, at, at + .07), s: from + (1 - from) * eob(x), x }; }
+function burst(t, at) { const x = P(t, at, at + .3); const sh = (t > at && t < at + .22) ? Math.sin((t - at) * 120) * 8 * (1 - (t - at) / .22) : 0; return { o: P(t, at, at + .05), s: lerp(1.6, 1, eo(x)), blur: (1 - eo(x)) * 12, sx: sh }; }
+const sweep = (t, a) => lerp(120, -20, eio(P(t, a, a + .8))) + '% 0, 0 0';
+function popEl(el, t, at, pre = '', dur = .32, from = .55) { const q = pop(t, at, dur, from); el.style.opacity = q.o; el.style.transform = `${pre} scale(${q.s})`; return q; }
+function burstEl(el, t, at, pre = '') { const q = burst(t, at); el.style.opacity = q.o; el.style.transform = `${pre} translateX(${q.sx}px) scale(${q.s})`; el.style.filter = `blur(${q.blur}px) drop-shadow(0 5px 0 rgba(0,0,0,.5))`; el.style.backgroundPosition = sweep(t, at + .3); }
+function slideRow(el, t, at, dx = -60) { const q = pop(t, at, .3, .8); el.style.opacity = q.o; el.style.transform = `translateX(${(1 - eo(q.x)) * dx}px) scale(${q.s})`; }
+function fmt(n) { return n.toLocaleString('en-IN'); }
+
+let TL, OV = [], BG = [], FULL = [], COUNTS = {}, PARTS = [];
+
+// ------------------------------------------------------------ builders
+function panelHTML(o) {
+  const head = `<div class="ph">${o.badge ? `<span class="badge">${esc(o.badge)}</span>` : ''}${o.kicker ? `<span class="kick">${gesc(o.kicker)}</span>` : ''}${o.dots ? `<span class="dots">${Array.from({ length: o.dots[1] }, (_, i) => `<i class="${i < o.dots[0] ? 'on' : ''}"></i>`).join('')}</span>` : ''}</div>
+    ${o.title ? `<div class="ttl gold">${gesc(o.title)}</div>` : ''}`;
+  let body = '';
+  if (o.style === 'bars') {
+    const mx = Math.max(...o.items.filter(i => !i.total).map(i => i.val));
+    body = o.items.map((it, k) => it.total
+      ? `<div class="row total it" data-k="${k}"><span class="ic">${gesc(it.icon || '🧾')}</span><span class="tx">${gesc(it.text)}</span><span class="val">₹${fmt(it.val)}</span></div>`
+      : `<div class="bar it" data-k="${k}" data-w="${it.val / mx}"><div class="fill"></div><div class="lbl">${gesc(it.text)}</div><div class="bv">₹${fmt(it.val)}</div></div>`).join('');
+  } else {
+    body = o.items.map((it, k) => {
+      const cls = it.total ? 'total' : it.warn ? 'warn' : (o.style === 'cross' ? 'cross' : '');
+      const ic = it.icon || (o.style === 'check' ? '✅' : o.style === 'cross' ? '❌' : o.style === 'num' ? String(k + 1) : '•');
+      return `<div class="row it ${cls}" data-k="${k}"><span class="ic">${gesc(ic)}</span><span class="tx">${gesc(it.text)}</span>${it.val !== undefined ? `<span class="val">${esc(it.val)}</span>` : ''}</div>`;
+    }).join('');
+  }
+  const foot = o.footer ? `<div class="foot" style="margin-top:14px;font-weight:600;font-size:22px;color:rgba(250,249,245,.7)">${gesc(o.footer)}</div>` : '';
+  const pos = o.pos === 'right' ? `right:70px;top:${o.top || 150}px;width:${o.w || 940}px` : o.pos === 'center' ? `left:${(1920 - (o.w || 1250)) / 2}px;top:${o.top || 140}px;width:${o.w || 1250}px` : `left:70px;top:${o.top || 150}px;width:${o.w || 940}px`;
+  return `<div class="panel glass pn" style="${pos}">${head}${body}${foot}</div>`;
+}
+
+function build() {
+  const box = E('ovs'), fb = E('fulls');
+  for (const o of OV) {
+    let h = '';
+    if (o.type === 'title') {
+      const top = o.pos === 'top' ? 120 : o.pos === 'low' ? 640 : 330;
+      h = `<div class="abs" style="left:80px;right:80px;top:${top}px;text-align:center">
+        ${o.kicker ? `<div class="k cream" style="font-weight:800;font-size:44px;letter-spacing:3px;margin-bottom:10px">${gesc(o.kicker)}</div>` : ''}
+        <div class="t anton gold" style="font-size:${o.size || 120}px">${gesc(o.title)}</div>
+        ${o.sub ? `<div class="s" style="margin-top:26px"><span class="pill ${o.subcls || 'p-solid'}" style="font-size:40px">${gesc(o.sub)}</span></div>` : ''}</div>`;
+    } else if (o.type === 'panel') h = panelHTML(o);
+    else if (o.type === 'stamp') {
+      const c = o.color === 'red' ? '#FF6B3D' : o.color === 'teal' ? '#39C2BA' : '#E2BE6A';
+      h = `<div class="stamp st" style="color:${c};left:50%;top:${o.top || 430}px;font-size:${o.size || 84}px">${gesc(o.text)}</div>`;
+    } else if (o.type === 'lower') {
+      h = `<div class="lower">${o.chips.map((c, k) => `${k && o.arrows ? '<span class="arrow ar" data-k="' + k + '">➜</span>' : ''}<span class="chip ch ${c.hl ? 'hl' : ''}" data-k="${k}">${esc(c.text).replace(EMO, '<span class="emo">$1</span>')}</span>`).join('')}</div>`;
+    } else if (o.type === 'stat') {
+      h = `<div class="abs" style="left:0;right:0;top:250px;text-align:center">
+        <div class="k cream" style="font-weight:800;font-size:52px;letter-spacing:4px">${gesc(o.kicker || '')}</div>
+        <div class="v anton gold" style="font-size:260px;line-height:1">₹0</div>
+        ${o.sub ? `<div class="s" style="margin-top:20px"><span class="pill ${o.subcls || 'p-red'}" style="font-size:38px">${gesc(o.sub)}</span></div>` : ''}</div>`;
+    } else if (o.type === 'timeline') {
+      h = `<div class="abs" style="left:0;right:0;top:170px;text-align:center"><div class="anton gold" style="font-size:96px">${gesc(o.title)}</div></div>
+        <div class="tl">${o.blocks.map((b, k) => `<div class="blk glass it" data-k="${k}"><div class="day">${esc(b.day)}</div><div class="bt">${gesc(b.text)}</div></div>`).join('')}</div>`;
+    } else if (o.type === 'cards') {
+      h = `<div class="abs" style="left:0;right:0;top:${o.top || 170}px;text-align:center"><div class="anton gold" style="font-size:96px">${gesc(o.title)}</div></div>
+        <div class="cards" style="top:${(o.top || 170) + 210}px">${o.cards.map((c, k) => `<div class="cd glass it" data-k="${k}"><div class="ci">${gesc(c.icon)}</div><div class="cl">${gesc(c.label)}</div>${c.val ? `<div class="cv">${esc(c.val)}</div>` : ''}</div>`).join('')}</div>
+        ${o.footer ? `<div class="abs ft" style="left:0;right:0;top:${(o.top || 170) + 640}px;text-align:center;font-weight:700;font-size:28px;color:rgba(250,249,245,.8)">${gesc(o.footer)}</div>` : ''}`;
+    } else if (o.type === 'compare') {
+      h = o.cols.map((c, ci) => panelHTML({ pos: ci ? 'right' : 'left', top: 150, w: 860, kicker: c.kicker, title: c.title, items: c.rows, style: 'money' })).join('') +
+        (o.footer ? `<div class="abs ft" style="left:0;right:0;top:960px;text-align:center"><span class="pill p-red" style="font-size:28px">${gesc(o.footer)}</span></div>` : '');
+    }
+    const el = document.createElement('div'); el.className = 'ov'; el.innerHTML = h; box.appendChild(el); o.el = el;
+    if (o.type === 'stamp') o.el.querySelector('.st').style.transform = 'translateX(-50%)';
+  }
+  for (const f of FULL) {
+    const el = document.createElement('div'); el.className = 'ov';
+    if (f.type === 'chapter') el.innerHTML = `<div class="full"></div>
+      <div class="abs" style="left:0;right:0;top:150px;text-align:center"><div class="cn anton" style="font-size:220px;color:rgba(226,190,106,.25)">${String(f.n).padStart(2, '0')}</div></div>
+      <div class="abs" style="left:0;right:0;top:420px;text-align:center"><div class="ck cream" style="font-weight:800;font-size:36px;letter-spacing:6px">CHAPTER ${f.n}</div><div class="ct anton gold" style="font-size:110px;margin-top:8px">${gesc(f.title)}</div></div>`;
+    else if (f.type === 'intro') el.innerHTML = `<img class="abs ib" src="assets/images/img_puja_cone.jpg" style="inset:0;width:1920px;height:1080px;object-fit:cover"><div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(11,21,38,.55),rgba(11,21,38,.75))"></div>
+      <img class="abs il" src="assets/images/logo.png" style="left:860px;top:110px;width:200px;height:200px;border-radius:50%;box-shadow:0 0 0 5px #E2BE6A,0 0 60px rgba(226,190,106,.5)">
+      <div class="abs" style="left:0;right:0;top:350px;text-align:center"><div class="i1 cream" style="font-weight:800;font-size:56px;letter-spacing:4px">${gesc(f.kicker)}</div><div class="i2 anton gold" style="font-size:150px;margin-top:6px">${gesc(f.title)}</div><div class="i3" style="margin-top:24px"><span class="pill p-solid" style="font-size:44px">${gesc(f.sub)}</span></div></div>`;
+    else if (f.type === 'end') el.innerHTML = `<div class="full"></div>
+      <img class="abs el" src="assets/images/logo.png" style="left:120px;top:90px;width:170px;height:170px;border-radius:50%;box-shadow:0 0 0 5px #E2BE6A">
+      <div class="abs e1" style="left:320px;top:110px"><div class="anton gold" style="font-size:84px">${gesc(f.title)}</div><div class="cream" style="font-weight:700;font-size:34px">${gesc(f.sub)}</div></div>
+      <div class="qrcard e2" style="left:120px;top:330px"><img src="assets/images/qr_youtube.png"><div class="lbl" style="background:linear-gradient(180deg,#ff3b30,#d4241b)"><span>▶ YouTube<small>@ideaspuls</small></span></div></div>
+      <div class="qrcard e3" style="left:490px;top:330px"><img src="assets/images/qr_telegram.png"><div class="lbl" style="background:linear-gradient(180deg,#3aa8e8,#1f86c9)"><span>✈ Telegram<small>@ideaspulse</small></span></div></div>
+      <div class="abs e4" style="left:120px;top:800px"><span class="pill p-gold" style="font-size:36px">💬 Plan ke liye COMMENT 'FLOWER'</span></div>
+      <div class="abs e5" style="left:120px;top:890px;font-weight:900;font-size:60px">🌐 <span style="color:#FAF9F5">ideaspulse</span><span style="color:#E2BE6A">.in</span></div>
+      <div class="abs" style="left:1000px;top:330px;width:800px;height:450px;border:3px dashed rgba(226,190,106,.35);border-radius:24px;display:flex;align-items:center;justify-content:center;font-family:Anton;font-size:56px;color:rgba(226,190,106,.45)">▶ AGLA VIDEO</div>`;
+    fb.appendChild(el); f.el = el;
+  }
+  E('prog').innerHTML = PARTS.map(() => '<div class="seg"><i></i></div>').join('');
+}
+
+// ------------------------------------------------------------ overlay renderers
+function itemsAt(o) { return o.items || o.blocks || o.cards || (o.cols ? o.cols.flatMap(c => c.rows) : []); }
+function renderOv(o, t) {
+  const el = o.el, A = o.at;
+  if (o.type === 'title') {
+    const k = el.querySelector('.k'); if (k) popEl(k, t, A, '', .3, .6);
+    burstEl(el.querySelector('.t'), t, A + (o.kicker ? .15 : 0));
+    const s = el.querySelector('.s'); if (s) popEl(s, t, o.sub_at ?? A + .5);
+  } else if (o.type === 'stamp') {
+    const st = el.querySelector('.st'); const q = burst(t, A);
+    st.style.opacity = q.o; st.style.transform = `translateX(-50%) translateX(${q.sx}px) rotate(${o.rot ?? -4}deg) scale(${q.s})`;
+  } else if (o.type === 'lower') {
+    el.querySelectorAll('.ch').forEach((c, k) => popEl(c, t, o.chips[k].at, '', .3, .5));
+    el.querySelectorAll('.ar').forEach(a => { const k = +a.dataset.k; a.style.opacity = P(t, o.chips[k].at - .05, o.chips[k].at + .1); });
+  } else if (o.type === 'stat') {
+    popEl(el.querySelector('.k'), t, A, '', .3, .6);
+    const v = el.querySelector('.v'); const x = eo(P(t, A + .1, A + 1.1));
+    v.innerHTML = gesc((o.prefix ?? '₹') + fmt(Math.round(o.value * x)));
+    burstEl(v, t, A + .1);
+    const s = el.querySelector('.s'); if (s) popEl(s, t, o.sub_at ?? A + 1.5);
+  } else {
+    const pn = el.querySelectorAll('.pn'); pn.forEach(p => popEl(p, t, A, '', .4, .9));
+    const its = itemsAt(o);
+    el.querySelectorAll('.it').forEach((r, k) => {
+      const at = its[+r.dataset.k ?? k]?.at ?? A;
+      if (r.classList.contains('bar')) {
+        slideRow(r, t, at, -40);
+        r.querySelector('.fill').style.width = (eo(P(t, at + .05, at + .6)) * 84 * r.dataset.w) + '%';
+      } else if (r.classList.contains('blk') || r.classList.contains('cd')) {
+        const q = pop(t, at, .35, .6); r.style.opacity = q.o; r.style.transform = `translateY(${(1 - eo(q.x)) * 50}px) scale(${q.s})`;
+      } else slideRow(r, t, at);
+    });
+    const ft = el.querySelector('.ft'); if (ft) ft.style.opacity = P(t, (its[its.length - 1]?.at ?? A) + .4, (its[its.length - 1]?.at ?? A) + .7);
+    el.querySelectorAll('.ttl, .anton.gold').forEach(g => { g.style.backgroundPosition = sweep(t, A + .3); });
+  }
+}
+
+function renderFull(f, t) {
+  const el = f.el, A = f.t0;
+  if (f.type === 'chapter') {
+    popEl(el.querySelector('.cn'), t, A, '', .5, .6);
+    popEl(el.querySelector('.ck'), t, A + .1, '', .3, .6);
+    burstEl(el.querySelector('.ct'), t, A + .2);
+  } else if (f.type === 'intro') {
+    el.querySelector('.ib').style.transform = `scale(${lerp(1.12, 1.0, eo(P(t, A, f.t1)))})`;
+    const l = pop(t, A + .1, .5, .2); el.querySelector('.il').style.opacity = l.o; el.querySelector('.il').style.transform = `rotate(${lerp(-120, 0, eo(l.x))}deg) scale(${l.s})`;
+    popEl(el.querySelector('.i1'), t, A + .5, '', .3, .6);
+    burstEl(el.querySelector('.i2'), t, A + .7);
+    popEl(el.querySelector('.i3'), t, A + 1.3);
+  } else if (f.type === 'end') {
+    popEl(el.querySelector('.el'), t, A + .1, '', .45, .3);
+    popEl(el.querySelector('.e1'), t, A + .3, '', .35, .7);
+    ['.e2', '.e3'].forEach((c, i) => { const q = pop(t, A + .6 + i * .15, .4, .6); el.querySelector(c).style.opacity = q.o; el.querySelector(c).style.transform = `translateY(${(1 - eo(q.x)) * 80}px) scale(${q.s})`; });
+    popEl(el.querySelector('.e4'), t, A + 1.1); popEl(el.querySelector('.e5'), t, A + 1.3);
+  }
+}
+
+// ------------------------------------------------------------ background (images + clips with Ken Burns)
+function bgSrc(b, t) {
+  if (b.src.startsWith('img:')) return `assets/images/${b.src.slice(4)}.jpg`;
+  const name = b.src.slice(5), n = COUNTS[name] || 1, dur = n / 30, seg = b.t1 - b.t0;
+  const speed = cl(dur / seg, .6, 1);
+  let pos = (t - b.t0) * speed + (b.in || 0);
+  const per = dur - .05; const m = pos % (2 * per); pos = m < per ? m : 2 * per - m;   // ping-pong if longer than clip
+  return `build/clips/${name}/${String(Math.min(n - 1, Math.max(0, Math.round(pos * 30)))).padStart(5, '0')}.jpg`;
+}
+function bgTransform(b, t) {
+  const x = eio(P(t, b.t0, b.t1 + .5));
+  const f = b.from || [.5, .5, 1.0], to = b.to || [.5, .5, 1.1];
+  const z = lerp(f[2], to[2], x), cx = lerp(f[0], to[0], x), cy = lerp(f[1], to[1], x);
+  const tx = -(cx * 1920 * z - 960), ty = -(cy * 1080 * z - 540);
+  const mx = 0, minx = 1920 - 1920 * z, my = 0, miny = 1080 - 1080 * z;
+  return `translate(${cl(tx, minx, mx)}px,${cl(ty, miny, my)}px) scale(${z})`;
+}
+function setImg(im, src) { if (im.getAttribute('src') !== src) im.src = src; }
+
+// ------------------------------------------------------------ particles
+function drawParticles(t, amt) {
+  const g = E('particles').getContext('2d'); g.clearRect(0, 0, 1920, 1080);
+  for (let i = 0; i < 60; i++) {
+    const r1 = Math.abs(Math.sin(i * 12.9898) * 43758.5453 % 1), r2 = Math.abs(Math.sin(i * 78.233) * 12345.678 % 1), r3 = Math.abs(Math.sin(i * 3.7) * 9876.5 % 1);
+    const x = r1 * 1920 + Math.sin(t * .6 + i) * 22, y = ((r2 * 1300 - t * (20 + r3 * 40)) % 1300 + 1300) % 1300 - 110;
+    const tw = .45 + .55 * Math.sin(t * 2.6 + i * 1.7), sz = 1.5 + r3 * 3.5;
+    g.globalAlpha = cl(tw * .5 * amt);
+    const grd = g.createRadialGradient(x, y, 0, x, y, sz * 4); grd.addColorStop(0, 'rgba(246,226,166,1)'); grd.addColorStop(1, 'rgba(226,190,106,0)');
+    g.fillStyle = grd; g.beginPath(); g.arc(x, y, sz * 4, 0, Math.PI * 2); g.fill();
+  }
+  g.globalAlpha = 1;
+}
+
+// ------------------------------------------------------------ frame
+async function renderAt(t) {
+  // background
+  let i = BG.findIndex(b => t >= b.t0 && t < b.t1); if (i < 0) i = t < BG[0].t0 ? 0 : BG.length - 1;
+  const cur = BG[i], prev = BG[i - 1], xf = prev ? P(t, cur.t0, cur.t0 + .45) : 1;
+  const A = E('bgA'), B = E('bgB');
+  setImg(B, bgSrc(cur, t)); B.style.transform = bgTransform(cur, t); B.style.opacity = xf;
+  if (prev && xf < 1) { setImg(A, bgSrc(prev, t)); A.style.transform = bgTransform(prev, t); A.style.visibility = 'visible'; } else A.style.visibility = 'hidden';
+
+  // overlays
+  let heavy = 0;
+  for (const o of OV) {
+    const on = t >= o.t0 - .05 && t < o.t1 + .25;
+    if (on) {
+      o.el.style.visibility = 'visible';
+      const fo = 1 - P(t, o.t1, o.t1 + .25);
+      o.el.style.opacity = fo;
+      renderOv(o, t);
+      if (['panel', 'compare', 'timeline', 'cards', 'stat'].includes(o.type)) heavy = Math.max(heavy, fo * P(t, o.t0, o.t0 + .3));
+      else if (o.type === 'title') heavy = Math.max(heavy, .5 * fo);
+    } else if (o.el.style.visibility !== 'hidden') { o.el.style.visibility = 'hidden'; o.el.style.opacity = 0; }
+  }
+  E('dim').style.background = `rgba(8,14,26,${.18 + .5 * heavy})`;
+
+  // full-screen cards (intro / chapters / end)
+  let fullOn = false;
+  for (const f of FULL) {
+    const on = t >= f.t0 && t < f.t1 + .3;
+    if (on) {
+      f.el.style.visibility = 'visible';
+      f.el.style.opacity = Math.min(f.type === 'intro' ? 1 : P(t, f.t0, f.t0 + .2), 1 - P(t, f.t1, f.t1 + .3));
+      renderFull(f, t); if (t < f.t1) fullOn = true;
+    } else if (f.el.style.visibility !== 'hidden') { f.el.style.visibility = 'hidden'; f.el.style.opacity = 0; }
+  }
+
+  // chrome
+  const pi = PARTS.findIndex(p => t >= p.start && t < p.end + p.gapAfter);
+  E('prog').querySelectorAll('.seg i').forEach((s, k) => { const p = PARTS[k]; s.style.width = (cl((t - p.start) / (p.end - p.start)) * 100) + '%'; });
+  const ch = E('chap'); const txt = pi >= 0 ? `${String(pi + 1).padStart(2, '0')} • ${PARTS[pi].short}` : '';
+  if (ch.dataset.txt !== txt) { ch.innerHTML = gesc(txt); ch.dataset.txt = txt; }
+  const chromeOn = !fullOn && pi >= 0;
+  ['chap', 'prog', 'site', 'logo'].forEach(id => E(id).style.opacity = chromeOn ? 1 : 0);
+  drawParticles(t, fullOn ? 1 : .45);
+
+  // transitions: gold light-streak on each background cut + flash on impacts
+  let w = 0, wx = -700;
+  for (const b of BG) { const x = P(t, b.t0 - .12, b.t0 + .2); if (b.t0 > 0 && x > 0 && x < 1) { w = Math.sin(Math.PI * x); wx = lerp(-600, 2300, x); } }
+  E('wipe').style.opacity = w * .45; E('wipe').style.transform = `translateX(${wx + 700}px) rotate(16deg)`;
+  let fl = 0; for (const e of TL.sfx_abs) if (e.type === 'impact') { const d = t - e.t; if (d >= 0 && d < .18) fl = Math.max(fl, (1 - d / .18) * .3); }
+  E('flash').style.opacity = fl;
+
+  const imgs = [...document.images].filter(im => im.offsetParent !== null || im.classList.contains('bgimg'));
+  await Promise.all(imgs.map(im => (im.complete && im.naturalWidth) ? null : im.decode().catch(() => null)));
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  return true;
+}
+
+async function init(tl, counts) {
+  TL = tl; COUNTS = counts; PARTS = tl.parts_abs; OV = tl.ov_abs; BG = tl.bg_abs; FULL = tl.full_abs;
+  build();
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(im => im.decode().catch(() => null)));
+  return true;
+}
+window.init = init; window.renderAt = renderAt;
+</script>
+</body>
+</html>
