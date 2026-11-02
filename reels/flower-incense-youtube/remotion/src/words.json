@@ -1,0 +1,156 @@
+[
+ {
+  "text": "KYA",
+  "t0": 0.14,
+  "t1": 0.35,
+  "line": "A",
+  "style": "n"
+ },
+ {
+  "text": "AAPNE",
+  "t0": 0.35,
+  "t1": 0.79,
+  "line": "A",
+  "style": "n"
+ },
+ {
+  "text": "KABHI",
+  "t0": 0.79,
+  "t1": 0.98,
+  "line": "A",
+  "style": "n"
+ },
+ {
+  "text": "SOCHA HAI",
+  "t0": 0.98,
+  "t1": 1.38,
+  "line": "A",
+  "style": "n"
+ },
+ {
+  "text": "MANDIR MEIN",
+  "t0": 1.38,
+  "t1": 1.87,
+  "line": "B",
+  "style": "n"
+ },
+ {
+  "text": "CHADHE",
+  "t0": 1.87,
+  "t1": 2.2,
+  "line": "B",
+  "style": "n"
+ },
+ {
+  "text": "PHOOL",
+  "t0": 2.2,
+  "t1": 2.41,
+  "line": "B",
+  "style": "g"
+ },
+ {
+  "text": "AGLE DIN",
+  "t0": 2.41,
+  "t1": 2.98,
+  "line": "C",
+  "style": "n"
+ },
+ {
+  "text": "KAHAN",
+  "t0": 2.98,
+  "t1": 3.24,
+  "line": "C",
+  "style": "n"
+ },
+ {
+  "text": "JAATE HAIN?",
+  "t0": 3.24,
+  "t1": 3.66,
+  "line": "C",
+  "style": "g"
+ },
+ {
+  "text": "ZYAADATAR...",
+  "t0": 4.86,
+  "t1": 5.61,
+  "line": "D",
+  "style": "s"
+ },
+ {
+  "text": "KACHRE MEIN",
+  "t0": 5.91,
+  "t1": 6.39,
+  "line": "E",
+  "style": "r"
+ },
+ {
+  "text": "SUBAH",
+  "t0": 7.44,
+  "t1": 7.95,
+  "line": "F",
+  "style": "n"
+ },
+ {
+  "text": "SUNDAR",
+  "t0": 7.95,
+  "t1": 8.43,
+  "line": "F",
+  "style": "n"
+ },
+ {
+  "text": "KHUSHBOODAAR",
+  "t0": 8.43,
+  "t1": 9.2,
+  "line": "F",
+  "style": "g"
+ },
+ {
+  "text": "PHOOL",
+  "t0": 9.2,
+  "t1": 9.52,
+  "line": "F",
+  "style": "g"
+ },
+ {
+  "text": "AUR",
+  "t0": 9.94,
+  "t1": 10.15,
+  "line": "G",
+  "style": "n"
+ },
+ {
+  "text": "SHAAM",
+  "t0": 10.15,
+  "t1": 10.61,
+  "line": "G",
+  "style": "d"
+ },
+ {
+  "text": "TAK?",
+  "t0": 10.61,
+  "t1": 10.75,
+  "line": "G",
+  "style": "d"
+ },
+ {
+  "text": "BAS",
+  "t0": 11.11,
+  "t1": 11.4,
+  "line": "H",
+  "style": "s"
+ },
+ {
+  "text": "EK",
+  "t0": 11.62,
+  "t1": 12.09,
+  "line": "H",
+  "style": "s"
+ },
+ {
+  "text": "DHER.",
+  "t0": 13.14,
+  "t1": 13.98,
+  "line": "H",
+  "style": "r"
+ }
+]

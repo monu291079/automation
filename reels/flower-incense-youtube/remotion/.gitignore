@@ -1,0 +1,6 @@
+node_modules/
+npm_install.log
+out/*.png
+out/*.log
+out/sample15_silent.mp4
+public/clips/
