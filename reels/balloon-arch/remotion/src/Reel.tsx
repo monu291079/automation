@@ -310,7 +310,7 @@ const EndCard: React.FC = () => {
   const f = useCurrentFrame(); const t = f / FPS; const a = VOICE_END; if (t < a - 0.02) return null;
   const o = pr(f, F(a), F(a) + 5), ls = sp(f, a + 0.05), hs = sp(f, a + 0.25), q1 = sp(f, a + 0.5), q2 = sp(f, a + 0.65), cs = sp(f, a + 0.9), ws = sp(f, a + 1.1);
   const Q = (src: string, label: string, sub: string, col: string, s: number, left: number, from: number) => (
-    <div style={{ position: "absolute", left, top: 640, width: 430, borderRadius: 32, overflow: "hidden", background: "#fff", boxShadow: "0 30px 70px rgba(0,0,0,.55), 0 0 0 4px #E2BE6A", opacity: Math.min(1, s * 3), transform: `translateX(${(1 - s) * from}px) scale(${lerp(0.7, 1, s)})` }}>
+    <div style={{ position: "absolute", left, top: 720, width: 430, borderRadius: 32, overflow: "hidden", background: "#fff", boxShadow: "0 30px 70px rgba(0,0,0,.55), 0 0 0 4px #E2BE6A", opacity: Math.min(1, s * 3), transform: `translateX(${(1 - s) * from}px) scale(${lerp(0.7, 1, s)})` }}>
       <Img src={staticFile(src)} style={{ width: 390, height: 390, margin: 20 }} />
       <div style={{ height: 104, background: col, color: "#fff", fontFamily: FONT.sans, fontWeight: 800, fontSize: 34, textAlign: "center", paddingTop: 14, lineHeight: 1.15 }}>{label}<div style={{ fontSize: 26, fontWeight: 600 }}>{sub}</div></div>
     </div>);
@@ -320,16 +320,16 @@ const EndCard: React.FC = () => {
       <AbsoluteFill style={{ backgroundImage: "linear-gradient(rgba(226,190,106,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(226,190,106,.07) 1px,transparent 1px)", backgroundSize: "64px 64px" }} />
       <Rising a={a} b={DURATION} n={7} seed={4} />
       <Img src={staticFile("images/logo.png")} style={{ position: "absolute", left: 415, top: 150, width: 250, height: 250, borderRadius: 125, boxShadow: "0 0 0 6px #E2BE6A, 0 0 80px rgba(226,190,106,.5)", transform: `scale(${ls}) rotate(${(1 - ls) * -120}deg)`, opacity: Math.min(1, ls * 2) }} />
-      <div style={{ position: "absolute", left: 0, right: 0, top: 440, textAlign: "center", opacity: Math.min(1, hs * 2), transform: `scale(${lerp(0.7, 1, hs)})` }}>
-        <div style={{ fontFamily: FONT.display, fontSize: 104, textTransform: "uppercase", ...GOLD }}>COMMUNITY JOIN KARO</div>
-        <div style={TX({ fontSize: 36, fontWeight: 700, color: C.tealL })}>naye business ideas + plans</div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 425, textAlign: "center", opacity: Math.min(1, hs * 2), transform: `scale(${lerp(0.7, 1, hs)})` }}>
+        <div style={{ fontFamily: FONT.display, fontSize: 96, textTransform: "uppercase", ...GOLD }}>COMMUNITY JOIN KARO</div>
+        <div style={TX({ fontSize: 36, fontWeight: 700, color: C.tealL, marginTop: 18 })}>naye business ideas + plans</div>
       </div>
       {Q("images/qr_youtube.png", "▶ YouTube", "@ideaspuls", "linear-gradient(180deg,#ff3b30,#d4241b)", q1, 80, -700)}
       {Q("images/qr_telegram.png", "✈ Telegram", "@ideaspulse", "linear-gradient(180deg,#3aa8e8,#1f86c9)", q2, 570, 700)}
-      <div style={{ position: "absolute", left: 0, right: 0, top: 1220, display: "flex", justifyContent: "center", opacity: Math.min(1, cs * 2), transform: `scale(${cs})` }}>
-        <Glass style={{ position: "relative", padding: "20px 48px", borderRadius: 60 }} rim="rgba(226,190,106,.8)"><div style={TX({ fontSize: 44 })}>💬 COMMENT <span style={{ color: C.gold }}>'BALLOON'</span> ➜ plan DM mein</div></Glass>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 1290, display: "flex", justifyContent: "center", opacity: Math.min(1, cs * 2), transform: `scale(${cs})` }}>
+        <Glass style={{ position: "relative", padding: "20px 48px", borderRadius: 60 }} rim="rgba(226,190,106,.8)"><div style={TX({ fontSize: 40 })}>💬 COMMENT <span style={{ color: C.gold }}>'BALLOON'</span> ➜ plan DM mein</div></Glass>
       </div>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 1340, textAlign: "center", fontFamily: FONT.sans, fontWeight: 900, fontSize: 74, opacity: Math.min(1, ws * 2), transform: `scale(${lerp(0.7, 1, ws)})` }}>🌐 <span style={{ color: C.cream }}>ideaspulse</span><span style={{ color: C.gold }}>.in</span></div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 1420, textAlign: "center", fontFamily: FONT.sans, fontWeight: 900, fontSize: 74, opacity: Math.min(1, ws * 2), transform: `scale(${lerp(0.7, 1, ws)})` }}>🌐 <span style={{ color: C.cream }}>ideaspulse</span><span style={{ color: C.gold }}>.in</span></div>
     </AbsoluteFill>
   );
 };
