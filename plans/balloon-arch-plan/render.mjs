@@ -1,0 +1,13 @@
+import { createRequire } from "module";
+const require = createRequire("/home/user/automation/reels/butter-candle/");
+const { chromium } = require("playwright");
+const path = process.cwd();
+const b = await chromium.launch();
+const p = await b.newPage();
+await p.goto("file://" + path + "/plan.html");
+await p.waitForTimeout(800);
+await p.evaluate(() => { document.querySelectorAll(".deco").forEach(d => { const pg = d.closest(".page"); const f = pg.querySelector("footer"); const prev = d.previousElementSibling; const space = f.getBoundingClientRect().top - prev.getBoundingClientRect().bottom - 16; if (space < 120) { d.remove(); return; } d.style.height = Math.min(space, 190) + "px"; const sv = d.querySelector("svg"); sv.style.height = "100%"; sv.style.width = "auto"; sv.style.maxHeight = "none"; }); });
+const over = await p.evaluate(() => [...document.querySelectorAll(".page")].map((e, i) => [i + 1, e.id, e.scrollHeight - e.clientHeight, (() => { const f = e.querySelector("footer"); const bd = e.querySelector(".body"); if (!f || !bd) return 0; const kids = [...bd.children]; const last = kids[kids.length - 1]; return last ? Math.round(last.getBoundingClientRect().bottom - f.getBoundingClientRect().top) : 0; })()]).filter(x => x[2] > 0 || x[3] > -4));
+console.log("OVERFLOW", JSON.stringify(over));
+await p.pdf({ path: "Balloon_Arch_Business_Plan_A5.pdf", width: "148mm", height: "210mm", printBackground: true, outline: true, tagged: true });
+await b.close();
