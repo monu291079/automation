@@ -1,0 +1,272 @@
+{
+ "start": 0.12,
+ "end": 33.73,
+ "paras": [
+  [
+   0.12,
+   8.71
+  ],
+  [
+   8.92,
+   13.44
+  ],
+  [
+   13.7,
+   18.5
+  ],
+  [
+   18.74,
+   23.29
+  ],
+  [
+   23.53,
+   27.62
+  ],
+  [
+   27.84,
+   33.73
+  ]
+ ],
+ "chunks": [
+  {
+   "id": "c1",
+   "text": "YE BHAI VIDESHON MEIN",
+   "style": "n",
+   "para": 1,
+   "t0": 0.12,
+   "t1": 1.35
+  },
+  {
+   "id": "c2",
+   "text": "BALLOON ARCH 🎈",
+   "style": "g",
+   "para": 1,
+   "t0": 1.35,
+   "t1": 2.17
+  },
+  {
+   "id": "c3",
+   "text": "LAKHON KA KAROBAR!",
+   "style": "g",
+   "para": 1,
+   "t0": 2.17,
+   "t1": 3.42
+  },
+  {
+   "id": "c3b",
+   "text": "",
+   "style": "h",
+   "para": 1,
+   "t0": 3.42,
+   "t1": 4.11
+  },
+  {
+   "id": "c4",
+   "text": "AUR AB YAHI MACHINE",
+   "style": "n",
+   "para": 1,
+   "t0": 4.11,
+   "t1": 5.65
+  },
+  {
+   "id": "c5",
+   "text": "BHARAT MEIN BHI",
+   "style": "n",
+   "para": 1,
+   "t0": 5.65,
+   "t1": 6.75
+  },
+  {
+   "id": "c6",
+   "text": "KAMAI KA MAUKA 🇮🇳",
+   "style": "g",
+   "para": 1,
+   "t0": 6.75,
+   "t1": 7.88
+  },
+  {
+   "id": "c6b",
+   "text": "",
+   "style": "h",
+   "para": 1,
+   "t0": 7.88,
+   "t1": 8.71
+  },
+  {
+   "id": "c7",
+   "text": "SIRF EK BUTTON DABAIYE",
+   "style": "n",
+   "para": 2,
+   "t0": 8.92,
+   "t1": 10.48
+  },
+  {
+   "id": "c8",
+   "text": "AUR KAI GUBBARE",
+   "style": "n",
+   "para": 2,
+   "t0": 10.48,
+   "t1": 11.51
+  },
+  {
+   "id": "c9",
+   "text": "EK SAATH PHOOLNE",
+   "style": "n",
+   "para": 2,
+   "t0": 11.51,
+   "t1": 12.87
+  },
+  {
+   "id": "c10",
+   "text": "LAGTE HAIN! 🎈",
+   "style": "g",
+   "para": 2,
+   "t0": 12.87,
+   "t1": 13.44
+  },
+  {
+   "id": "c11",
+   "text": "PUMP KO CONNECT KIJIYE",
+   "style": "n",
+   "para": 3,
+   "t0": 13.7,
+   "t1": 14.98
+  },
+  {
+   "id": "c12",
+   "text": "BALLOONS LAGAIYE",
+   "style": "n",
+   "para": 3,
+   "t0": 14.98,
+   "t1": 15.95
+  },
+  {
+   "id": "c13",
+   "text": "AUR TAIYAR KIJIYE",
+   "style": "n",
+   "para": 3,
+   "t0": 15.95,
+   "t1": 17.37
+  },
+  {
+   "id": "c14",
+   "text": "SHAANDAR BALLOON ARCH!",
+   "style": "g",
+   "para": 3,
+   "t0": 17.37,
+   "t1": 18.5
+  },
+  {
+   "id": "c15",
+   "text": "BIRTHDAY • WEDDING • BABY SHOWER",
+   "style": "n",
+   "para": 4,
+   "t0": 18.74,
+   "t1": 19.51
+  },
+  {
+   "id": "c15b",
+   "text": "",
+   "style": "h",
+   "para": 4,
+   "t0": 19.51,
+   "t1": 20.44
+  },
+  {
+   "id": "c16",
+   "text": "₹2,000 SE ₹10,000",
+   "style": "g",
+   "para": 4,
+   "t0": 20.44,
+   "t1": 21.22
+  },
+  {
+   "id": "c17",
+   "text": "YA USSE BHI ZYADA",
+   "style": "g",
+   "para": 4,
+   "t0": 21.22,
+   "t1": 21.68
+  },
+  {
+   "id": "c17b",
+   "text": "",
+   "style": "h",
+   "para": 4,
+   "t0": 21.68,
+   "t1": 22.11
+  },
+  {
+   "id": "c18",
+   "text": "DESIGN AUR DECORATION KE HISAAB SE",
+   "style": "n",
+   "para": 4,
+   "t0": 22.11,
+   "t1": 23.29
+  },
+  {
+   "id": "c19",
+   "text": "AB SOCHIYE... 🤔",
+   "style": "n",
+   "para": 5,
+   "t0": 23.53,
+   "t1": 24.11
+  },
+  {
+   "id": "c20",
+   "text": "MAHINE MEIN 10 EVENTS BHI MILE",
+   "style": "n",
+   "para": 5,
+   "t0": 24.11,
+   "t1": 26.02
+  },
+  {
+   "id": "c21",
+   "text": "TO KITNI KAMAI HO SAKTI HAI?",
+   "style": "g",
+   "para": 5,
+   "t0": 26.02,
+   "t1": 27.62
+  },
+  {
+   "id": "c22",
+   "text": "IS BUSINESS KI MACHINE,",
+   "style": "n",
+   "para": 6,
+   "t0": 27.84,
+   "t1": 29.1
+  },
+  {
+   "id": "c23",
+   "text": "INVESTMENT AUR PROFIT",
+   "style": "n",
+   "para": 6,
+   "t0": 29.1,
+   "t1": 30.62
+  },
+  {
+   "id": "c24",
+   "text": "KA POORA HISAAB CHAHIYE?",
+   "style": "n",
+   "para": 6,
+   "t0": 30.62,
+   "t1": 32.53
+  },
+  {
+   "id": "c25",
+   "text": "COMMENT KARO",
+   "style": "n",
+   "para": 6,
+   "t0": 32.53,
+   "t1": 33.24
+  },
+  {
+   "id": "c26",
+   "text": "BALLOON! 🎈",
+   "style": "g",
+   "para": 6,
+   "t0": 33.24,
+   "t1": 33.73
+  }
+ ]
+}

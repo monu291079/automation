@@ -1,0 +1,169 @@
+{
+ "fps": 30,
+ "duration": 37.78,
+ "sfx": [
+  {
+   "t": 0.08,
+   "type": "impact"
+  },
+  {
+   "t": 0.1,
+   "type": "shimmer"
+  },
+  {
+   "t": 1.6,
+   "type": "riser"
+  },
+  {
+   "t": 1.95,
+   "type": "whoosh"
+  },
+  {
+   "t": 2.17,
+   "type": "impact"
+  },
+  {
+   "t": 3.5,
+   "type": "whoosh"
+  },
+  {
+   "t": 5.21,
+   "type": "whoosh"
+  },
+  {
+   "t": 6.5,
+   "type": "whoosh"
+  },
+  {
+   "t": 6.75,
+   "type": "impact"
+  },
+  {
+   "t": 8.87,
+   "type": "whoosh"
+  },
+  {
+   "t": 10.26,
+   "type": "click"
+  },
+  {
+   "t": 11.51,
+   "type": "pop"
+  },
+  {
+   "t": 11.65,
+   "type": "pop"
+  },
+  {
+   "t": 11.79,
+   "type": "pop"
+  },
+  {
+   "t": 11.93,
+   "type": "pop"
+  },
+  {
+   "t": 12.07,
+   "type": "pop"
+  },
+  {
+   "t": 13.649999999999999,
+   "type": "whoosh"
+  },
+  {
+   "t": 13.7,
+   "type": "pop"
+  },
+  {
+   "t": 14.98,
+   "type": "pop"
+  },
+  {
+   "t": 15.95,
+   "type": "pop"
+  },
+  {
+   "t": 17.37,
+   "type": "impact"
+  },
+  {
+   "t": 18.689999999999998,
+   "type": "whoosh"
+  },
+  {
+   "t": 18.74,
+   "type": "pop"
+  },
+  {
+   "t": 19.0,
+   "type": "pop"
+  },
+  {
+   "t": 19.259999999999998,
+   "type": "pop"
+  },
+  {
+   "t": 20.44,
+   "type": "impact"
+  },
+  {
+   "t": 21.15,
+   "type": "whoosh"
+  },
+  {
+   "t": 24.11,
+   "type": "pop"
+  },
+  {
+   "t": 25.47,
+   "type": "riser"
+  },
+  {
+   "t": 26.02,
+   "type": "shimmer"
+  },
+  {
+   "t": 29.0,
+   "type": "pop"
+  },
+  {
+   "t": 29.650000000000002,
+   "type": "pop"
+  },
+  {
+   "t": 30.52,
+   "type": "pop"
+  },
+  {
+   "t": 31.979999999999993,
+   "type": "riser"
+  },
+  {
+   "t": 32.88,
+   "type": "typing"
+  },
+  {
+   "t": 33.24,
+   "type": "impact"
+  },
+  {
+   "t": 33.71999999999999,
+   "type": "click"
+  },
+  {
+   "t": 33.779999999999994,
+   "type": "whoosh"
+  },
+  {
+   "t": 34.23,
+   "type": "shimmer"
+  }
+ ],
+ "audio": {
+  "bpm": 126,
+  "voice_gain_db": 0,
+  "music_gain_db": -17,
+  "sfx_gain_db": -9,
+  "target_lufs": -14
+ }
+}
