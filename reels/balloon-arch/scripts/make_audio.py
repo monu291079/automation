@@ -181,7 +181,7 @@ def s_impact():
     return np.stack([s, s], 1)
 
 
-def s_whoosh(sec=0.45):
+def s_whoosh(sec=0.5):
     t = t_arr(sec)
     n = rng.standard_normal(len(t))
     # sweep a band by mixing two lowpasses with moving cutoff (approx via segments)
@@ -191,7 +191,7 @@ def s_whoosh(sec=0.45):
         x = i / len(n)
         c = 400 + 5200 * np.sin(np.pi * x) ** 2
         out[i:i + seg] = hp_fast(lp_fast(n[i:i + seg], c), c * 0.35)
-    shape = np.sin(np.pi * np.linspace(0, 1, len(t))) ** 1.5
+    shape = np.sin(np.pi * np.linspace(0, 1, len(t)) ** 1.94) ** 1.5  # peak at 70% of length -> lands on the cut
     s = out * shape * 0.9
     pan = np.linspace(0.2, 0.8, len(t))
     return np.stack([s * (1 - pan) * 1.6, s * pan * 1.6], 1)
@@ -254,7 +254,8 @@ MAKE = {"impact": s_impact, "whoosh": s_whoosh, "pop": s_pop, "tick": s_tick,
         "shimmer": s_shimmer, "riser": s_riser, "typing": s_typing, "click": s_click}
 for ev in TL["sfx"]:
     s = MAKE[ev["type"]]()
-    i = int(ev["t"] * SR)
+    i = int((ev["t"] - (0.30 if ev["type"] == "whoosh" else 0)) * SR)
+    if i < 0: s = s[-i:]; i = 0
     j = min(N, i + len(s))
     sfx[i:j] += s[: j - i]
 sfx /= max(1.0, np.max(np.abs(sfx)) / 0.95)
