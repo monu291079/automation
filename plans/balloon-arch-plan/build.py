@@ -4,6 +4,7 @@ from model import *
 
 HERE = pathlib.Path(__file__).parent
 B64 = lambda p: "data:image/png;base64," + base64.b64encode((HERE / "assets" / p).read_bytes()).decode()
+B64j = lambda p: "data:image/jpeg;base64," + base64.b64encode((HERE / "assets" / p).read_bytes()).decode()
 LOGO, QRY, QRT = B64("logo.png"), B64("qr_youtube.png"), B64("qr_telegram.png")
 SITE, TG, YT, IG = "https://ideaspulse.in", "https://t.me/ideaspulse", "https://www.youtube.com/@ideaspuls", "https://www.instagram.com/ideaspulse.in"
 
@@ -72,14 +73,11 @@ def make(lang):
     cur = lambda i: i
 
     # ---------------------------------------------------------------- cover
-    cover = f'''<section class="page cover" id="cover{sfx}">
-<div class="cv-top"><span class="pill"><img src="{LOGO}"/>IdeasPulse</span><a class="langbtn" href="#{'toc_en' if hi else 'toc'}">{L('English version → page ' + str(NP + 1), '← Hinglish version → page 1')}</a></div>
-<div class="cv-hero">{arch_hero(500, 400)}</div>
-<div class="cv-text"><div class="eyebrow gold">IDEASPULSE BUSINESS PLAN · {L('HINGLISH', 'ENGLISH')}</div>
-<h1 class="cv-h"><span class="g">Balloon Arch</span> Business Plan</h1>
-<p>{L('Birthday, wedding aur baby shower events ke liye <b>balloon arch decoration service</b> shuru karne ki complete guide: investment, monthly expenses, per-event profit aur <b>12-month roadmap</b>, saral Hinglish mein.', 'A complete guide to starting a <b>balloon arch decoration service</b> for birthdays, weddings and baby showers: investment, monthly expenses, per-event profit and a <b>12-month roadmap</b>, in plain English.')}</p>
-<div class="chips"><span class="chip gold">{L('Lean start ~₹9,000', 'Lean start ~₹9,000')}</span><span class="chip">{L('Ghar se operate', 'Home-based')}</span><span class="chip">{L('1-2 log', '1-2 people')}</span><span class="chip">{L('12-month roadmap', '12-month roadmap')}</span></div>
-<div class="cv-foot">{L('Comment BALLOON karein · ideaspulse.in · Sources: page ' + str(num('src')), 'Comment BALLOON · ideaspulse.in · Sources: page ' + str(num('src')))}</div></div></section>'''
+    COVER = B64j("cover.jpg")
+    cover = f'''<section class="page cover" id="cover{sfx}"><div class="cvbg" style="background-image:url({COVER})"></div>
+<div class="cvimg"><img src="{COVER}"/>
+<a class="cvl" style="left:4%;top:89.6%;width:48.5%;height:5.6%" href="{TG}"></a><a class="cvl" style="left:55%;top:89.6%;width:41.5%;height:5.6%" href="{SITE}"></a>
+<a class="langbtn cvlang" href="#{'toc_en' if hi else 'toc'}">{L('English version → page ' + str(NP + 1), '← Hinglish version → page 1')}</a></div></section>'''
 
     # ---------------------------------------------------------------- pages
     page("how", L("OVERVIEW", "OVERVIEW"), L("Is plan ko <span class='g'>kaise use karein</span>", "How to <span class='g'>use this plan</span>"),

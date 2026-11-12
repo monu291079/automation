@@ -79,3 +79,10 @@ a{color:inherit}
 .sw.on{background:linear-gradient(180deg,#F6E2A6,#E2BE6A)}.sw.alt{border-color:#D6DCE8;color:#6B7487}
 .srcs .sr a{color:#1F6FB5}
 .hero3d.sm svg{width:230px;max-height:190px}
+.page.cover{padding:0;background:#0A1830;position:relative}
+.cvbg{position:absolute;inset:-8mm;background-size:cover;background-position:center;filter:blur(18px) brightness(.8)}
+.cvimg{position:absolute;top:0;left:50%;transform:translateX(-50%);height:210mm;width:calc(210mm * 1024 / 1536)}
+.cvimg img{width:100%;height:100%;display:block}
+.cvl{position:absolute;display:block;border-radius:99px}
+.cvlang{position:absolute;top:1.6%;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:9px}
+.page.cover{height:210.4mm;width:148.3mm;margin-bottom:-0.4mm}
