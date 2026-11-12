@@ -1,303 +1,283 @@
-import html, re, base64, pathlib
+import re, base64, pathlib
 from art import *
 from model import *
 
 HERE = pathlib.Path(__file__).parent
-B64 = lambda p: "data:image/png;base64," + base64.b64encode((HERE / "assets" / p).read_bytes()).read() if False else "data:image/png;base64," + base64.b64encode((HERE / "assets" / p).read_bytes()).decode()
+B64 = lambda p: "data:image/png;base64," + base64.b64encode((HERE / "assets" / p).read_bytes()).decode()
 LOGO, QRY, QRT = B64("logo.png"), B64("qr_youtube.png"), B64("qr_telegram.png")
+SITE, TG, YT, IG = "https://ideaspulse.in", "https://t.me/ideaspulse", "https://www.youtube.com/@ideaspuls", "https://www.instagram.com/ideaspulse.in"
 
-PAGES = []  # (id, toc_title or None, html)
+IDS = ["cover", "toc", "how", "glance", "what", "machine", "cust", "pack", "proc1", "proc2", "setup", "donut", "items", "lean", "mach2", "running", "event", "be", "road", "m1a", "m1b", "m6", "m6b", "m12", "m12b", "scen", "season", "mkt", "safety", "reg", "mist", "risk", "src", "final", "cta"]
+NP = len(IDS)  # 35 pages per language
+DECO = {"how": 1, "cta": 2, "glance": 2, "what": 3, "cust": 4, "pack": 5, "proc1": 6, "proc2": 7, "lean": 1, "event": 2, "be": 3, "road": 4, "m1a": 5, "m1b": 6, "season": 7, "mkt": 1, "safety": 2, "reg": 3, "mist": 4, "risk": 5, "final": 6, "m6b": 3, "mach2": 4}
+
+LINKS = {"kiwi": "https://www.kiwiparty.in/products/electric-balloon-pump-73003", "ti": "https://www.tradeindia.com/manufacturers/balloon-pump.html",
+         "hasthip": "https://hasthip.com/products/hasthip%C2%AE-balloon-arc-stand-for-decoration-9ft-height-adjustable-balloon-arch-stand-balloon-arch-frame-with-base-complete-accessories-set-for-wedding-baby-shower-birthday-party-supplies-decorations",
+         "craze": "https://thecraze.in/products/10ft-balloon-arch-stand-kit-for-tables-balloon-garland-decoration", "psi": "https://www.partysuppliesindia.com/products/balloon-garland-arch-diy-kit",
+         "pwh": "https://partywholesale.in/products/12-standard-latex-balloons-white", "bd": "https://balloondekor.com/blog/birthday-decoration-cost-india-city-guide", "fun": "https://funtook.in/balloon-decoration",
+         "mt": "https://mytribe.in/xclusive_event_/event-decoration", "ht": "https://www.hindustantimes.com/genesis/indias-celebration-market-is-going-last-minute-as-quick-commerce-reshapes-birthdays-baby-showers-101779254576401-amp.html",
+         "cbic": "https://cbic-gst.gov.in/hindi/sectoral-faq.html", "udyam": "https://udyamregistration.gov.in/Important.aspx"}
+A = lambda u, t: f'<a class="ext" href="{u}">{t}</a>'
 
 
-def page(pid, eyebrow, title, body, toc=None, cont=False, dark=False):
-    n = len(PAGES) + 1
-    t = f'<h1>{title}{" <small>(aage)</small>" if cont else ""}</h1><div class="rule"></div>'
-    PAGES.append((pid, toc, f'''<section class="page{' dark' if dark else ''}" id="{pid}">
+def make(lang):
+    hi = lang == "hi"
+    L = lambda h, e: h if hi else e
+    base = 0 if hi else NP
+    sfx = "" if hi else "_en"
+    PAGES = []
+
+    def num(pid):
+        return IDS.index(pid) + 1 + base
+
+    def pg(pid, label=None):
+        return f'<a class="pref" href="#{pid}{sfx}">{label or L("page", "page")} {num(pid)}</a>'
+
+    def page(pid, eyebrow, title, body, toc=None, cont=False, dark=False):
+        assert IDS[len(PAGES) + 2] == pid, (pid, IDS[len(PAGES) + 2])
+        n = len(PAGES) + 3 + base
+        t = f'<h1>{title}{" <small>" + L("(aage)", "(continued)") + "</small>" if cont else ""}</h1><div class="rule"></div>'
+        foot = L("IdeasPulse · ideaspulse.in · Saare numbers illustrative hain, guarantee nahi", "IdeasPulse · ideaspulse.in · All figures are illustrative, not guaranteed")
+        PAGES.append((pid, toc, f'''<section class="page{' dark' if dark else ''}" id="{pid}{sfx}">
 <div class="eyebrow">{eyebrow}</div>{t}<div class="body">{body}</div>
-<footer><a href="#toc" class="flogo"><img src="{LOGO}"/></a><span>IdeasPulse · ideaspulse.in · Saare numbers udaharan hain, guarantee nahi</span><a class="pn" href="#toc">{n:02d}</a></footer></section>'''))
+<footer><a href="#toc{sfx}" class="flogo"><img src="{LOGO}"/></a><span>{foot}</span><a class="pn" href="#toc{sfx}">{n:02d}</a></footer></section>'''))
 
+    def callout(title, items, kind="gold"):
+        return f'<div class="callout {kind}"><b class="ct">{title}</b><ul>' + "".join(f"<li>{i}</li>" for i in items) + "</ul></div>"
 
-def callout(title, items, kind="gold"):
-    li = "".join(f"<li>{i}</li>" for i in items)
-    return f'<div class="callout {kind}"><b class="ct">{title}</b><ul>{li}</ul></div>'
+    para = lambda t: f'<p class="lead">{t}</p>'
+    checks = lambda items, bad=False: '<ul class="checks">' + "".join(f'<li><i class="{"bad" if bad else "ok"}">{"✕" if bad else "✓"}</i><span>{i}</span></li>' for i in items) + "</ul>"
+    stat = lambda label, big, sub, accent="#E2BE6A": f'<div class="stat" style="--ac:{accent}"><div class="sl">{label}</div><div class="sb">{big}</div><div class="ss">{sub}</div></div>'
+    table = lambda head, rows: '<table class="tb"><thead><tr>' + "".join(f"<th>{h}</th>" for h in head) + "</tr></thead><tbody>" + "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows) + "</tbody></table>"
+    card = lambda inner, cls="": f'<div class="card {cls}">{inner}</div>'
+    src = lambda t: f'<p class="src">{t}</p>'
 
+    def flow(steps):
+        out = ""
+        for i, (ic, t, s) in enumerate(steps):
+            out += f'<div class="fl"><div class="fi">{ic}</div><b>{t}</b><span>{s}</span></div>' + ('<div class="fa">→</div>' if i < len(steps) - 1 else "")
+        return f'<div class="flow">{out}</div>'
 
-def para(t):
-    return f'<p class="lead">{t}</p>'
+    def timeline(items):
+        return '<div class="tline">' + "".join(f'<div class="tl"><div class="dot"></div><div class="tc"><div class="th">{h}</div><b>{t}</b><span>{s}</span></div></div>' for h, t, s in items) + "</div>"
 
+    # ---------------------------------------------------------------- bilingual labels
+    SI_NAMES = [("Electric dual-nozzle pump", "Electric dual-nozzle pump"), ("Arch frame 9 ft (light)", "Arch frame 9 ft (light)"), ("Arch frame 10 ft (heavy-duty)", "Arch frame 10 ft (heavy-duty)"), ("DIY strip + glue dots kit", "DIY strip + glue dots kit"),
+                ("Latex balloons 12-inch (starting stock)", "Latex balloons 12-inch (starting stock)"), ("Foil, ribbon, tape, fishing line", "Foil, ribbon, tape, fishing line"), ("Tools: scissors, hooks, extension, repair kit", "Tools: scissors, hooks, extension, repair kit"),
+                ("Sandbags / base weights + carry bag", "Sandbags / base weights + carry bag"), ("Basic backdrop + props", "Basic backdrop + props"), ("Branding: cards, banner, rate card", "Branding: cards, banner, rate card"), ("Practice + travel buffer", "Practice + travel buffer"), ("Starting marketing (photo shoot + boost)", "Starting marketing (photo shoot + boost)")]
+    SI_LINK = ["kiwi", "hasthip", "craze", "psi", "pwh", None, None, None, None, None, None, None]
+    EV_NAMES = [("Latex balloons (~200 pcs)", "Latex balloons (~200 pcs)"), ("Foil / accent", "Foil / accents"), ("Tape, strip, glue dots, wastage", "Tape, strip, glue dots, wastage"), ("Travel (petrol / auto)", "Travel (fuel / auto)"), ("Helper (setup + teardown)", "Helper (setup + teardown)"), ("Payment fee / contingency", "Payment fee / contingency")]
+    FX_NAMES = [("Phone + internet", "Phone + internet"), ("Marketing (boost, printing)", "Marketing (boosts, printing)"), ("Repair / frame maintenance", "Repairs / frame maintenance"), ("Miscellaneous", "Miscellaneous")]
+    LEAN_N = ["Pump", "Frame 9 ft", "DIY kit", L("Balloons (1,000)", "Balloons (1,000)"), "Tape / ribbon / foil", "Tools", "Branding", "Buffer"]
+    cur = lambda i: i
 
-def checks(items, bad=False):
-    ic = "✕" if bad else "✓"
-    return '<ul class="checks">' + "".join(f'<li><i class="{"bad" if bad else "ok"}">{ic}</i><span>{i}</span></li>' for i in items) + "</ul>"
-
-
-def stat(label, big, sub, accent="#E2BE6A"):
-    return f'<div class="stat" style="--ac:{accent}"><div class="sl">{label}</div><div class="sb">{big}</div><div class="ss">{sub}</div></div>'
-
-
-def table(head, rows, widths=None, hl_last=False):
-    th = "".join(f"<th>{h}</th>" for h in head)
-    tr = ""
-    for r in rows:
-        tr += "<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>"
-    return f'<table class="tb"><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table>'
-
-
-def card(inner, cls=""):
-    return f'<div class="card {cls}">{inner}</div>'
-
-
-def flow(steps):
-    out = ""
-    for i, (ic, t, s) in enumerate(steps):
-        out += f'<div class="fl"><div class="fi">{ic}</div><b>{t}</b><span>{s}</span></div>'
-        if i < len(steps) - 1:
-            out += '<div class="fa">→</div>'
-    return f'<div class="flow">{out}</div>'
-
-
-def timeline(items):
-    out = ""
-    for h, t, s in items:
-        out += f'<div class="tl"><div class="dot"></div><div class="tc"><div class="th">{h}</div><b>{t}</b><span>{s}</span></div></div>'
-    return f'<div class="tline">{out}</div>'
-
-
-def src(t):
-    return f'<p class="src">{t}</p>'
-
-
-# =============================================================== PAGES
-# 1 cover
-cover_html = f'''<section class="page cover" id="cover">
-<div class="cv-top"><span class="pill"><img src="{LOGO}"/>IdeasPulse</span></div>
+    # ---------------------------------------------------------------- cover
+    cover = f'''<section class="page cover" id="cover{sfx}">
+<div class="cv-top"><span class="pill"><img src="{LOGO}"/>IdeasPulse</span><a class="langbtn" href="#{'toc_en' if hi else 'toc'}">{L('English version → page ' + str(NP + 1), '← Hinglish version → page 1')}</a></div>
 <div class="cv-hero">{arch_hero(500, 400)}</div>
-<div class="cv-text"><div class="eyebrow gold">IDEASPULSE BUSINESS PLAN · HINGLISH</div>
+<div class="cv-text"><div class="eyebrow gold">IDEASPULSE BUSINESS PLAN · {L('HINGLISH', 'ENGLISH')}</div>
 <h1 class="cv-h"><span class="g">Balloon Arch</span> Business Plan</h1>
-<p>Ek machine, kuch balloons aur aapki mehnat: <b>birthday, wedding aur baby shower</b> ki decoration se kamai. Poora hisaab, 1 mahine se 12 mahine tak, <b>aasaan Hinglish</b> mein.</p>
-<div class="chips"><span class="chip gold">~₹9,000 se lean start</span><span class="chip">Ghar se shuru</span><span class="chip">1-2 log</span><span class="chip">12 mahine ka roadmap</span></div>
-<div class="cv-foot">Comment BALLOON karne walon ke liye · ideaspulse.in · Har number ka source page 33 par</div></div></section>'''
+<p>{L('Birthday, wedding aur baby shower events ke liye <b>balloon arch decoration service</b> shuru karne ki complete guide: investment, monthly expenses, per-event profit aur <b>12-month roadmap</b>, saral Hinglish mein.', 'A complete guide to starting a <b>balloon arch decoration service</b> for birthdays, weddings and baby showers: investment, monthly expenses, per-event profit and a <b>12-month roadmap</b>, in plain English.')}</p>
+<div class="chips"><span class="chip gold">{L('Lean start ~₹9,000', 'Lean start ~₹9,000')}</span><span class="chip">{L('Ghar se operate', 'Home-based')}</span><span class="chip">{L('1-2 log', '1-2 people')}</span><span class="chip">{L('12-month roadmap', '12-month roadmap')}</span></div>
+<div class="cv-foot">{L('Comment BALLOON karein · ideaspulse.in · Sources: page ' + str(num('src')), 'Comment BALLOON · ideaspulse.in · Sources: page ' + str(num('src')))}</div></div></section>'''
 
-# 3 how to use
-page("how", "SHURUAAT", "Is plan ko <span class='g'>kaise padhein</span>?", para("Ye plan aise likha hai ki <b>8vi class ka baccha bhi samajh sake</b>. Har page par chhote point, tasveerein aur seedhe numbers hain. Kuch bhi mushkil lage to us page ki tasveer dekho."
-) + callout("📌 SABSE ZAROORI 4 BAATEIN", [
-    "Pehle <b>1-2 test arch</b> banao, phir paisa lagao.",
-    "Pehle <b>customer dhoondo, phir saaman badhao</b>. Order ke bina stock mat bharo.",
-    "Machine ki <b>exact price aur demo</b> seller se khud confirm karo (page 15).",
-    "Saare numbers <b>udaharan</b> hain, guarantee nahi. Apne sheher ke rate se jodo (source page 33)."]) +
-    f'<div class="imgrow">{card(machine(300,250),"flat")}{card(coins(220,170),"flat")}</div><p class="cap">Machine + paisa: iss plan mein dono ka hisaab hai (3D udaharan tasveer).</p>', toc="Is plan ko kaise padhein")
+    # ---------------------------------------------------------------- pages
+    page("how", L("OVERVIEW", "OVERVIEW"), L("Is plan ko <span class='g'>kaise use karein</span>", "How to <span class='g'>use this plan</span>"),
+         para(L("Ye guide beginner ko bhi step-by-step samjhane ke liye banayi gayi hai. Har page par short points, 3D visuals aur seedhe numbers hain. Kisi bhi section par jaane ke liye contents page ke links use karein.",
+                "This guide is written so that a complete beginner can follow it step by step. Every page has short points, 3D visuals and plain numbers. Use the links on the contents page to jump to any section.")) +
+         callout(L("📌 4 KEY RULES", "📌 4 KEY RULES"), [L("Pehle <b>1-2 test arch</b> banakar practice karein, phir bada investment karein.", "Practise with <b>1-2 test arches</b> before making a larger investment."),
+                                                       L("Pehle <b>customers dhoondhein, phir stock badhayein</b>. Booking ke bina zyada saaman na kharidein.", "<b>Find customers first, then scale stock.</b> Do not buy large quantities without bookings."),
+                                                       L(f"Machine ka <b>exact price aur live demo</b> seller se confirm karein ({pg('mach2')}).", f"Confirm the machine's <b>exact price and a live demo</b> with the seller ({pg('mach2')})."),
+                                                       L(f"Saare numbers <b>illustrative</b> hain, guarantee nahi. Apne shehar ke rates se verify karein ({pg('src', 'Sources')}).", f"All numbers are <b>illustrative</b>, not guaranteed. Verify against your city's rates ({pg('src', 'Sources')}).")]) +
+         f'<div class="imgrow">{card(machine(300, 250), "flat")}{card(coins(220, 170), "flat")}</div><p class="cap">{L("Machine aur cash flow: dono ka hisaab is plan mein hai (3D illustration).", "Machine and cash flow: this plan covers both (3D illustration).")}</p>',
+         toc=L("Is plan ko kaise use karein", "How to use this plan"))
 
-# 4 ek nazar mein
-page("glance", "EK NAZAR MEIN", "Poora business <span class='g'>1 page mein</span>", para("Balloon arch business mein aap <b>event par balloons ki sundar arch</b> banakar lagate ho. Customer <b>decoration</b> ka paisa deta hai, sirf machine ka nahi.") +
-     '<div class="grid2">' + stat("LEAN SETUP", "₹9,068", "pump, frame, balloons, tools") + stat("SERVICE-READY SETUP", "₹23,164", "2 frame, stock, props, marketing", "#2BB3AA") +
-     stat("EK ARCH KA RATE", "₹1,800-10,000+", "design aur jagah ke hisaab se", "#12213A") + stat("EK EVENT KA MUNAFA", "~₹1,200", "₹3,500 ke arch par (page 17)") +
-     stat("PAISA WAPAS", "~7 mahine", "base plan: 8 events/mahina tak pahunchne par", "#2BB3AA") + stat("12 MAHINE KA MUNAFA", "~₹79,500", "base plan, aapki mehnat ka paisa nikalne se pehle", "#12213A") + '</div>' +
-     src("Setup: page 12-15 · Event ka hisaab: page 17 · Roadmap: page 22-26. Machine (reel wali) ka daam setup mein jodna alag se hai."), toc="Ek nazar mein: poora business")
+    page("glance", L("SNAPSHOT", "SNAPSHOT"), L("Poora business <span class='g'>ek page par</span>", "The whole business <span class='g'>on one page</span>"),
+         para(L("Balloon arch business mein aap events par <b>balloon arches design aur install</b> karte hain. Customer <b>decoration service</b> ke paise deta hai, sirf machine ke nahi.", "In this business you <b>design and install balloon arches</b> at events. The customer pays for the <b>decoration service</b>, not just for a machine.")) +
+         '<div class="grid2">' + stat("LEAN SETUP", "₹9,068", L("pump, frame, balloons, tools", "pump, frame, balloons, tools")) + stat("SERVICE-READY SETUP", "₹23,164", L("2 frames, stock, props, marketing", "2 frames, stock, props, marketing"), "#2BB3AA") +
+         stat(L("ARCH KA RATE", "ARCH PRICE"), "₹1,800-10,000+", L("design aur venue ke hisaab se", "depends on design and venue"), "#12213A") + stat(L("PER-EVENT PROFIT", "PER-EVENT PROFIT"), "~₹1,200", L("₹3,500 ke arch par", "on a ₹3,500 arch") + f" ({pg('event')})") +
+         stat("PAYBACK", L("~7 mahine", "~7 months"), L("base plan: 8 events/month tak pahunchne par", "base plan: once you reach 8 events/month"), "#2BB3AA") + stat(L("12-MONTH PROFIT", "12-MONTH PROFIT"), "~₹79,500", L("base plan, aapki apni salary se pehle", "base plan, before your own salary"), "#12213A") + '</div>' +
+         src(L(f"Setup: {pg('setup')}-{pg('mach2', 'page')} · Per-event hisaab: {pg('event')} · Roadmap: {pg('m1a')}-{pg('scen')}. Reel wali machine ka price alag se add hoga.", f"Setup: {pg('setup')}-{pg('mach2', 'page')} · Per-event maths: {pg('event')} · Roadmap: {pg('m1a')}-{pg('scen')}. The price of the reel's machine is added separately.")),
+         toc=L("Business ek nazar mein", "The business at a glance"))
 
-# 5 kya hai
-page("what", "SAMJHO", "Balloon arch business <span class='g'>kya hai</span>?", para("Birthday, shaadi, baby shower, shop opening: har jagah log <b>sundar photo-spot</b> chahte hain. Aap wahan jaakar balloons ki arch lagate ho. Isi kaam ke paise milte hain.") +
-     flow([(tile3d("📞"), "Booking", "customer ne bola"), (tile3d("🎈", "#2BB3AA"), "Balloon phulao", "pump / machine se"), (tile3d("🏗️", "#4C8DFF"), "Arch banao", "frame par lagao"), (tile3d("💰", "#E2BE6A"), "Paisa lo", "advance + baaki")]) +
-     card("<b class='h3'>Aasaan bhasha mein</b><p>Aap <b>ek dukaan nahi</b>, ek <b>service</b> chalate ho. Saaman (balloons, frame) <b>aap laate ho</b>, event par lagate ho, aur kaam ke paise lete ho. Dukaan ya bada godown ki zaroorat nahi, ghar ka ek kona kaafi hai.</p>") +
-     card("<b class='h3'>Kyun pasand hai ye business?</b>" + checks(["<b>Chhota setup</b>: ₹9,000 se shuru ho sakta hai", "<b>Ghar se</b> kaam, kiraya nahi", "Har <b>birthday/shaadi</b> par demand", "<b>Skill</b> seekh kar hi aati hai: practice se"])), toc="Balloon arch business kya hai")
+    page("what", L("BASICS", "BASICS"), L("Balloon arch business <span class='g'>kya hai</span>?", "What is a balloon arch <span class='g'>business</span>?"),
+         para(L("Birthday, shaadi, baby shower aur shop opening: har jagah log ek <b>attractive photo spot</b> chahte hain. Aap venue par jaakar balloon arch install karte hain, aur isi service ke paise milte hain.",
+                "Birthdays, weddings, baby showers and shop openings all need an <b>attractive photo spot</b>. You go to the venue, install a balloon arch, and are paid for that service.")) +
+         flow([(tile3d("📞"), L("Booking", "Booking"), L("customer ka enquiry", "customer enquiry")), (tile3d("🎈", "#2BB3AA"), L("Inflate", "Inflate"), L("pump / machine se", "with pump / machine")), (tile3d("🏗️", "#4C8DFF"), L("Arch banayein", "Build the arch"), L("frame par lagayein", "mount on frame")), (tile3d("💰", "#E2BE6A"), L("Payment", "Payment"), L("advance + balance", "advance + balance"))]) +
+         card(f"<b class='h3'>{L('Business model', 'Business model')}</b><p>{L('Aap <b>dukaan nahi</b>, ek <b>service</b> chalate hain. Balloons aur frames aap laate hain, event par install karte hain aur service charge lete hain. Shuru mein godown ya kiraya nahi chahiye; ghar ka ek kona kaafi hai.', 'You run a <b>service</b>, not a shop. You bring the balloons and frames, install them at the event and charge for the service. No warehouse or rent is needed at the start; a corner of your home is enough.')}</p>") +
+         card(f"<b class='h3'>{L('Ye business kyun?', 'Why this business?')}</b>" + checks([L("<b>Low investment:</b> ₹9,000 se shuru ho sakta hai", "<b>Low investment:</b> can start from ₹9,000"), L("<b>Home-based</b> operations, rent nahi", "<b>Home-based</b> operations, no rent"), L("Birthday aur shaadi par <b>year-round demand</b>", "<b>Year-round demand</b> from birthdays and weddings"), L("Skill practice se aati hai, degree nahi chahiye", "A skill built by practice; no degree required")])),
+         toc=L("Balloon arch business kya hai", "What is a balloon arch business"))
 
-# 6 machine
-page("machine", "SAMJHO", "Reel wali machine <span class='g'>kya karti hai</span>?", f'<div class="hero3d">{machine(360,290)}</div>' +
-     para("Machine ek baar mein <b>kai balloons ek saath phulati hai</b>. Isse <b>time bachta hai</b>, kyunki muh ya hath-pump se phulane mein bahut time jaata hai.") +
-     '<div class="grid2">' + card("<b class='h3 ok2'>✓ Machine karti hai</b>" + checks(["Balloons <b>jaldi phulati</b> hai", "Thakaan kam, <b>kaam tez</b>"])) + card("<b class='h3 bad2'>✕ Machine nahi karti</b>" + checks(["Arch <b>khud nahi banati</b>", "Design, rang, <b>fitting aap karoge</b>"], True)) + '</div>' +
-     callout("⚠️ DHYAAN DO", ["Aam <b>₹666-900 ki dual-nozzle pump</b> aur reel wali <b>multi-balloon machine</b> alag cheezein ho sakti hain.", "Khareedne se pehle <b>demo video, warranty, voltage, balloon size, daam</b> seller se pucho."], "red"), toc="Machine kya karti hai (aur kya nahi)")
+    page("machine", L("BASICS", "BASICS"), L("Reel wali machine <span class='g'>kya karti hai</span>?", "What the <span class='g'>reel's machine</span> does"), f'<div class="hero3d">{machine(360, 290)}</div>' +
+         para(L("Machine ek saath <b>kai balloons inflate</b> karti hai, jisse <b>time bachta hai</b>. Muh ya hand pump se balloons phulane mein kaafi samay lagta hai.", "The machine <b>inflates several balloons at once</b>, which <b>saves time</b>. Inflating by mouth or hand pump takes much longer.")) +
+         '<div class="grid2">' + card(f"<b class='h3 ok2'>✓ {L('Machine karti hai', 'The machine does')}</b>" + checks([L("Balloons <b>jaldi inflate</b> karti hai", "<b>Inflates balloons quickly</b>"), L("Thakaan kam, <b>kaam tez</b>", "Less fatigue, <b>faster work</b>")])) +
+         card(f"<b class='h3 bad2'>✕ {L('Machine nahi karti', 'The machine does not')}</b>" + checks([L("Arch <b>khud nahi banati</b>", "<b>Build the arch by itself</b>"), L("Design, colours aur fitting <b>aapko karni hoti hai</b>", "Design, colours and fitting are <b>still your work</b>")], True)) + '</div>' +
+         callout(L("⚠️ DHYAAN RAKHEIN", "⚠️ IMPORTANT"), [L("Aam <b>₹666-900 ki dual-nozzle pump</b> aur reel wali <b>multi-balloon machine</b> alag ho sakti hain.", "An ordinary <b>₹666-900 dual-nozzle pump</b> and the reel's <b>multi-balloon machine</b> may be different products."), L("Khareedne se pehle <b>demo video, warranty, voltage, balloon size aur price</b> seller se confirm karein.", "Before buying, confirm the <b>demo video, warranty, voltage, balloon sizes and price</b> with the seller.")], "red"),
+         toc=L("Machine kya karti hai (aur kya nahi)", "What the machine does (and does not)"))
 
-# 7 customers
-page("cust", "BAZAAR", "Customer <span class='g'>kaun</span> hain?", para("Ye log arch ke paise dete hain. Inse <b>pehle 3 kisam</b> pakdo, phir badhao.") +
-     '<div class="grid2">' + "".join(card(f'<div class="ct3">{tile3d(ic,col,54)}</div><b class="h3">{t}</b><span class="sm">{d}</span>') for ic, col, t, d in [
-         ("🎂", "#FF8FB8", "Birthday", "Ghar ya hall ki arch, name balloon"), ("🍼", "#4C8DFF", "Baby shower / naming", "Pastel arch, welcome board"), ("💍", "#E2BE6A", "Shaadi, haldi, mehendi", "Entry arch, photo corner"),
-         ("🏪", "#2BB3AA", "Dukaan opening", "Brand-color arch, pillar"), ("🎓", "#9B6BFF", "School / office", "Stage aur gate decoration"), ("🛍️", "#FF6B5A", "DIY customer", "Taiyar balloon garland kit")]) + '</div>' +
-     callout("🧭 KAHAN MILENGE?", ["WhatsApp status, Instagram reel, local <b>Facebook groups</b>", "<b>Cake shop, photographer, banquet hall, event planner</b> se tie-up", "Khush customer se <b>review aur referral</b>"], "teal"), toc="Customer kaun hain?")
+    cust = [("🎂", "#FF8FB8", L("Birthday", "Birthdays"), L("Ghar ya hall ki arch, name balloons", "Home or hall arch, name balloons")), ("🍼", "#4C8DFF", L("Baby shower / naming", "Baby shower / naming"), L("Pastel arch, welcome board", "Pastel arch, welcome board")),
+            ("💍", "#E2BE6A", L("Shaadi, haldi, mehendi", "Wedding, haldi, mehendi"), L("Entry arch, photo corner", "Entrance arch, photo corner")), ("🏪", "#2BB3AA", L("Shop opening", "Shop opening"), L("Brand-colour arch, pillars", "Brand-colour arch, pillars")),
+            ("🎓", "#9B6BFF", L("School / office", "Schools / offices"), L("Stage aur gate decoration", "Stage and gate decoration")), ("🛍️", "#FF6B5A", L("DIY customers", "DIY customers"), L("Ready balloon garland kits", "Ready-made garland kits"))]
+    page("cust", L("MARKET", "MARKET"), L("Target <span class='g'>customers</span>", "Target <span class='g'>customers</span>"), para(L("Ye wo log hain jo arch ke paise dete hain. Pehle <b>3 segments</b> par focus karein, phir expand karein.", "These are the people who pay for an arch. Focus on <b>3 segments</b> first, then expand.")) +
+         '<div class="grid2">' + "".join(card(f'<div class="ct3">{tile3d(ic, col, 54)}</div><b class="h3">{t}</b><span class="sm">{d}</span>') for ic, col, t, d in cust) + '</div>' +
+         callout(L("🧭 CUSTOMERS KAHAN MILENGE", "🧭 WHERE TO FIND THEM"), [L("WhatsApp Status, Instagram Reels, local <b>Facebook groups</b>", "WhatsApp Status, Instagram Reels, local <b>Facebook groups</b>"), L("<b>Cake shops, photographers, banquet halls, event planners</b> ke saath tie-up", "Tie-ups with <b>cake shops, photographers, banquet halls and event planners</b>"), L("Khush customers se <b>reviews aur referrals</b>", "<b>Reviews and referrals</b> from happy customers")], "teal"),
+         toc=L("Target customers", "Target customers"))
 
-# 8 packages
-page("pack", "BAZAAR", "Kya <span class='g'>bechoge</span>? 5 package", para("Customer ko <b>photo + balloon ginti + kya-kya shamil hai</b> likh kar quote do. Neeche <b>test rate</b> hain, apne shehar ke hisaab se badlo.") +
-     table(["Package", "Isme kya", "Test rate"], [["🎈 <b>Starter arch</b>", "1 simple arch, 2-3 rang, local jagah", "<b>₹1,800-2,800</b>"], ["🎂 <b>Birthday corner</b>", "Arch + chhota backdrop + floor bunch", "<b>₹2,800-4,500</b>"], ["📸 <b>Theme photo corner</b>", "Arch + ring/frame + name foil + styling", "<b>₹4,500-7,500</b>"],
-                                            ["💍 <b>Wedding entry arch</b>", "Badi arch, ghani balloons, setup", "<b>₹5,000-10,000+</b>"], ["🏪 <b>Shop opening</b>", "Entry arch ya 2 pillar, brand rang", "<b>₹3,500-7,000</b>"]]) +
-     callout("📌 BHAV KAISE TAY KARO", ["<b>Balloon + saaman ka kharcha</b> + aana-jaana + helper", "+ <b>aapka time</b> + muanfa", "Sirf bachhe-jaisi sasti arch ka bhav, badi arch ko mat do."]) +
-     src("Rates: BalloonDekor, Funtook, mytribe listings par dikhe ₹1,499 se ₹11,499 ke range se liye. Mathura ke exact quote nahi hain, test rate hain."), toc="Packages aur bechne ke rate")
+    page("pack", L("MARKET", "MARKET"), L("Packages aur <span class='g'>pricing</span>", "Packages and <span class='g'>pricing</span>"), para(L("Customer ko <b>photo, balloon count aur inclusions</b> ke saath quote dein. Neeche <b>test rates</b> hain; apne shehar ke hisaab se badlein.", "Quote with a <b>photo, balloon count and inclusions</b>. The <b>test rates</b> below should be adjusted to your city.")) +
+         table([L("Package", "Package"), L("Includes", "Includes"), L("Test rate", "Test rate")], [["🎈 <b>Starter arch</b>", L("1 simple arch, 2-3 colours, local venue", "1 simple arch, 2-3 colours, local venue"), "<b>₹1,800-2,800</b>"], ["🎂 <b>Birthday corner</b>", L("Arch + small backdrop + floor bunches", "Arch + small backdrop + floor bunches"), "<b>₹2,800-4,500</b>"],
+                                                                                                    ["📸 <b>Theme photo corner</b>", L("Arch + ring/frame + name foil + styling", "Arch + ring/frame + name foil + styling"), "<b>₹4,500-7,500</b>"], ["💍 <b>Wedding entry arch</b>", L("Larger arch, dense balloons, setup", "Larger arch, dense balloons, setup"), "<b>₹5,000-10,000+</b>"], ["🏪 <b>Shop opening</b>", L("Entrance arch or 2 pillars, brand colours", "Entrance arch or 2 pillars, brand colours"), "<b>₹3,500-7,000</b>"]]) +
+         callout(L("📌 PRICE KAISE TAY KAREIN", "📌 HOW TO SET YOUR PRICE"), [L("<b>Balloons + material cost</b> + travel + helper", "<b>Balloons + material cost</b> + travel + helper"), L("+ <b>aapka time</b> + profit margin", "+ <b>your time</b> + profit margin"), L("Basic arch ke rate par premium design quote na karein.", "Never quote a premium design at a basic-arch rate.")]) +
+         src(L(f"Reference listings: {A(LINKS['bd'], 'BalloonDekor')}, {A(LINKS['fun'], 'Funtook')}, {A(LINKS['mt'], 'mytribe')} (₹1,499-₹11,499 range). Ye Mathura ke exact quotes nahi, test rates hain.", f"Reference listings: {A(LINKS['bd'], 'BalloonDekor')}, {A(LINKS['fun'], 'Funtook')}, {A(LINKS['mt'], 'mytribe')} (₹1,499-₹11,499 range). These are test rates, not exact local quotes.")),
+         toc=L("Packages aur pricing", "Packages and pricing"))
 
-# 9 process 1
-page("proc1", "PROCESS", "Poora business <span class='g'>step by step</span>", para("Booking se paise tak: har event par <b>yehi 10 step</b> chalte hain.") +
-     timeline([("Step 1-2", "Call aaya → sawaal pucho", "Kab, kahan, kitne log, kaun sa event, budget"), ("Step 3", "Photo + quote bhejo", "Design ki photo, balloon ginti, kya shamil hai, rate"),
-               ("Step 4", "Advance lo (30-50%)", "UPI par. Date lock. Cancel policy likho."), ("Step 5", "Saaman ginti karo", "Balloon + 10% extra, frame, tape, tools, extension")]) +
-     callout("✍️ BOOKING FORM MEIN YE LIKHO", ["Date, time, <b>pata</b>, event ka naam", "Rang, <b>package</b>, balloon ginti, frame/backdrop", "Setup aur teardown time, <b>budget aur advance</b>"], "teal"), toc="Poora business process (1/2)")
-page("proc2", "PROCESS", "Poora business <span class='g'>step by step</span>", timeline([("Step 6", "Ek din pehle: taiyari", "Saaman gaadi mein rakho, balloons ka test, frame check, phone charge"), ("Step 7", "Event din: pahunch kar jagah dekho", "Hawa, power point, floor, permission. Phir frame lagao"),
-                                                                             ("Step 8", "Balloons phulao aur arch banao", "Machine/pump se phulao, strip par lagao, rang ke hisaab se"), ("Step 9", "Photo + video lo, customer ko dikhao", "Aapka portfolio isi se banega. Photo permission lo"),
-                                                                             ("Step 10", "Baaki paisa lo, review maango", "Kharcha likho (job sheet page 34), Google/WhatsApp review lo")]) +
-     callout("⏱️ EVENT-DIN KA TIME (udaharan)", ["Pahunchna <b>2 ghante pehle</b>", "Arch banane mein <b>45-90 min</b> (practice se kam hoga)", "Customer ke aane se <b>30 min pehle taiyar</b>"]), cont=True, toc=None)
-PAGES[-1] = (PAGES[-1][0], None, PAGES[-1][2])
+    page("proc1", L("PROCESS", "PROCESS"), L("Business process <span class='g'>step by step</span>", "The business process <span class='g'>step by step</span>"), para(L("Booking se payment tak: har event par ye <b>10 steps</b> follow hote hain.", "From booking to payment: every event follows these <b>10 steps</b>.")) +
+         timeline([("STEP 1-2", L("Enquiry → questions", "Enquiry → questions"), L("Date, venue, guests, event type, budget", "Date, venue, guests, event type, budget")), ("STEP 3", L("Photo + quote bhejein", "Send photo + quote"), L("Design photo, balloon count, inclusions, rate", "Design photo, balloon count, inclusions, rate")),
+                   ("STEP 4", L("Advance lein (30-50%)", "Collect advance (30-50%)"), L("UPI par. Date lock karein, cancellation policy likhein.", "By UPI. Lock the date and write the cancellation policy.")), ("STEP 5", L("Material count", "Material count"), L("Balloons + 10% extra, frame, tape, tools, extension", "Balloons + 10% extra, frame, tape, tools, extension"))]) +
+         callout(L("✍️ BOOKING FORM MEIN LIKHEIN", "✍️ CAPTURE IN THE BOOKING FORM"), [L("Date, time, <b>address</b>, event ka naam", "Date, time, <b>address</b>, event name"), L("Colours, <b>package</b>, balloon count, frame/backdrop", "Colours, <b>package</b>, balloon count, frame/backdrop"), L("Setup aur teardown time, <b>budget aur advance</b>", "Setup and teardown time, <b>budget and advance</b>")], "teal"),
+         toc=L("Business process (1/2)", "Business process (1/2)"))
+    page("proc2", L("PROCESS", "PROCESS"), L("Business process <span class='g'>step by step</span>", "The business process <span class='g'>step by step</span>"), timeline([("STEP 6", L("Ek din pehle: preparation", "Day before: preparation"), L("Material gaadi mein rakhein, balloons test karein, frame check, phone charge", "Load the vehicle, test balloons, check the frame, charge your phone")), ("STEP 7", L("Event din: venue check", "Event day: venue check"), L("Hawa, power point, floor, permission. Phir frame lagayein", "Wind, power point, floor, permission. Then set up the frame")),
+         ("STEP 8", L("Inflate aur arch build", "Inflate and build"), L("Machine/pump se inflate karein, strip par balloons lagayein, colour pattern ke hisaab se", "Inflate with the machine/pump, attach balloons to the strip following the colour pattern")), ("STEP 9", L("Photo + video, customer ko dikhayein", "Photo + video, show the customer"), L("Yahi aapka portfolio banega. Photo permission lein", "This becomes your portfolio. Take photo permission")),
+         ("STEP 10", L("Balance payment, review", "Balance payment, review"), L(f"Kharcha likhein (job sheet {pg('final')}), Google/WhatsApp review lein", f"Record expenses (job sheet {pg('final')}), ask for a Google/WhatsApp review"))]) +
+         callout(L("⏱️ EVENT-DAY TIMELINE (example)", "⏱️ EVENT-DAY TIMELINE (example)"), [L("Venue par <b>2 ghante pehle</b> pahunchein", "Arrive <b>2 hours early</b>"), L("Arch build: <b>45-90 min</b> (practice se kam hoga)", "Arch build: <b>45-90 min</b> (faster with practice)"), L("Customer ke aane se <b>30 min pehle ready</b>", "Ready <b>30 min before</b> the customer arrives")]), cont=True)
 
-# 11 set cost levels
-page("setup", "PAISA · SET COST", "Shuruaat ka kharcha: <span class='g'>3 level</span>", para("Ye <b>ek baar ka kharcha</b> hai (machine ke bina). Aap apne budget ke hisaab se level chuno.") +
-     '<div class="grid3">' + card(f'<div class="lv">LEVEL 1</div><b class="h3">Lean start</b><div class="big">₹{LEAN:,}</div><span class="sm">1 pump, 1 frame, 1,000 balloons, tools. Pehle test ke liye.</span>', "lvl") +
-     card(f'<div class="lv">LEVEL 2 ⭐</div><b class="h3">Service-ready</b><div class="big">₹{SETUP:,}</div><span class="sm">2 frame, stock, props, marketing. Serious start.</span>', "lvl hot") +
-     card('<div class="lv">LEVEL 3</div><b class="h3">Expanded</b><div class="big">₹50k-1L+</div><span class="sm">Kai frame, premium props, lights, team. Demand dikhne ke baad.</span>', "lvl") + '</div>' +
-     f'<div class="hero3d" style="margin-top:6px">{coins(250,150)}</div>' +
-     callout("📌 SAMJHO", ["Sabse bada kharcha: <b>frames</b> (₹1,669 se ₹4,399) aur <b>balloon stock</b>", "<b>Machine alag se</b> add hogi (page 15)", "Level 1 se test karo, bookings aayen to Level 2"]), toc="Shuruaat ka kharcha: 3 level")
+    page("setup", L("INVESTMENT · SET COST", "INVESTMENT · SET COST"), L("Initial investment: <span class='g'>3 levels</span>", "Initial investment: <span class='g'>3 levels</span>"), para(L("Ye <b>one-time set cost</b> hai (machine ke bina). Apne budget ke hisaab se level chuniye.", "This is the <b>one-time set cost</b> (excluding the machine). Pick the level that fits your budget.")) +
+         '<div class="grid3">' + card(f'<div class="lv">LEVEL 1</div><b class="h3">Lean start</b><div class="big">₹{LEAN:,}</div><span class="sm">{L("1 pump, 1 frame, 1,000 balloons, tools. Test ke liye.", "1 pump, 1 frame, 1,000 balloons, tools. For testing.")}</span>', "lvl") +
+         card(f'<div class="lv">LEVEL 2 ⭐</div><b class="h3">Service-ready</b><div class="big">₹{SETUP:,}</div><span class="sm">{L("2 frames, stock, props, marketing. Serious start.", "2 frames, stock, props, marketing. A serious start.")}</span>', "lvl hot") +
+         card(f'<div class="lv">LEVEL 3</div><b class="h3">Expanded</b><div class="big">₹50k-1L+</div><span class="sm">{L("Kai frames, premium props, lights, team. Demand dikhne ke baad.", "Multiple frames, premium props, lights, team. After demand is proven.")}</span>', "lvl") + '</div>' +
+         f'<div class="hero3d" style="margin-top:6px">{coins(250, 150)}</div>' + callout(L("📌 KEY POINTS", "📌 KEY POINTS"), [L("Sabse bada kharcha: <b>frames</b> (₹1,669-₹4,399) aur <b>balloon stock</b>", "Biggest costs: <b>frames</b> (₹1,669-₹4,399) and <b>balloon stock</b>"), L(f"<b>Machine alag se</b> add hogi ({pg('mach2')})", f"The <b>machine is added separately</b> ({pg('mach2')})"), L("Level 1 se test karein; bookings aayein to Level 2", "Test with Level 1; move to Level 2 once bookings arrive")]),
+         toc=L("Initial investment: 3 levels", "Initial investment: 3 levels"))
 
-# 12 itemised donut
-parts = [("Frames", 6068, "#E2BE6A"), ("Balloon stock", 2800, "#2BB3AA"), ("DIY kits", 1996, "#12213A"), ("Pump x2", 1600, "#4C8DFF"), ("Props + backdrop", 2500, "#FF8FB8"), ("Baaki (tools, bag, foil, brand, marketing, buffer)", 8200, "#9B6BFF")]
-page("donut", "PAISA · SET COST", f"₹{SETUP:,} <span class='g'>kahan lagega</span>?", para("Ye <b>service-ready</b> setup ka hisaab hai. Har cheez ka daam online listing se liya hai (Nov 2026).") +
-     card(f'<div class="dn">{donut(parts, 290, "₹23,164", "KUL BUDGET")}</div>' + '<ul class="lg">' + "".join(f'<li><i style="background:{c}"></i><span>{l}</span><b>{inr(v)}</b></li>' for l, v, c in parts) + '</ul>'), toc="₹23,164 kahan lagega (chart)")
+    parts = [("Frames", 6068, "#E2BE6A"), (L("Balloon stock", "Balloon stock"), 2800, "#2BB3AA"), ("DIY kits", 1996, "#12213A"), ("Pumps x2", 1600, "#4C8DFF"), (L("Props + backdrop", "Props + backdrop"), 2500, "#FF8FB8"), (L("Baaki (tools, bag, foil, branding, marketing, buffer)", "Other (tools, bag, foil, branding, marketing, buffer)"), 8200, "#9B6BFF")]
+    page("donut", L("INVESTMENT · SET COST", "INVESTMENT · SET COST"), f"₹{SETUP:,} <span class='g'>{L('kahan lagega', 'breakdown')}</span>?" if hi else f"Where the ₹{SETUP:,} <span class='g'>goes</span>", para(L("Ye <b>service-ready</b> setup ka breakdown hai. Har item ka price online listings se liya gaya hai (Nov 2026).", "This is the breakdown of the <b>service-ready</b> setup. Item prices are taken from online listings (Nov 2026).")) +
+         card(f'<div class="dn">{donut(parts, 290, "₹23,164", L("KUL BUDGET", "TOTAL BUDGET"))}</div><ul class="lg">' + "".join(f'<li><i style="background:{c}"></i><span>{l}</span><b>{inr(v)}</b></li>' for l, v, c in parts) + '</ul>'), toc=L(f"₹{SETUP:,} kahan lagega (chart)", f"Where the ₹{SETUP:,} goes (chart)"))
 
-# 13 item table
-page("items", "PAISA · SET COST", "Har cheez ka <span class='g'>hisaab</span>", table(["Cheez", "Kitna", "Daam", "Kul"], [[i, q, p, f"<b>{inr(t)}</b>"] for i, q, p, t, n in SETUP_ITEMS] + [["<b>KUL (machine ke bina)</b>", "", "", f"<b>{inr(SETUP)}</b>"]]) +
-     src("Daam source: Kiwiparty / TradeIndia (pump), HASTHIP / CRAze (frame), Party Supplies India (kit), Party Wholesale Hub (balloon). 'Allowance' wale daam apne andaze hain, local dukaan se quote lo. Poora link page 33 par."), toc="Har cheez ka hisaab (table)")
+    rows = []
+    for k, (i, q, p, t, n) in enumerate(SETUP_ITEMS):
+        nm = SI_NAMES[k][0 if hi else 1]
+        if SI_LINK[k]:
+            nm = A(LINKS[SI_LINK[k]], nm)
+        rows.append([nm, q, p, f"<b>{inr(t)}</b>"])
+    page("items", L("INVESTMENT · SET COST", "INVESTMENT · SET COST"), L("Item-wise <span class='g'>hisaab</span>", "Item-wise <span class='g'>costing</span>"), table([L("Item", "Item"), L("Qty", "Qty"), L("Rate", "Rate"), L("Total", "Total")], rows + [[f"<b>{L('TOTAL (machine ke bina)', 'TOTAL (excluding machine)')}</b>", "", "", f"<b>{inr(SETUP)}</b>"]]) +
+         src(L(f"Blue links product listings par jaate hain. Pump, frame, kit aur balloons ke rates listings se hain; baaki 'allowance' items hamare estimates hain, local dukaan se quote lein. Poori source list: {pg('src')}.", f"Blue links open the product listings. Pump, frame, kit and balloon rates come from listings; the other 'allowance' items are our estimates, so get local quotes. Full source list: {pg('src')}.")),
+         toc=L("Item-wise hisaab (table)", "Item-wise costing (table)"))
 
-# 14 lean
-page("lean", "PAISA · SET COST", f"Sabse sasta start: <span class='g'>₹{LEAN:,}</span>", para("Abhi tak yakin nahi? <b>Chhote se shuru</b> karo. 2-3 event karke dekho, phir badhao.") +
-     card(f'<ul class="lg">' + "".join(f'<li><i style="background:#E2BE6A"></i><span>{l}</span><b>{inr(v)}</b></li>' for l, v in LEAN_ITEMS) + f'<li class="tot"><span>KUL</span><b>{inr(LEAN)}</b></li></ul>') +
-     callout("🎯 LEAN START KA MAUKA", ["Pehle <b>5 bar practice</b> (ghar par, ya doston ke liye)", "<b>3 sample photo/video</b> banao", "Phir <b>3-5 paid event</b>: tab Level 2"], "teal"), toc="Sabse sasta start (₹9,068)")
+    page("lean", L("INVESTMENT · SET COST", "INVESTMENT · SET COST"), L(f"Lean start: <span class='g'>₹{LEAN:,}</span>", f"Lean start: <span class='g'>₹{LEAN:,}</span>"), para(L("Demand ko lekar sure nahi hain? <b>Chhote setup</b> se shuru karein. 2-3 events karke dekhein, phir scale karein.", "Not sure about demand? Start with a <b>small setup</b>. Run 2-3 events, then scale.")) +
+         card('<ul class="lg">' + "".join(f'<li><i style="background:#E2BE6A"></i><span>{l}</span><b>{inr(v)}</b></li>' for l, (_, v) in zip(LEAN_N, LEAN_ITEMS)) + f'<li class="tot"><span>TOTAL</span><b>{inr(LEAN)}</b></li></ul>') +
+         callout(L("🎯 LEAN START KA PLAN", "🎯 THE LEAN-START PLAN"), [L("Pehle <b>5 baar practice</b> (ghar par ya doston ke liye)", "<b>Practise 5 times</b> first (at home or for friends)"), L("<b>3 sample photos/videos</b> banayein", "Create <b>3 sample photos/videos</b>"), L("Phir <b>3-5 paid events</b>: uske baad Level 2", "Then <b>3-5 paid events</b>, followed by Level 2")], "teal"), toc=L(f"Lean start (₹{LEAN:,})", f"Lean start (₹{LEAN:,})"))
 
-# 15 machine decision
-page("mach2", "PAISA · SET COST", "Reel wali <span class='g'>machine ka daam</span>", para("Reel wali multi-balloon machine ka <b>pakka daam hum yahan nahi likh rahe</b>, kyunki alag-alag seller alag daam batate hain. Isliye ye <b>setup mein alag se add</b> hoga.") +
-     f'<div class="grid2">{card(machine(200,170),"flat")}<div>' + callout("🧾 SELLER SE PUCHO", ["Exact <b>model aur daam</b>", "<b>Demo video</b> (live)", "Warranty + <b>service</b>", "Kaun-se balloon size chalte hain", "Voltage, shipping, GST bill"], "red") + '</div></div>' +
-     card("<b class='h3'>Paise ka formula</b><p><b>Kul start paisa = Setup (₹9,068 ya ₹23,164) + Machine ka daam</b><br>Aur <b>wapas aane ke events = Kul start paisa ÷ ek event ka munafa (₹1,200)</b></p>") +
-     callout("💡 SAMJHDARI", ["<b>3 seller</b> se quote lo, sabse sasta nahi, <b>sabse bharosemand</b> chuno", "Pehle Level 1 se bookings test karo, machine baad mein bhi aa sakti hai"]), toc="Reel wali machine ka daam")
+    page("mach2", L("INVESTMENT · SET COST", "INVESTMENT · SET COST"), L("Reel wali <span class='g'>machine ka price</span>", "The reel's <span class='g'>machine price</span>"), para(L("Reel wali multi-balloon machine ka <b>pakka price yahan nahi diya gaya</b>, kyunki alag sellers alag price batate hain. Isliye ise <b>setup mein alag se add</b> karna hoga.", "The reel's multi-balloon machine has <b>no fixed price here</b> because different sellers quote different prices. It must therefore be <b>added to the setup separately</b>.")) +
+         f'<div class="hero3d sm">{machine(230, 185)}</div>' + callout(L("🧾 SELLER SE PUCHHEIN", "🧾 ASK THE SELLER"), [L("Exact <b>model aur price</b>", "Exact <b>model and price</b>"), L("<b>Live demo video</b>", "A <b>live demo video</b>"), L("Warranty + <b>after-sales service</b>", "Warranty + <b>after-sales service</b>"), L("Kaun se balloon sizes chalte hain", "Which balloon sizes it supports"), L("Voltage, shipping, GST bill", "Voltage, shipping, GST bill")], "red") +
+         card(f"<b class='h3'>{L('Investment formula', 'Investment formula')}</b><p>{L('<b>Total start-up investment = Setup (₹9,068 ya ₹23,164) + Machine ka price</b><br><b>Payback events = Total investment ÷ per-event profit (₹1,200)</b>', '<b>Total start-up investment = Setup (₹9,068 or ₹23,164) + Machine price</b><br><b>Payback events = Total investment ÷ per-event profit (₹1,200)</b>')}</p>") +
+         callout(L("💡 TIP", "💡 TIP"), [L("<b>3 sellers</b> se quote lein; sabse sasta nahi, <b>sabse reliable</b> chunein", "Get quotes from <b>3 sellers</b>; choose the <b>most reliable</b>, not the cheapest"), L("Pehle Level 1 se bookings test karein; machine baad mein bhi aa sakti hai", "Test bookings with Level 1 first; the machine can be added later")]),
+         toc=L("Reel wali machine ka price", "The reel's machine price"))
 
-# 16 running expenses
-page("running", "PAISA · MONTHLY KHARCHA", "Har mahine ka <span class='g'>chalu kharcha</span>", para("Ye <b>running (chalne ka) kharcha</b> hai: event ho ya na ho, ye lagega.") +
-     card("<b class='h3'>Fixed: har mahine</b><ul class='lg'>" + "".join(f"<li><i style='background:#E2BE6A'></i><span>{l}</span><b>{inr(v)}</b></li>" for l, v in FIXED) + f"<li class='tot'><span>Kul fixed (shuru ke mahine)</span><b>{inr(FIXED_M1)}</b></li></ul>") +
-     card("<b class='h3'>Variable: har event par</b><ul class='lg'>" + "".join(f"<li><i style='background:#2BB3AA'></i><span>{l}</span><b>{inr(v)}</b></li>" for l, v in EVENT) + f"<li class='tot'><span>Kul (₹3,500 ke arch par)</span><b>{inr(EVENT_COST)}</b></li></ul>") +
-     callout("📌 YAAD RAKHO", ["<b>Aapki apni mehnat/salary</b> in kharchon mein nahi hai", "Marketing aur helper badhne par <b>fixed ₹3,000-3,500</b> tak ja sakta hai (roadmap mein shamil)"]), toc="Har mahine ka chalu kharcha")
+    page("running", L("INVESTMENT · MONTHLY", "INVESTMENT · MONTHLY"), L("Monthly <span class='g'>running expenses</span>", "Monthly <span class='g'>running expenses</span>"), para(L("Ye wo kharche hain jo <b>events ho ya na ho</b>, har mahine lagte hain.", "These costs apply <b>every month, whether or not you have events</b>.")) +
+         card(f"<b class='h3'>{L('Fixed: har mahine', 'Fixed: every month')}</b><ul class='lg'>" + "".join(f"<li><i style='background:#E2BE6A'></i><span>{FX_NAMES[k][0 if hi else 1]}</span><b>{inr(v)}</b></li>" for k, (l, v) in enumerate(FIXED)) + f"<li class='tot'><span>{L('Total fixed (shuru ke mahine)', 'Total fixed (early months)')}</span><b>{inr(FIXED_M1)}</b></li></ul>") +
+         card(f"<b class='h3'>{L('Variable: har event par', 'Variable: per event')}</b><ul class='lg'>" + "".join(f"<li><i style='background:#2BB3AA'></i><span>{EV_NAMES[k][0 if hi else 1]}</span><b>{inr(v)}</b></li>" for k, (l, v) in enumerate(EVENT)) + f"<li class='tot'><span>{L('Total (₹3,500 ke arch par)', 'Total (on a ₹3,500 arch)')}</span><b>{inr(EVENT_COST)}</b></li></ul>") +
+         callout(L("📌 NOTE", "📌 NOTE"), [L("<b>Aapki apni salary/mehnat</b> in kharchon mein shamil nahi hai", "<b>Your own salary/time</b> is not included in these costs"), L("Marketing aur helper badhne par <b>fixed cost ₹3,000-3,500</b> tak ja sakta hai (roadmap mein shamil)", "With more marketing and a helper, <b>fixed cost can rise to ₹3,000-3,500</b> (included in the roadmap)")]),
+         toc=L("Monthly running expenses", "Monthly running expenses"))
 
-# 17 event math
-bars = bars3d([(3500, 2300, 1200), (2500, 1800, 700), (4000, 2500, 1500)], 470, 220, labels=["₹3,500 arch", "₹2,500 arch", "₹4,000 arch"], fmt=lambda v: f"{v/1000:.1f}k")
-page("event", "HISAAB", "Ek event ka <span class='g'>hisaab</span>", para("₹3,500 ka ek arch bechne par <b>kitna bachta hai</b>? Pehle kharcha ghata kar dekho.") +
-     f'<div class="eq"><div><small>Customer deta hai</small><b>₹3,500</b></div><span>−</span><div><small>Kharcha</small><b>₹2,300</b></div><span>=</span><div class="hl"><small>Munafa (1 event)</small><b>₹1,200</b></div></div>' +
-     card(f'<b class="h3">3D chart: alag-alag rate par</b>{bars}') + callout("📌 SAMJHO", ["Munafa <b>34%</b> hai. Aapki mehnat iske <b>upar</b> alag hai.", "Rate <b>₹1,800 par bahut kam</b> bachta hai: kam rate se bacho", "Jitna <b>sundar design</b>, utna bada ticket"], "gold"), toc="Ek event ka hisaab (kamai - kharcha)")
+    bars = bars3d([(3500, 2300, 1200), (2500, 1800, 700), (4000, 2500, 1500)], 470, 220, labels=["₹3,500 arch", "₹2,500 arch", "₹4,000 arch"], fmt=lambda v: f"{v/1000:.1f}k", names=(L("Revenue", "Revenue"), L("Kharcha", "Expense"), L("Profit", "Profit")))
+    page("event", L("ECONOMICS", "ECONOMICS"), L("Per-event <span class='g'>economics</span>", "Per-event <span class='g'>economics</span>"), para(L("₹3,500 ka ek arch bechne par <b>kitna profit bachta hai</b>? Pehle costs ghataiye.", "How much do you <b>keep from a ₹3,500 arch</b>? Subtract the costs first.")) +
+         f'<div class="eq"><div><small>{L("Customer deta hai", "Customer pays")}</small><b>₹3,500</b></div><span>−</span><div><small>{L("Kharcha", "Cost")}</small><b>₹2,300</b></div><span>=</span><div class="hl"><small>{L("Profit (1 event)", "Profit (1 event)")}</small><b>₹1,200</b></div></div>' +
+         card(f'<b class="h3">{L("3D chart: alag-alag rates par", "3D chart: at different price points")}</b>{bars}') + callout(L("📌 KEY POINTS", "📌 KEY POINTS"), [L("Profit margin <b>~34%</b> hai; aapki apni mehnat iske upar alag hai.", "Profit margin is <b>~34%</b>; your own labour comes on top."), L("<b>₹1,800 jaise low rate</b> par margin bahut kam bachta hai.", "At a <b>low rate such as ₹1,800</b> the margin is very thin."), L("Jitna <b>premium design</b>, utna bada ticket size.", "The more <b>premium the design</b>, the bigger the ticket.")], "gold"),
+         toc=L("Per-event economics (revenue - cost)", "Per-event economics (revenue - cost)"))
 
-# 18 breakeven
-page("be", "HISAAB", "Paisa <span class='g'>kab wapas</span> aayega?", para("<b>Break-even</b> matlab: shuruaati kharcha wapas nikalna. Formula: <b>Setup ÷ ek event ka munafa</b>.") +
-     table(["Munafa / event", "Lean (₹9,068)", "Service-ready (₹23,164)"], [["₹700", "13 events", "34 events"], ["₹1,000", "10 events", "24 events"], ["<b>₹1,200 (base)</b>", "<b>8 events</b>", "<b>20 events</b>"], ["₹1,500", "7 events", "16 events"], ["₹2,000", "5 events", "12 events"]]) +
-     card(f'<b class="h3">Base roadmap mein</b><p>Fixed kharche bhi jodne par <b>Level 2 ka paisa ~7 mahine</b> mein wapas aata hai (page 24). Low bookings mein <b>12 mahine mein bhi poora nahi</b> hota (page 26): isliye pehle Level 1.</p>') +
-     callout("⚠️ SACH", ["Ye sirf <b>shuruaati kharcha wapas</b> hone ka hisaab hai. Bookings aayengi ya nahi, wo aapki marketing par hai."], "red"), toc="Paisa kab wapas aayega")
+    page("be", L("ECONOMICS", "ECONOMICS"), L("Payback <span class='g'>kab milega</span>?", "When do you <span class='g'>break even</span>?"), para(L("<b>Break-even</b> ka matlab hai initial investment wapas recover karna. Formula: <b>Setup ÷ per-event profit</b>.", "<b>Break-even</b> means recovering your initial investment. Formula: <b>Setup ÷ per-event profit</b>.")) +
+         table([L("Profit / event", "Profit / event"), "Lean (₹9,068)", "Service-ready (₹23,164)"], [["₹700", "13 events", "34 events"], ["₹1,000", "10 events", "24 events"], [f"<b>₹1,200 (base)</b>", "<b>8 events</b>", "<b>20 events</b>"], ["₹1,500", "7 events", "16 events"], ["₹2,000", "5 events", "12 events"]]) +
+         card(f"<b class='h3'>{L('Base roadmap mein', 'In the base roadmap')}</b><p>{L(f'Fixed costs jodne par <b>Level 2 ka investment ~7 mahine</b> mein wapas aata hai ({pg(chr(109)+chr(49)+chr(50))}). Low-booking scenario mein <b>12 mahine mein bhi recover nahi</b> hota ({pg(chr(115)+chr(99)+chr(101)+chr(110))}); isliye pehle Level 1 se shuru karein.', f'Once fixed costs are included, the <b>Level 2 investment is recovered in ~7 months</b> ({pg(chr(109)+chr(49)+chr(50))}). In the low-booking scenario it is <b>not recovered even in 12 months</b> ({pg(chr(115)+chr(99)+chr(101)+chr(110))}); so start with Level 1.')}</p>") +
+         callout(L("⚠️ REALITY CHECK", "⚠️ REALITY CHECK"), [L("Ye sirf <b>initial investment recover</b> hone ka hisaab hai. Bookings aayengi ya nahi, wo aapki marketing par depend karta hai.", "This only shows when the <b>initial investment is recovered</b>. Whether bookings arrive depends on your marketing.")], "red"), toc=L("Payback kab milega (break-even)", "When you break even"))
 
-# 19 roadmap overview
-page("road", "ROADMAP", "<span class='g'>1 / 6 / 12 mahine</span> ka raasta", para("Aap kahan pahunchoge, ek nazar mein. Neeche base plan hai.") +
-     timeline([("MAHINA 1", "Seekho + portfolio", "2 events · kamai ₹5,000 · kharcha ₹5,600 · <b>profit -₹600</b>"), ("MAHINA 6", "Pakke customers", "7 events · kamai ₹24,500 · kharcha ₹19,100 · <b>profit +₹5,400</b>"), ("MAHINA 7", "Setup ka paisa wapas ✅", "8 events · kamai ₹32,000 · <b>cumulative +₹336</b>"), ("MAHINA 12", "Stable business", "10 events · kamai ₹40,000 · profit ₹11,500 · <b>saal ka profit ~₹79,500</b>")]) +
-     callout("📌 ROADMAP KYA BATATA HAI", ["Pehle 3 mahine <b>seekhne ke</b>, profit kam", "Mahina 4 se <b>naam banta hai</b>, repeat customers", "Mahina 7 se <b>setup ka paisa wapas</b> aur munafa shuru"], "teal"), toc="1 / 6 / 12 mahine ka roadmap")
+    page("road", L("ROADMAP", "ROADMAP"), L("<span class='g'>1 / 6 / 12 mahine</span> ka roadmap", "The <span class='g'>1 / 6 / 12-month</span> roadmap"), para(L("Aap kahan pahunchenge, ek nazar mein (base plan).", "Where you will be, at a glance (base plan).")) +
+         timeline([(L("MONTH 1", "MONTH 1"), L("Seekhna + portfolio", "Learn + build a portfolio"), L("2 events · revenue ₹5,000 · expenses ₹5,600 · <b>profit -₹600</b>", "2 events · revenue ₹5,000 · expenses ₹5,600 · <b>profit -₹600</b>")), (L("MONTH 6", "MONTH 6"), L("Repeat customers", "Repeat customers"), L("7 events · revenue ₹24,500 · expenses ₹19,100 · <b>profit +₹5,400</b>", "7 events · revenue ₹24,500 · expenses ₹19,100 · <b>profit +₹5,400</b>")),
+                   (L("MONTH 7", "MONTH 7"), L("Setup recover ✅", "Setup recovered ✅"), L("8 events · revenue ₹32,000 · <b>cumulative +₹336</b>", "8 events · revenue ₹32,000 · <b>cumulative +₹336</b>")), (L("MONTH 12", "MONTH 12"), L("Stable business", "A stable business"), L("10 events · revenue ₹40,000 · profit ₹11,500 · <b>saal ka profit ~₹79,500</b>", "10 events · revenue ₹40,000 · profit ₹11,500 · <b>full-year profit ~₹79,500</b>"))]) +
+         callout(L("📌 ROADMAP SE KYA SAMAJHTA HAI", "📌 WHAT THE ROADMAP SHOWS"), [L("Pehle 3 mahine <b>learning phase</b>; profit kam", "The first 3 months are a <b>learning phase</b> with low profit"), L("Month 4 se <b>brand banta hai</b>, repeat customers aate hain", "From month 4 you <b>build a name</b> and get repeat customers"), L("Month 7 se <b>setup recover</b> aur profit shuru", "From month 7 the <b>setup is recovered</b> and profit begins")], "teal"), toc=L("1 / 6 / 12 mahine ka roadmap", "1 / 6 / 12-month roadmap"))
 
-# 20 month 1 week by week
-page("m1a", "ROADMAP · 1 MAHINA", "Pehle <span class='g'>30 din</span>", timeline([("HAFTA 1", "Seekho + saaman lo", "3 seller se pump/frame ke quote · practice: 2 arch shape · Udyam registration (free)"), ("HAFTA 2", "Portfolio banao", "3 rang-design, mock setup, din ki roshni mein photo + timelapse video")]) +
-     timeline([("HAFTA 3", "Pehle customer dhoondo", "WhatsApp status par rate card · 10 cake shop/photographer/hall se milo · intro offer"), ("HAFTA 4", "Pehle paid event", "Advance lo, time par pahucho, photo/review lo, har kharcha likho")]) +
-     card("<b class='h3'>Mahina 1 ka hisaab (base)</b><ul class='lg'><li><span>Events</span><b>2 × ₹2,500</b></li><li><span>Kamai (revenue)</span><b>₹5,000</b></li><li><span>Event kharcha</span><b>₹3,600</b></li><li><span>Fixed kharcha</span><b>₹2,000</b></li><li class='tot'><span>Profit</span><b>-₹600</b></li></ul>"), toc="Pehle 30 din: hafte-hafte ka plan")
-page("m1b", "ROADMAP · 1 MAHINA", "Pehle <span class='g'>30 din</span>: roz ka kaam", checks(["<b>Din 1-3:</b> 3 seller ko call, daam/demo/warranty likho", "<b>Din 4-7:</b> saaman order, Udyam registration (free portal)", "<b>Din 8-10:</b> 2 arch practice, balloon ginti aur time likho", "<b>Din 11-14:</b> 3 design ke photo + video, Instagram page banao", "<b>Din 15-18:</b> 10 jagah milo: cake shop, photographer, banquet", "<b>Din 19-21:</b> intro offer: pehle 3 customer ko chhoot", "<b>Din 22-26:</b> pehle 2 booking: advance + confirm", "<b>Din 27-30:</b> event, photo, review, hisaab check"]) +
-     callout("🎯 MAHINA 1 KA TARGET", ["<b>3 asli photo</b> + <b>2 paid event</b> + <b>1 review</b>", "Profit ki chinta nahi, <b>seekhna aur saboot</b> banana hai"], "teal"), cont=True, toc=None)
+    page("m1a", L("ROADMAP · MONTH 1", "ROADMAP · MONTH 1"), L("Pehle <span class='g'>30 din</span>", "The first <span class='g'>30 days</span>"), timeline([(L("WEEK 1", "WEEK 1"), L("Research + saaman", "Research + sourcing"), L("3 sellers se pump/frame ke quotes · 2 arch shapes ki practice · Udyam registration (free)", "Quotes for pump/frame from 3 sellers · practise 2 arch shapes · Udyam registration (free)")), (L("WEEK 2", "WEEK 2"), L("Portfolio banayein", "Build a portfolio"), L("3 colour themes, mock setup, daylight photos + timelapse video", "3 colour themes, mock setup, daylight photos + a timelapse video"))]) +
+         timeline([(L("WEEK 3", "WEEK 3"), L("Pehle customers dhoondhein", "Find your first customers"), L("WhatsApp Status par rate card · 10 cake shops/photographers/halls se milein · intro offer", "Rate card on WhatsApp Status · meet 10 cake shops/photographers/halls · intro offer")), (L("WEEK 4", "WEEK 4"), L("Pehla paid event", "First paid event"), L("Advance lein, time par pahunchein, photo/review lein, har kharcha record karein", "Take an advance, arrive on time, collect photos/reviews, record every expense"))]) +
+         card(f"<b class='h3'>{L('Month 1 ka hisaab (base)', 'Month 1 numbers (base)')}</b><ul class='lg'><li><span>Events</span><b>2 × ₹2,500</b></li><li><span>Revenue</span><b>₹5,000</b></li><li><span>{L('Event costs', 'Event costs')}</span><b>₹3,600</b></li><li><span>{L('Fixed costs', 'Fixed costs')}</span><b>₹2,000</b></li><li class='tot'><span>Profit</span><b>-₹600</b></li></ul>"), toc=L("Pehle 30 din: week-by-week plan", "First 30 days: week-by-week plan"))
+    page("m1b", L("ROADMAP · MONTH 1", "ROADMAP · MONTH 1"), L("Pehle <span class='g'>30 din</span>: daily checklist", "The first <span class='g'>30 days</span>: daily checklist"), checks([L("<b>Day 1-3:</b> 3 sellers ko call, price/demo/warranty note karein", "<b>Day 1-3:</b> call 3 sellers, note price/demo/warranty"), L("<b>Day 4-7:</b> material order, Udyam registration (free portal)", "<b>Day 4-7:</b> order material, Udyam registration (free portal)"), L("<b>Day 8-10:</b> 2 arches ki practice, balloon count aur time note karein", "<b>Day 8-10:</b> practise 2 arches, note balloon count and time"),
+         L("<b>Day 11-14:</b> 3 designs ke photo + video, Instagram page", "<b>Day 11-14:</b> photo + video of 3 designs, set up Instagram"), L("<b>Day 15-18:</b> 10 jagah milein: cake shops, photographers, banquet", "<b>Day 15-18:</b> visit 10 places: cake shops, photographers, banquets"), L("<b>Day 19-21:</b> intro offer: pehle 3 customers ko discount", "<b>Day 19-21:</b> intro offer: discount for the first 3 customers"),
+         L("<b>Day 22-26:</b> pehli 2 bookings: advance + confirmation", "<b>Day 22-26:</b> first 2 bookings: advance + confirmation"), L("<b>Day 27-30:</b> event, photo, review, accounts check", "<b>Day 27-30:</b> event, photos, review, check accounts")]) +
+         callout(L("🎯 MONTH 1 TARGET", "🎯 MONTH 1 TARGET"), [L("<b>3 real photos</b> + <b>2 paid events</b> + <b>1 review</b>", "<b>3 real photos</b> + <b>2 paid events</b> + <b>1 review</b>"), L("Profit ki chinta nahi; <b>learning aur proof</b> banana lakshya hai", "Do not worry about profit; the goal is <b>learning and proof</b>")], "teal"), cont=True)
 
-# 22 six month table
-r6 = BASEROWS[:6]
-page("m6", "ROADMAP · 6 MAHINE", "6 mahine: <span class='g'>kamai vs kharcha vs profit</span>", table(["Mahina", "Events", "Kamai", "Kharcha", "Profit", "Jama (setup ke baad)"], [[f"<b>M{i+1}</b>", r["ev"], inr(r["rev"]), inr(r["exp"]), f"<b>{inr(r['profit'])}</b>", inr(r["cum"])] for i, r in enumerate(r6)] +
-                                                                                           [["<b>Kul</b>", f"<b>{tot(BASEROWS,0,6,'ev')}</b>", f"<b>{inr(tot(BASEROWS,0,6,'rev'))}</b>", f"<b>{inr(tot(BASEROWS,0,6,'exp'))}</b>", f"<b>{inr(tot(BASEROWS,0,6,'profit'))}</b>", ""]]) +
-     card(f'<b class="h3">3D chart</b>{bars3d([(r["rev"], r["exp"], max(r["profit"],0)) for r in r6], 470, 210, labels=[f"M{i+1}" for i in range(6)])}') +
-     src(f"'Jama' = ab tak ka profit − ₹{SETUP:,} setup. Minus ka matlab setup ka paisa abhi wapas nahi aaya."), toc="6 mahine: kamai vs kharcha vs profit")
+    r6 = BASEROWS[:6]
+    nm3 = (L("Revenue", "Revenue"), L("Kharcha", "Expense"), L("Profit", "Profit"))
+    hdr = [L("Month", "Month"), "Events", "Revenue", L("Expenses", "Expenses"), "Profit", L("Cumulative (setup ke baad)", "Cumulative (after setup)")]
+    page("m6", L("ROADMAP · 6 MONTHS", "ROADMAP · 6 MONTHS"), L("6 months: <span class='g'>revenue vs expenses vs profit</span>", "6 months: <span class='g'>revenue vs expenses vs profit</span>"), table(hdr, [[f"<b>M{i+1}</b>", r["ev"], inr(r["rev"]), inr(r["exp"]), f"<b>{inr(r['profit'])}</b>", inr(r["cum"])] for i, r in enumerate(r6)] + [["<b>Total</b>", f"<b>{tot(BASEROWS,0,6,'ev')}</b>", f"<b>{inr(tot(BASEROWS,0,6,'rev'))}</b>", f"<b>{inr(tot(BASEROWS,0,6,'exp'))}</b>", f"<b>{inr(tot(BASEROWS,0,6,'profit'))}</b>", ""]]) +
+         card(f'<b class="h3">3D chart</b>{bars3d([(r["rev"], r["exp"], max(r["profit"], 0)) for r in r6], 470, 210, labels=[f"M{i+1}" for i in range(6)], names=nm3)}') + src(L(f"'Cumulative' = ab tak ka profit − ₹{SETUP:,} setup. Minus ka matlab setup abhi recover nahi hua.", f"'Cumulative' = profit so far − ₹{SETUP:,} setup. A minus means the setup is not yet recovered.")), toc=L("6 months: revenue vs expenses vs profit", "6 months: revenue vs expenses vs profit"))
+    page("m6b", L("ROADMAP · 6 MONTHS", "ROADMAP · 6 MONTHS"), L("6 months mein <span class='g'>kya karna hai</span>", "What to do in the <span class='g'>first 6 months</span>"), timeline([(L("MONTH 2-3", "MONTH 2-3"), L("Brand banayein", "Build your brand"), L("10 real photos, 5 reviews, 3 vendor tie-ups (cake shop/photographer)", "10 real photos, 5 reviews, 3 vendor tie-ups (cake shop/photographer)")), (L("MONTH 4", "MONTH 4"), L("Rate badhayein", "Raise your rate"), L("₹3,000 → ₹3,500: behtar design, 2-3 palettes ready", "₹3,000 → ₹3,500: better designs, 2-3 palettes ready")), (L("MONTH 5-6", "MONTH 5-6"), L("Repeat customers", "Repeat customers"), L("Birthday/anniversary reminders, referral discount, helper fix karein", "Birthday/anniversary reminders, referral discount, fix a regular helper"))]) +
+         f'<div class="hero3d">{line_chart([r["cum"] for r in r6], 480, 190)}</div><p class="cap">{L("Setup ke baad cumulative paisa (6 months): laal line = setup recover.", "Cumulative cash after setup (6 months): red line = setup recovered.")}</p>' +
+         callout(L("📌 6 MONTHS KE BAAD", "📌 AFTER 6 MONTHS"), [L("Is period mein <b>₹89,000 revenue</b>, <b>₹15,000 profit</b> (base)", "In this period: <b>₹89,000 revenue</b>, <b>₹15,000 profit</b> (base)"), L("Setup abhi <b>poora recover nahi</b>; Month 7 tak consistency rakhein", "The setup is <b>not fully recovered yet</b>; stay consistent until Month 7")], "gold"), cont=True)
 
-page("m6b", "ROADMAP · 6 MAHINE", "6 mahine mein <span class='g'>kya karna hai</span>", timeline([("MAHINA 2-3", "Naam banao", "10 asli photo, 5 review, 3 vendor tie-up (cake shop/photographer)"), ("MAHINA 4", "Rate badhao", "₹3,000 → ₹3,500: design behtar, 2-3 palette ready"), ("MAHINA 5-6", "Repeat customer", "Birthday/anniversary reminder, referral discount, helper fixed karo")]) +
-     f'<div class="hero3d">{line_chart([r["cum"] for r in r6], 480, 190)}</div><p class="cap">Setup ke baad ka jama paisa (6 mahine): laal line = setup wapas.</p>' +
-     callout("📌 6 MAHINE KE BAAD", ["Saal bhar mein <b>₹89,000 kamai</b>, <b>₹15,000 profit</b> (base)", "Setup abhi <b>poora wapas nahi</b>. Mahina 7 tak ruko, sabr rakho"], "gold"), cont=True, toc=None)
+    page("m12", L("ROADMAP · 12 MONTHS", "ROADMAP · 12 MONTHS"), L("12 months: <span class='g'>revenue vs expenses vs profit</span>", "12 months: <span class='g'>revenue vs expenses vs profit</span>"), table(hdr[:5] + [L("Cumulative", "Cumulative")], [[f"<b>M{i+1}</b>", r["ev"], inr(r["rev"]), inr(r["exp"]), f"<b>{inr(r['profit'])}</b>", inr(r["cum"])] for i, r in enumerate(BASEROWS)] + [["<b>Total</b>", f"<b>{tot(BASEROWS,0,12,'ev')}</b>", f"<b>{inr(tot(BASEROWS,0,12,'rev'))}</b>", f"<b>{inr(tot(BASEROWS,0,12,'exp'))}</b>", f"<b>{inr(tot(BASEROWS,0,12,'profit'))}</b>", f"<b>{inr(BASEROWS[-1]['cum'])}</b>"]]), toc=L("12 months: revenue vs expenses vs profit", "12 months: revenue vs expenses vs profit"))
+    page("m12b", L("ROADMAP · 12 MONTHS", "ROADMAP · 12 MONTHS"), L("12 months ka <span class='g'>3D chart</span>", "The 12-month <span class='g'>3D chart</span>"), card(f'<b class="h3">{L("Har month: revenue, expenses, profit (base)", "Each month: revenue, expenses, profit (base)")}</b>{bars3d([(r["rev"], r["exp"], max(r["profit"], 0)) for r in BASEROWS], 480, 230, labels=[str(i+1) for i in range(12)], names=nm3)}') +
+         card(f'<b class="h3">{L("Cumulative cash (setup ke baad)", "Cumulative cash (after setup)")}</b>{line_chart([r["cum"] for r in BASEROWS], 480, 170)}') + callout(L("📌 12-MONTH RESULT (base)", "📌 12-MONTH RESULT (base)"), [L(f"Revenue <b>{inr(tot(BASEROWS,0,12,'rev'))}</b>, expenses <b>{inr(tot(BASEROWS,0,12,'exp'))}</b>, profit <b>{inr(tot(BASEROWS,0,12,'profit'))}</b>", f"Revenue <b>{inr(tot(BASEROWS,0,12,'rev'))}</b>, expenses <b>{inr(tot(BASEROWS,0,12,'exp'))}</b>, profit <b>{inr(tot(BASEROWS,0,12,'profit'))}</b>"), L(f"Setup ({inr(SETUP)}) ke baad <b>{inr(BASEROWS[-1]['cum'])}</b> bacha", f"After the ₹{SETUP:,} setup, <b>{inr(BASEROWS[-1]['cum'])}</b> remains"), L("Aapki apni salary/mehnat iske <b>upar</b> alag hai", "Your own salary/labour comes <b>on top</b> of this")], "teal"), cont=True)
 
-# 24 twelve month
-page("m12", "ROADMAP · 12 MAHINE", "12 mahine: <span class='g'>kamai vs kharcha vs profit</span>", table(["Mahina", "Events", "Kamai", "Kharcha", "Profit", "Jama"], [[f"<b>M{i+1}</b>", r["ev"], inr(r["rev"]), inr(r["exp"]), f"<b>{inr(r['profit'])}</b>", inr(r["cum"])] for i, r in enumerate(BASEROWS)] +
-                                                                                              [["<b>Kul</b>", f"<b>{tot(BASEROWS,0,12,'ev')}</b>", f"<b>{inr(tot(BASEROWS,0,12,'rev'))}</b>", f"<b>{inr(tot(BASEROWS,0,12,'exp'))}</b>", f"<b>{inr(tot(BASEROWS,0,12,'profit'))}</b>", f"<b>{inr(BASEROWS[-1]['cum'])}</b>"]]), toc="12 mahine: kamai vs kharcha vs profit")
-page("m12b", "ROADMAP · 12 MAHINE", "12 mahine ka <span class='g'>3D chart</span>", card(f'<b class="h3">Har mahine: kamai, kharcha, profit (base)</b>{bars3d([(r["rev"], r["exp"], max(r["profit"],0)) for r in BASEROWS], 480, 230, labels=[str(i+1) for i in range(12)])}') +
-     card(f'<b class="h3">Jama paisa (setup ke baad)</b>{line_chart([r["cum"] for r in BASEROWS], 480, 170)}') +
-     callout("📌 12 MAHINE KA NATIJA (base)", [f"Kamai <b>{inr(tot(BASEROWS,0,12,'rev'))}</b>, kharcha <b>{inr(tot(BASEROWS,0,12,'exp'))}</b>, profit <b>{inr(tot(BASEROWS,0,12,'profit'))}</b>", f"Setup ({inr(SETUP)}) nikaal kar <b>{inr(BASEROWS[-1]['cum'])}</b> bacha", "Aapki apni mehnat/salary iske <b>upar</b> alag hai"], "teal"), cont=True, toc=None)
+    page("scen", L("ROADMAP · 12 MONTHS", "ROADMAP · 12 MONTHS"), L("Low, <span class='g'>base</span> aur busy: 3 scenarios", "Low, <span class='g'>base</span> and busy: 3 scenarios"), para(L("Bookings kam-zyada ho sakti hain; isliye <b>3 tarah ke saal</b> dikhaye gaye hain (rates aur costs same).", "Bookings can vary, so <b>three kinds of year</b> are shown (same rates and costs).")) +
+         table(["", L("Low (half)", "Low (half)"), "<b>Base</b>", "Busy (1.5x)"], [[L("Events / saal", "Events / year"), tot(LOW, 0, 12, "ev"), f"<b>{tot(BASEROWS,0,12,'ev')}</b>", tot(BUSY, 0, 12, "ev")], ["Revenue", inr(tot(LOW, 0, 12, "rev")), f"<b>{inr(tot(BASEROWS,0,12,'rev'))}</b>", inr(tot(BUSY, 0, 12, "rev"))], [L("Expenses", "Expenses"), inr(tot(LOW, 0, 12, "exp")), f"<b>{inr(tot(BASEROWS,0,12,'exp'))}</b>", inr(tot(BUSY, 0, 12, "exp"))],
+                                          ["Profit", inr(tot(LOW, 0, 12, "profit")), f"<b>{inr(tot(BASEROWS,0,12,'profit'))}</b>", inr(tot(BUSY, 0, 12, "profit"))], [L(f"Setup ({inr(SETUP)}) ke baad", f"After setup ({inr(SETUP)})"), inr(LOW[-1]["cum"]), f"<b>{inr(BASEROWS[-1]['cum'])}</b>", inr(BUSY[-1]["cum"])], [L("Payback", "Payback"), L("12 mahine mein nahi", "Not within 12 months"), f"<b>{L('Month 7', 'Month 7')}</b>", "Month 6"]]) +
+         card(f'<b class="h3">{L("Saal ka profit: 3D comparison", "Yearly profit: 3D comparison")}</b>{bars3d([(tot(s,0,12,"rev"), tot(s,0,12,"exp"), max(tot(s,0,12,"profit"),0)) for s in (LOW, BASEROWS, BUSY)], 470, 200, labels=["Low", "Base", "Busy"], fmt=lambda v: f"{v/1000:.0f}k", names=nm3)}') +
+         callout(L("⚠️ LOW SCENARIO KI SEEKH", "⚠️ LESSON FROM THE LOW SCENARIO"), [L("Bookings aadhi hui to <b>12 mahine mein bhi setup recover nahi</b> hota", "With half the bookings the <b>setup is not recovered even in 12 months</b>"), L("Isliye <b>pehle Level 1</b>; demand dikhne par hi Level 2", "Hence <b>start with Level 1</b>; move to Level 2 only when demand shows")], "red"), toc=L("Low / base / busy: 3 scenarios", "Low / base / busy: 3 scenarios"))
 
-# 26 3 scenarios
-page("scen", "ROADMAP · 12 MAHINE", "Kam, <span class='g'>base</span> aur busy: 3 scenario", para("Bookings kam-zyada ho sakti hain. Isliye <b>3 tarah ke saal</b> dikhaye hain (rate aur kharcha same).") +
-     table(["", "Kam (half)", "<b>Base</b>", "Busy (1.5x)"], [["Events / saal", tot(LOW, 0, 12, "ev"), f"<b>{tot(BASEROWS,0,12,'ev')}</b>", tot(BUSY, 0, 12, "ev")], ["Kamai", inr(tot(LOW, 0, 12, "rev")), f"<b>{inr(tot(BASEROWS,0,12,'rev'))}</b>", inr(tot(BUSY, 0, 12, "rev"))], ["Kharcha", inr(tot(LOW, 0, 12, "exp")), f"<b>{inr(tot(BASEROWS,0,12,'exp'))}</b>", inr(tot(BUSY, 0, 12, "exp"))],
-                                         ["Profit", inr(tot(LOW, 0, 12, "profit")), f"<b>{inr(tot(BASEROWS,0,12,'profit'))}</b>", inr(tot(BUSY, 0, 12, "profit"))], [f"Setup ({inr(SETUP)}) ke baad", inr(LOW[-1]["cum"]), f"<b>{inr(BASEROWS[-1]['cum'])}</b>", inr(BUSY[-1]["cum"])], ["Paisa wapas", "12 mahine mein nahi", "<b>Mahina 7</b>", "Mahina 6"]]) +
-     card(f'<b class="h3">Saal ka profit: 3D tulna</b>{bars3d([(tot(s,0,12,"rev"), tot(s,0,12,"exp"), max(tot(s,0,12,"profit"),0)) for s in (LOW, BASEROWS, BUSY)], 470, 200, labels=["Kam", "Base", "Busy"], fmt=lambda v: f"{v/1000:.0f}k")}') +
-     callout("⚠️ KAM WALA SAAL SIKHATA HAI", ["Bookings aadhi hui to <b>12 mahine mein bhi setup wapas nahi</b> aata", "Isliye <b>pehle Level 1</b>, bookings dikhne par hi Level 2"], "red"), toc="Kam / base / busy: 3 scenario")
+    months = [("Jan", L("New Year parties", "New Year parties")), ("Feb", L("Valentine, weddings", "Valentine's, weddings")), ("Mar", L("Holi, post-exams", "Holi, post-exams")), ("Apr", L("Summer birthdays", "Summer birthdays")), ("May", L("Weddings + summer", "Weddings + summer")), ("Jun", L("Slow: offers do", "Slow: run offers")), ("Jul", L("Slow: tie-ups banayein", "Slow: build tie-ups")), ("Aug", L("Rakhi, Independence Day", "Rakhi, Independence Day")), ("Sep", L("Ganesh, festivals", "Ganesh, festivals")), ("Oct", "Navratri, Diwali"), ("Nov", L("Wedding season", "Wedding season")), ("Dec", "Christmas, New Year")]
+    page("season", L("ROADMAP · ANNUAL", "ROADMAP · ANNUAL"), L("Saal bhar ke <span class='g'>opportunities</span>", "Opportunities <span class='g'>through the year</span>"), para(L("Har mahine bookings barabar nahi hoti. <b>Shaadi aur festivals</b> mein demand zyada ho sakti hai; baaki months mein <b>birthday aur family events</b> chalte hain. Neeche ek indicative calendar hai; apne shehar ka calendar banayein.", "Bookings are not equal every month. <b>Weddings and festivals</b> can lift demand, while <b>birthdays and family events</b> carry the other months. Below is an indicative calendar; build one for your own city.")) +
+         '<div class="grid3">' + "".join(card(f'<b class="h3">{m}</b><span class="sm">{t}</span>', "mini") for m, t in months) + '</div>' + callout("📌 TIP", [L("Festival se <b>2-3 hafte pehle</b> offer post karein", "Post offers <b>2-3 weeks before</b> a festival"), L("Slow months mein <b>tie-ups aur practice</b> par kaam karein", "Use slow months for <b>tie-ups and practice</b>")], "teal"), toc=L("Saal bhar ke opportunities (calendar)", "Opportunities through the year (calendar)"))
 
-# 27 seasonality
-months = [("Jan", "Naya saal party"), ("Feb", "Valentine, shaadi"), ("Mar", "Holi, exam ke baad"), ("Apr", "Garmi, birthday"), ("May", "Shaadi + summer"), ("Jun", "Kam: offer do"), ("Jul", "Kam: tie-up banao"), ("Aug", "Rakhi, Independence"), ("Sep", "Ganesh, festival"), ("Oct", "Navratri, Diwali"), ("Nov", "Shaadi season"), ("Dec", "Christmas, New Year")]
-page("season", "ROADMAP · SAAL BHAR", "Saal bhar ke <span class='g'>mauke</span>", para("Har mahine bookings barabar nahi hoti. <b>Shaadi aur tyohaar</b> par demand zyada ho sakti hai, baaki mahine <b>birthday aur family event</b> chalte hain. Neeche andaza hai, apne shehar ka calendar banao.") +
-     '<div class="grid3">' + "".join(card(f'<b class="h3">{m}</b><span class="sm">{t}</span>', "mini") for m, t in months) + '</div>' +
-     callout("📌 TIP", ["Tyohaar se <b>2-3 hafte pehle</b> offer post karo", "Kam mahine mein <b>tie-up aur practice</b> karo"], "teal"), toc="Saal bhar ke mauke (calendar)")
+    page("mkt", L("GROWTH", "GROWTH"), L("Customers <span class='g'>kaise laayein</span>", "How to <span class='g'>get customers</span>"), para(L("Costly ads ki zaroorat nahi. <b>Real photos aur videos</b> sabse bada asset hain.", "You do not need expensive ads. <b>Real photos and videos</b> are your biggest asset.")) +
+         checks([L(f"<b>WhatsApp Status:</b> 10-second before/after video + starting rate", "<b>WhatsApp Status:</b> 10-second before/after video + starting rate"), L(f"<b>Instagram Reels:</b> balloons inflate hote hue, arch banti hui, final reveal. Real time dikhayein", "<b>Instagram Reels:</b> balloons inflating, the arch coming together, the final reveal. Show real time"), L("<b>Tie-ups:</b> cake shop, photographer, planner, banquet, kids store", "<b>Tie-ups:</b> cake shop, photographer, planner, banquet, kids' store"),
+                 L("<b>3 colour options:</b> pastel pink-white, blue-white-gold, black-gold", "<b>3 colour options:</b> pastel pink-white, blue-white-gold, black-gold"), L("<b>Reviews:</b> har happy customer se Google/WhatsApp review", "<b>Reviews:</b> a Google/WhatsApp review from every happy customer"), L("<b>Local groups:</b> Facebook/WhatsApp groups mein real work share karein", "<b>Local groups:</b> share real work in Facebook/WhatsApp groups"), L("<b>Referral:</b> naye customer laane par discount", "<b>Referral:</b> a discount for bringing a new customer")]) +
+         callout(L("🚫 MISLEADING CLAIMS SE BACHEIN", "🚫 AVOID MISLEADING CLAIMS"), [L("'1 minute mein arch' ya 'lakhon ki kamai' tabhi likhein jab <b>actual demo aur bills</b> hon", "Claim '1-minute arch' or 'lakhs in income' only if you have an <b>actual demo and bills</b>")], "red") +
+         f'<p class="src">{L("Follow karein:", "Follow us:")} {A(IG, "Instagram")} · {A(YT, "YouTube")} · {A(TG, "Telegram")}</p>', toc=L("Customers kaise laayein", "How to get customers"))
 
-# 28 marketing
-page("mkt", "GROW", "Customer <span class='g'>kaise laaye</span>?", para("Mehenge ad ki zaroorat nahi. <b>Asli photo aur video</b> sabse bada hathiyar hai.") +
-     checks(["<b>WhatsApp Status:</b> 10 second ka before/after arch video + shuruaati rate", "<b>Instagram Reels:</b> balloon phulte hue, arch banti hui, final reveal. Asli time dikhao", "<b>Tie-up:</b> cake shop, photographer, planner, banquet, kids store", "<b>3 rang option:</b> pastel pink-white, blue-white-gold, black-gold", "<b>Review:</b> har khush customer se Google/WhatsApp review lo", "<b>Local group:</b> Facebook/WhatsApp group mein asli kaam daalo", "<b>Referral:</b> naye customer laane par chhoot"]) +
-     callout("🚫 JHOOTHA DAAWA MAT KARO", ["'1 minute mein arch' ya 'lakhon ki kamai' tab hi likho jab <b>asli demo aur bill</b> ho"], "red"), toc="Customer kaise laayein")
+    page("safety", L("RISK & COMPLIANCE", "RISK & COMPLIANCE"), L("Safety aur <span class='g'>quality</span>", "Safety and <span class='g'>quality</span>"), checks([L("Zyadatar arches ke liye <b>air-filled</b> balloons (helium zaroori nahi)", "Use <b>air-filled</b> balloons for most arches (helium is not required)"), L("Pump ke <b>ventilation openings khule</b> rakhein, geele haath se na chalayein", "Keep the pump's <b>ventilation openings clear</b>; never operate with wet hands"), L("Frame par <b>weighted base</b> lagayein; outdoor mein hawa check karein", "Use a <b>weighted base</b> on frames; check wind outdoors"),
+         L("Balloons ko <b>aag, garam lights, nukili cheezon</b> se door rakhein", "Keep balloons away from <b>flames, hot lights and sharp objects</b>"), L("Phate balloon ke tukde <b>utha lein</b> (bachchon ke liye choking risk)", "<b>Collect popped fragments</b> (choking risk for children)"), L("Kamzor deewar par <b>bina permission</b> kuch na chipkayein", "Do not attach anything to fragile walls <b>without permission</b>"),
+         L("Spare saath rakhein: balloons, glue dots, tape, extension, scissors", "Carry spares: balloons, glue dots, tape, extension, scissors"), L("Likhit <b>scope, time, advance aur cancellation policy</b>", "Written <b>scope, timing, advance and cancellation policy</b>")]), toc=L("Safety aur quality", "Safety and quality"))
 
-# 29 safety
-page("safety", "SAVDHAANI", "Safety <span class='g'>aur quality</span>", checks(["Zyada arch mein <b>hawa bhare</b> balloon (helium zaroori nahi)", "Pump ke <b>hawa ke ched khule</b> rakho, geele haath se mat chalao", "Frame ka <b>bhaar wala base</b> lagao, outdoor mein hawa dekho", "Balloon ko <b>aag, garam light, nukili cheez</b> se door rakho", "Phate balloon ke tukde <b>utha lo</b> (bachhon ke liye khatra)", "Kamzor deewar par <b>bina permission</b> kuch mat chipkao", "Spare: balloon, glue dots, tape, extension, scissor saath rakho", "Likhit <b>scope, time, advance, cancel policy</b>"]), toc="Safety aur quality")
+    page("reg", L("RISK & COMPLIANCE", "RISK & COMPLIANCE"), L("Registration <span class='g'>checklist</span>", "Registration <span class='g'>checklist</span>"), checks([L("Shuru mein <b>sole proprietorship</b>; <b>PAN + alag bank account</b> rakhein", "Start as a <b>sole proprietorship</b>; keep a <b>PAN + separate bank account</b>"), L(f"<b>Udyam registration</b> sarkari portal par <b>free</b> hai: {A(LINKS['udyam'], 'udyamregistration.gov.in')}. Paid duplicate sites se bachein", f"<b>Udyam registration</b> is <b>free</b> on the government portal: {A(LINKS['udyam'], 'udyamregistration.gov.in')}. Avoid paid look-alike sites"),
+         L(f"<b>GST:</b> services ke liye general threshold <b>₹20 lakh</b> annual turnover (CBIC): {A(LINKS['cbic'], 'GST FAQ')}. CA se confirm karein", f"<b>GST:</b> the general services threshold is <b>₹20 lakh</b> annual turnover (CBIC): {A(LINKS['cbic'], 'GST FAQ')}. Confirm with a CA"), L("<b>Shop / trade licence:</b> local nagar nigam se pooch lein", "<b>Shop / trade licence:</b> check with your local municipal office"), L("<b>Bill/receipt</b> dein; advance aur expenses record karein", "Issue a <b>bill/receipt</b>; record advances and expenses")]) +
+         callout(L("📌 NOTE", "📌 NOTE"), [L("Rules badalte rehte hain. <b>CA ya sarkari portal</b> se confirm karein.", "Rules change. Confirm with a <b>CA or the official portal</b>."), L("Ye plan tax/legal advice nahi hai.", "This plan is not tax or legal advice.")], "gold"), toc=L("Registration checklist", "Registration checklist"))
 
-# 30 registration
-page("reg", "SAVDHAANI", "Registration <span class='g'>checklist</span>", checks(["Shuru mein <b>sole proprietor</b> ke taur par, <b>PAN + bank account</b> alag rakho", "<b>Udyam registration</b> sarkari portal par <b>free</b> hai. Paid duplicate site se bacho", "<b>GST:</b> services ke liye aam limit <b>₹20 lakh</b> saalana turnover (CBIC). Apne CA se confirm karo", "<b>Shop / trade license:</b> nagar nigam se pucho", "<b>Bill/receipt</b> do, advance aur kharcha likho"]) +
-     callout("📌 YAAD RAKHO", ["Rules badalte hain. <b>Apne CA ya sarkari portal</b> se confirm karo", "Hum yahan tax advice nahi de rahe"], "gold") + src("Source: udyamregistration.gov.in aur CBIC GST FAQ (page 33)."), toc="Registration checklist")
+    page("mist", L("RISK & COMPLIANCE", "RISK & COMPLIANCE"), L("Common mistakes <span class='g'>aur sahi tareeka</span>", "Common mistakes <span class='g'>and the right way</span>"), card(f"<b class='h3'>{L('In galtiyon se bachein', 'Avoid these mistakes')}</b>" + checks([L("Bookings ke bina <b>bahut zyada stock</b> kharidna", "Buying <b>too much stock</b> without bookings"), L("Arch <b>₹1,800 se kam</b> mein bechna", "Selling an arch for <b>less than ₹1,800</b>"), L("Frame ka <b>base aur safety check</b> na karna", "Skipping the <b>base and safety check</b> on frames"), L("Event ka <b>time aur venue</b> ka andaza na lena", "Not estimating <b>time and venue</b> conditions"), L("<b>Advance ke bina</b> date confirm karna", "Confirming a date <b>without an advance</b>")], True)) +
+         card(f"<b class='h3'>{L('Sahi tareeka', 'The right way')}</b>" + checks([L("Har job ka <b>cost aur revenue record</b> karein (job sheet)", "Record the <b>cost and revenue</b> of every job (job sheet)"), L("<b>5-10% extra balloons</b> rakhein", "Keep <b>5-10% extra balloons</b>"), L("<b>Pehle photo mockup</b> dikhayein", "Show a <b>photo mockup first</b>"), L("Advance lein, <b>cancellation policy likhein</b>", "Take an advance and <b>write a cancellation policy</b>"), L("Chhota shuru karein, seekhein, phir scale karein", "Start small, learn, then scale")])), toc=L("Common mistakes aur sahi tareeka", "Common mistakes and the right way"))
 
-# 31 mistakes
-page("mist", "SAVDHAANI", "Galtiyan <span class='g'>mat karna</span>", card("<b class='h3'>Ye galti mat karo</b>" + checks(["Bina order ke <b>bahut saara stock</b> khareedna", "Sasti arch <b>₹1,800 se kam</b> mein bechna", "Safety ya frame ka <b>base check</b> na karna", "Event ka <b>time ya jagah</b> ka andaza na lena", "<b>Advance ke bina</b> date pakki karna"], True)) +
-     card("<b class='h3'>Sahi tareeka</b>" + checks(["Har job ka <b>kharcha-kamai likho</b> (job sheet)", "<b>5-10% extra balloon</b> rakho", "<b>Pehle photo mockup</b> dikhao", "Advance lo, <b>cancel policy likho</b>", "Chhota shuru karo, seekho, phir badhao"])), toc="Galtiyan aur sahi tareeka")
+    page("risk", L("RISK & COMPLIANCE", "RISK & COMPLIANCE"), L("Risks <span class='g'>aur mitigation</span>", "Risks <span class='g'>and mitigation</span>"), table([L("Risk", "Risk"), L("Impact", "Impact"), L("Mitigation", "Mitigation")], [[L("Low bookings", "Low bookings"), L("Payback mein deri", "Slow payback"), L("Level 1 se test, tie-ups banayein", "Test with Level 1, build tie-ups")], [L("Balloons phatna", "Balloons popping"), L("Arch kharab dikhti hai", "Arch looks poor"), L("5-10% extra, sample test, garmi se bachav", "5-10% extra, sample test, avoid heat")], [L("Galat pricing", "Wrong pricing"), L("Margin khatam", "Margin disappears"), L("Har job ki costing karein", "Cost every job")],
+         [L("Hawa / kamzor frame", "Wind / weak frame"), L("Safety aur nuksaan", "Safety issue and damage"), L("Weighted base, pehle indoor, site check", "Weighted base, indoor first, site check")], [L("Last-minute cancellation", "Last-minute cancellation"), L("Stock aur time waste", "Wasted stock and time"), L("Advance aur likhit policy", "Advance and written policy")], [L("Exaggerated claims", "Exaggerated claims"), L("Customer ka bharosa tootta hai", "Loss of customer trust"), L("Sirf actual demo aur photos dikhayein", "Show only actual demos and photos")]]), toc=L("Risks aur mitigation", "Risks and mitigation"))
 
-# 32 risks
-page("risk", "SAVDHAANI", "Risk aur <span class='g'>bachav</span>", table(["Risk", "Kya ho sakta hai", "Bachav"], [["Kam bookings", "Paisa der se wapas", "Level 1 se test, tie-up banao"], ["Balloon fatna", "Arch kharab dikhti hai", "5-10% extra, sample test, garmi se bacho"], ["Galat rate", "Munafa khatam", "Har job ka kharcha likho"], ["Hawa / kamzor frame", "Safety aur nuksaan", "Weight base, indoor pehle, site check"], ["Last minute cancel", "Stock aur time barbaad", "Advance aur likhit policy"], ["Jhootha daawa", "Customer ka bharosa tootna", "Asli demo aur photo hi dikhao"]]), toc="Risk aur bachav")
+    SRC = [("Kiwiparty · Electric Balloon Pump, ₹666", "kiwi", L("Pump ka retail price", "Retail price of the pump")), ("TradeIndia · balloon pump listings", "ti", L("Pump ₹800-900", "Pumps ₹800-900")), ("HASTHIP · 8x6 ft arch kit ₹1,556 / 9 ft ₹1,669", "hasthip", L("Frame price", "Frame price")), ("CRAze · 10 ft arch stand ₹4,399", "craze", L("Heavy-duty frame", "Heavy-duty frame")),
+           ("Party Supplies India · DIY kit ₹499", "psi", L("Strip, glue dots, tape", "Strip, glue dots, tape")), ("Party Wholesale Hub · 100 latex ₹280", "pwh", L("Balloon price", "Balloon price")), ("BalloonDekor · city-wise decor pricing", "bd", L("₹1,499-₹11,499 rate range", "₹1,499-₹11,499 rate range")), ("Funtook · balloon decoration prices", "fun", L("Package rates", "Package rates")),
+           ("mytribe / Xclusive Event · NCR pricing", "mt", L("200 balloons / ring arch rates", "200 balloons / ring arch rates")), ("Hindustan Times · celebration booking trends (20 May 2026)", "ht", L("Reported platform data", "Reported platform data")), ("CBIC GST sectoral FAQ", "cbic", L("₹20 lakh services threshold", "₹20 lakh services threshold")), ("Udyam Registration portal", "udyam", L("Free MSME registration", "Free MSME registration"))]
+    page("src", "SOURCES", L("Ye numbers <span class='g'>kahan se aaye</span>?", "Where these <span class='g'>numbers come from</span>"), para(L("Prices online listings se liye gaye hain (Nov 2026). Listing prices badalte rehte hain; <b>khareedne se pehle khud confirm karein</b>.", "Prices are taken from online listings (Nov 2026). Listing prices change; <b>confirm them yourself before buying</b>.")) +
+         '<div class="srcs">' + "".join(f'<div class="sr"><a href="{LINKS[k]}">{t}</a><span>{d}</span></div>' for t, k, d in SRC) + '</div>' +
+         src(L("'Allowance' items (tools, bag, props, branding, marketing) aur roadmap ke events/ticket/fixed-cost <b>IdeasPulse ke illustrative assumptions</b> hain, kisi listing se nahi. Roadmap guarantee nahi, ek model hai. Reel wali machine ka price source mein nahi; seller se lein.", "'Allowance' items (tools, bag, props, branding, marketing) and the roadmap's events/ticket/fixed costs are <b>IdeasPulse illustrative assumptions</b>, not from any listing. The roadmap is a model, not a guarantee. The reel machine's price is not in any source; get it from the seller.")), toc=L("Sources (clickable links)", "Sources (clickable links)"))
 
-# 33 sources
-SRC = [
-    ("Kiwiparty · Electric Balloon Pump, ₹666", "https://www.kiwiparty.in/products/electric-balloon-pump-73003", "Pump ka retail daam"),
-    ("TradeIndia · balloon pump listings", "https://www.tradeindia.com/manufacturers/balloon-pump.html", "Pump ₹800-900"),
-    ("HASTHIP · 8x6 ft arch kit ₹1,556 / 9 ft ₹1,669", "https://hasthip.com/products/hasthip%C2%AE-balloon-arc-stand-for-decoration-9ft-height-adjustable-balloon-arch-stand-balloon-arch-frame-with-base-complete-accessories-set-for-wedding-baby-shower-birthday-party-supplies-decorations", "Frame ka daam"),
-    ("CRAze · 10 ft arch stand ₹4,399", "https://thecraze.in/products/10ft-balloon-arch-stand-kit-for-tables-balloon-garland-decoration", "Majboot frame"),
-    ("Party Supplies India · DIY kit ₹499", "https://www.partysuppliesindia.com/products/balloon-garland-arch-diy-kit", "Strip, glue dots, tape"),
-    ("Party Wholesale Hub · 100 latex ₹280", "https://partywholesale.in/products/12-standard-latex-balloons-white", "Balloon ka daam"),
-    ("BalloonDekor · city-wise decor pricing", "https://balloondekor.com/blog/birthday-decoration-cost-india-city-guide", "₹1,499 se ₹11,499 rate range"),
-    ("Funtook · balloon decoration prices", "https://funtook.in/balloon-decoration", "Package rate"),
-    ("mytribe / Xclusive Event · NCR pricing", "https://mytribe.in/xclusive_event_/event-decoration", "200 balloon / ring arch rate"),
-    ("Hindustan Times · celebration booking trends (20 May 2026)", "https://www.hindustantimes.com/genesis/indias-celebration-market-is-going-last-minute-as-quick-commerce-reshapes-birthdays-baby-showers-101779254576401-amp.html", "Platform ka reported data"),
-    ("CBIC GST sectoral FAQ", "https://cbic-gst.gov.in/hindi/sectoral-faq.html", "₹20 lakh services limit"),
-    ("Udyam Registration portal", "https://udyamregistration.gov.in/Important.aspx", "Free MSME registration")]
-page("src", "SOURCES", "Ye numbers <span class='g'>kahan se aaye</span>?", para("Daam online listing se (Nov 2026) liye hain. Listing ka daam badalta rehta hai: <b>khareedne se pehle khud confirm karo</b>.") +
-     '<div class="srcs">' + "".join(f'<div class="sr"><a href="{u}">{t}</a><span>{d}</span></div>' for t, u, d in SRC) + '</div>' +
-     src("'Allowance' wale daam (tools, bag, props, branding, marketing) aur roadmap ke events/ticket <b>IdeasPulse ke udaharan assumption</b> hain, kisi listing se nahi. Roadmap guarantee nahi, ek model hai. Machine (reel wali) ka daam source mein nahi, seller se lo."), toc="Ye numbers kahan se aaye (sources)")
+    page("final", L("NEXT STEPS", "NEXT STEPS"), L("Final recommendation <span class='g'>+ job sheet</span>", "Final recommendation <span class='g'>+ job sheet</span>"), callout(L("✅ RECOMMENDATION", "✅ RECOMMENDATION"), [L("Pehle ise ek <b>local service</b> ki tarah shuru karein", "Start as a <b>local service</b> first"), L("<b>Neat arch</b> banana seekhein, <b>3-5 paid events</b> karein", "Learn to build a <b>neat arch</b>, complete <b>3-5 paid events</b>"), L("Uske baad hi bade frames, machine aur props mein invest karein", "Only then invest in larger frames, the machine and props")], "teal") +
+         card(f"<b class='h3'>📋 {L('Har event ka JOB SHEET (copy mein banayein)', 'JOB SHEET for every event (keep in a notebook)')}</b>" + table(["Date", L("Customer", "Customer"), "Package", "Rate", "Balloons", L("Cost", "Cost"), "Profit", "Review"], [[""] * 8, [""] * 8, [""] * 8])) +
+         callout(L("📌 HAR MONTH KE END MEIN", "📌 AT THE END OF EACH MONTH"), [L("Kitne events? <b>Revenue? Expenses? Profit?</b>", "How many events? <b>Revenue? Expenses? Profit?</b>"), L("Agle month ka <b>target</b> likhein", "Write down next month's <b>target</b>")], "gold"), toc=L("Final recommendation + job sheet", "Final recommendation + job sheet"))
 
-# 34 final + job sheet
-page("final", "AAGE KYA KAREIN", "Final salaah <span class='g'>+ job sheet</span>", callout("✅ SEEDHI SALAAH", ["Pehle <b>local service</b> ki tarah shuru karo", "<b>Neat arch</b> banana seekho, <b>3-5 paid event</b> karo", "Phir hi bada frame, machine, props mein paisa lagao"], "teal") +
-     card("<b class='h3'>📋 Har event ka JOB SHEET (copy mein banao)</b>" + table(["Date", "Customer", "Package", "Rate", "Balloon", "Kharcha", "Munafa", "Review"], [["", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", ""]])) +
-     callout("📌 HAR MAHINE ke ant mein", ["Kitne event? <b>Kul kamai? Kul kharcha? Profit?</b>", "Agle mahine ka <b>target</b> likho"], "gold"), toc="Final salaah + job sheet")
+    page("cta", L("NEXT", "NEXT"), L("Judiye <span class='g'>IdeasPulse</span> ke saath", "Join <span class='g'>IdeasPulse</span>"), f'''<p class="lead dk">{L("Machine, investment aur profit ka <b>poora hisaab</b> chahiye? Comment mein ye word likhein:", "Want the <b>complete machine, investment and profit workings</b>? Comment this word:")}</p>
+<div class="keyw"><span>{L("Comment karein", "Comment")}</span><b>BALLOON</b></div>
+<div class="qrs"><a class="qr" href="{YT}"><img src="{QRY}"/><span>▶ YouTube @ideaspuls</span></a><a class="qr" href="{TG}"><img src="{QRT}"/><span>✈ Telegram @ideaspulse</span></a></div>
+<p class="lead dk">🌐 {L("Aur business plans", "More business plans")}: <a href="{SITE}" class="g">ideaspulse.in</a> · <a href="{IG}" class="g">Instagram</a></p>
+<p class="disc">{L("Disclaimer: Is plan ke saare costs, prices, sales aur profit figures <b>illustrative hain, guarantee nahi</b>. Rates badalte rehte hain. Khareedne se pehle supplier se confirm karein. Seasonal demand alag ho sakti hai. Visuals 3D illustrations hain. © ideaspulse.in · Share aur resell allowed nahi.", "Disclaimer: all costs, prices, sales and profit figures in this plan are <b>illustrative, not guaranteed</b>. Rates change; confirm with suppliers before buying. Seasonal demand varies. Visuals are 3D illustrations. © ideaspulse.in · Sharing and resale are not allowed.")}</p>''', toc=L("Judiye IdeasPulse ke saath (Comment BALLOON)", "Join IdeasPulse (Comment BALLOON)"), dark=True)
 
-# 35 CTA (dark)
-page("cta", "AAGE KYA?", "Judo <span class='g'>IdeasPulse</span> ke saath", f'''<p class="lead dk">Machine, investment aur profit ka <b>poora hisaab</b> chahiye? Comment mein ye shabd likho:</p>
-<div class="keyw"><span>Comment karo</span><b>BALLOON</b></div>
-<div class="qrs"><div class="qr"><img src="{QRY}"/><span>▶ YouTube @ideaspuls</span></div><div class="qr"><img src="{QRT}"/><span>✈ Telegram @ideaspulse</span></div></div>
-<p class="lead dk">🌐 Aur business plans: <b class="g">ideaspulse.in</b></p>
-<p class="disc">Disclaimer: Is plan ke saare kharch, daam, bikri aur munafe ke aankde <b>udaharan hain, guarantee nahi</b>. Rate badalte rehte hain. Khareedne se pehle supplier se khud confirm karein. Tyohaar/season ka asar alag hota hai. Tasveerein 3D udaharan hain. © ideaspulse.in · Share aur resell allowed nahi.</p>''', toc="Judo IdeasPulse ke saath (Comment BALLOON)", dark=True)
+    # ---- TOC
+    rows = "".join(f'<a class="trow" href="#{pid}{sfx}"><span class="tn">{i + 3 + base:02d}</span><span class="tt">{t}</span></a>' for i, (pid, t, _) in enumerate(PAGES) if t)
+    other = "toc_en" if hi else "toc"
+    sw = f'''<div class="switch"><a class="sw on" href="#cover{sfx}">{L("Hinglish", "English")}</a><a class="sw" href="#{other}">{L("English version → page " + str(NP + 2), "Hinglish version → page 2")}</a><a class="sw alt" href="#{'cover_en' if hi else 'cover'}">{L("English cover", "Hinglish cover")}</a></div>'''
+    toc = f'''<section class="page" id="toc{sfx}"><div class="eyebrow">{L("CONTENTS", "CONTENTS")}</div><h1>{L("Is plan mein <span class='g'>kya hai</span>?", "What's <span class='g'>inside</span>")}</h1><div class="rule"></div><div class="body">{sw}<div class="toc">{rows}</div></div>
+<footer><a href="#cover{sfx}" class="flogo"><img src="{LOGO}"/></a><span>{L("IdeasPulse · ideaspulse.in · Kisi bhi line par tap karke us page par jayein", "IdeasPulse · ideaspulse.in · Tap any line to jump to that page")}</span><a class="pn" href="#cover{sfx}">{2 + base:02d}</a></footer></section>'''
 
-# ----- TOC page (inserted as page 2)
-def build_toc():
-    n_total = len(PAGES) + 2
-    rows = ""
-    # page numbers: PAGES list index + 2 (cover=1, toc=2); sections before toc insertion shift
-    for idx, (pid, t, _) in enumerate(PAGES):
-        if t:
-            rows += f'<a class="trow" href="#{pid}"><span class="tn">{idx+3:02d}</span><span class="tt">{t}</span><span class="td"></span></a>'
-    body = para("Ye plan aise likha hai ki <b>8vi class ka baccha bhi samajh sake</b>. Kisi bhi line par <b>tap/click</b> karo: seedha us page par pahunch jaoge.") + f'<div class="toc">{rows}</div>'
-    return f'''<section class="page" id="toc"><div class="eyebrow">SHURUAAT</div><h1>Is plan mein <span class="g">kya hai</span>?</h1><div class="rule"></div><div class="body">{body}</div>
-<footer><a href="#cover" class="flogo"><img src="{LOGO}"/></a><span>IdeasPulse · ideaspulse.in · Saare numbers udaharan hain, guarantee nahi</span><a class="pn" href="#cover">02</a></footer></section>'''
-
-
-DECO = {"how": 1, "cta": 2, "glance": 2, "what": 3, "cust": 4, "pack": 5, "proc1": 6, "proc2": 7, "lean": 1, "event": 2, "be": 3, "road": 4, "m1a": 5, "m1b": 6, "season": 7, "mkt": 1, "safety": 2, "reg": 3, "mist": 4, "risk": 5, "final": 6, "m6b": 3, "mach2": 4, "items": 0, "running": 0, "scen": 0}
-
-
-def page_numbers_fix():
-    # the page() footer numbers assumed cover+toc offset missing; recompute
     out = []
     for idx, (pid, t, h) in enumerate(PAGES):
-        h = re.sub(r'<a class="pn" href="#toc">\d+</a>', f'<a class="pn" href="#toc">{idx+3:02d}</a>', h)
         if DECO.get(pid):
             h = h.replace("</div>\n<footer>", f'<div class="deco">{cluster(DECO[pid])}</div></div>\n<footer>', 1)
         out.append(h)
-    return out
+    return cover + toc + "".join(out)
 
 
 CSS = (HERE / "style.css").read_text()
 FONT = "".join(f"@font-face{{font-family:'Poppins';font-weight:{w};src:url(data:font/ttf;base64,{base64.b64encode((HERE/'assets'/f'Poppins-{n}.ttf').read_bytes()).decode()})}}" for n, w in (("Bold", 700), ("ExtraBold", 800), ("Black", 900)))
-doc = f"<!doctype html><html lang='hi'><head><meta charset='utf-8'><title>Balloon Arch Business Plan · IdeasPulse</title><style>{FONT}{CSS}</style></head><body>" + cover_html + build_toc() + "".join(page_numbers_fix()) + "</body></html>"
+doc = f"<!doctype html><html lang='hi'><head><meta charset='utf-8'><title>Balloon Arch Business Plan · IdeasPulse (Hinglish + English)</title><style>{FONT}{CSS}</style></head><body>" + make("hi") + make("en") + "</body></html>"
 (HERE / "plan.html").write_text(doc)
-print("pages", len(PAGES) + 2)
+print("pages", NP * 2)

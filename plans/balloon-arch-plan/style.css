@@ -69,3 +69,13 @@ a{color:inherit}
 .deco{margin-top:auto;flex:0 1 auto;min-height:0;display:flex;justify-content:center;align-items:flex-end;overflow:visible;padding-top:4px}
 .deco svg{max-height:185px}
 .tb td:empty{height:26px}
+.ext{color:#1F6FB5;text-decoration:underline;text-decoration-color:#9CC3E6;text-underline-offset:2px}
+.pref{color:#1F6FB5;font-weight:700;text-decoration:none;border-bottom:1px dotted #1F6FB5}
+.dark a.g,.qr{text-decoration:none}
+.cv-top{display:flex;justify-content:space-between;align-items:center}
+.langbtn{font-size:9.6px;font-weight:800;color:#12213A;background:linear-gradient(180deg,#F6E2A6,#E2BE6A);padding:6px 12px;border-radius:99px;text-decoration:none;box-shadow:0 6px 16px rgba(226,190,106,.35)}
+.switch{display:flex;gap:6px;margin-bottom:4px}
+.sw{font-size:9.6px;font-weight:800;padding:6px 12px;border-radius:99px;border:1.5px solid #E2BE6A;color:#12213A;text-decoration:none;background:#fff}
+.sw.on{background:linear-gradient(180deg,#F6E2A6,#E2BE6A)}.sw.alt{border-color:#D6DCE8;color:#6B7487}
+.srcs .sr a{color:#1F6FB5}
+.hero3d.sm svg{width:230px;max-height:190px}
