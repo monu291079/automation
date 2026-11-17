@@ -52,7 +52,22 @@ class Pipe:
         return self.last
 
 aroll = Pipe(['-i', U + '193c93de-Aamer.mp4', '-vf', f'fps={FPS},scale={W}:{H}:flags=bicubic'])
-sheesh = Pipe(['-ss', '0.2', '-i', U + 'dae228ce-IMG_8813.mov', '-vf', f'fps={FPS},scale={W}:-2,crop={W}:{H}'])
+DELOGO = 'delogo=x=60:y=255:w=290:h=90,'
+VSRC = {
+    'sheesh': (U + 'dae228ce-IMG_8813.mov', 0.2, f'fps={FPS},scale={W}:-2,crop={W}:{H}'),
+    'jharokha': (U + '8016f359-export_video.mov', 1.0, DELOGO + f'fps={FPS},scale={W}:{H}'),
+    'courtyard': (U + '34f60cc6-export_video.mov', 0.5, DELOGO + f'fps={FPS},scale={W}:{H}'),
+}
+vpipes = {}
+def vframe(shot):
+    key = (shot[0], shot[3])
+    if key not in vpipes:
+        path, ss, vf = VSRC[shot[3]]
+        vpipes[key] = Pipe(['-ss', str(ss), '-i', path, '-vf', vf])
+    return vpipes[key].read()
+def grab(path, ss, vf):
+    b = subprocess.run(['ffmpeg', '-v', 'error', '-ss', str(ss), '-i', path, '-vf', vf, '-frames:v', '1', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True).stdout
+    return Image.frombytes('RGB', (W, H), b[:W * H * 3])
 
 words = json.load(open(S + '/words.json'))
 
@@ -65,10 +80,10 @@ SHOTS = [
     (6.30, 8.28, 'aroll', None, 1.05, 1.22, None, None),
     (8.28, 12.90, 'photo', '8812', 1.25, 1.02, (.5, .50), (.5, .52)),
     (12.90, 15.20, 'photo', '8803', 1.00, 1.15, (.35, .40), (.5, .45)),
-    (15.20, 17.70, 'photo', '8836', 1.15, 1.00, (.5, .40), (.5, .50)),
+    (15.20, 17.70, 'video', 'courtyard', 1.00, 1.10, None, None),
     (17.70, 23.30, 'photo', '8806', 1.00, 1.14, (.5, .45), (.52, .47)),
     (23.30, 26.20, 'video', 'sheesh', 1, 1, None, None),
-    (26.20, 27.90, 'photo', '8805', 1.30, 1.40, (.5, .22), (.5, .20)),
+    (26.20, 27.90, 'photo', '8805', 1.40, 1.50, (.5, .20), (.5, .18)),
     (27.90, 29.70, 'photo', '8816', 1.10, 1.00, (.5, .45), (.5, .5)),
     (29.70, 30.60, 'photo', '8855', 1.05, 1.15, (.5, .5), (.5, .45)),
     (30.60, 31.50, 'photo', '8854', 1.05, 1.15, (.5, .5), (.5, .45)),
@@ -79,7 +94,7 @@ SHOTS = [
     (42.40, 46.90, 'photo', '8884', 1.00, 1.12, (.5, .45), (.5, .40)),
     (46.90, 51.40, 'photo', '8886', 1.12, 1.00, (.5, .40), (.5, .45)),
     (51.40, 53.80, 'aroll', None, 1.00, 1.08, None, None),
-    (53.80, 56.20, 'photo', '8803', 1.10, 1.00, (.55, .40), (.5, .45)),
+    (53.80, 56.20, 'video', 'jharokha', 1.00, 1.12, None, None),
     (56.20, DUR + 1, 'aroll', None, 1.00, 1.10, None, None),
 ]
 CUTS = [s[0] for s in SHOTS[1:]]
@@ -396,7 +411,7 @@ def overlays(frame, t, mask):
             paste_c(frame, lay, W / 2, 230, 1, k)
         if t >= T_MAN - 0.2:
             k = ease((t - T_MAN + 0.2) / 0.35)
-            cw, ch = 780, 190; x0 = W / 2 - cw / 2; y0 = 1010 + (1 - k) * 80
+            cw, ch = 780, 190; x0 = W / 2 - cw / 2; y0 = 730 + (1 - k) * 80
             glass(frame, (x0, y0, x0 + cw, y0 + ch), r=40, alpha=k, tint=(30, 15, 5), tint_a=0.25)
             l1 = L(('man',), lambda: text_layer('RAJA MAN SINGH I', fM(56), SAFFRON, shadow=False, spacing=2))
             l2 = L(('kach',), lambda: text_layer('Kachwaha ruler of Amber', fMb(36), WHITE, shadow=False))
@@ -480,8 +495,9 @@ def shot_at(t):
         if s[0] <= t < s[1]: return s
     return SHOTS[-1]
 
-def render(t, aroll_img, sheesh_img):
+def render(t, aroll_img, sheesh_img=None):
     s = shot_at(t)
+    if s[2] == 'video': sheesh_img = vframe(s)
     st, en, kind, src, z0, z1, c0, c1 = s
     p = (t - st) / (en - st if en < DUR else DUR - st)
     pe = ease_io(p)
@@ -499,7 +515,7 @@ def render(t, aroll_img, sheesh_img):
         if t < 1.70 or 51.40 <= t < 53.80:
             mask = seg(frame)
     else:
-        frame = zoom_img(sheesh_img, 1.0 + 0.08 * pe + (punch - 1))
+        frame = zoom_img(sheesh_img, (z0 + (z1 - z0) * pe if src != 'sheesh' else 1.0 + 0.08 * pe) + (punch - 1))
     frame = grade(frame)
     frame = overlays(frame, t, mask)
     # flash at cut
@@ -512,11 +528,70 @@ def render(t, aroll_img, sheesh_img):
             if 0 <= t - c < 0.1: fl = max(fl, 0.95)
     if fl > 0: frame = Image.blend(frame, Image.new('RGB', (W, H), (255, 248, 235)), fl)
     if t >= 0.15: brand_tag(frame, t) if not (t >= 56.2) else None
-    draw_captions(frame, t, 1530 if 42.4 <= t < 51.4 else 1390)
+    draw_captions(frame, t, CAPY.get(s[0], 1390))
     progress(frame, t)
     # fade in/out
     if t < 0.15: frame = Image.blend(Image.new('RGB', (W, H)), frame, t / 0.15)
     return frame
+
+# ---------------- face-aware caption placement ----------------
+import cv2, os
+CASC = [cv2.CascadeClassifier(cv2.data.haarcascades + n) for n in ('haarcascade_frontalface_default.xml', 'haarcascade_profileface.xml')]
+def faces(img):
+    g = cv2.cvtColor(np.asarray(img.resize((540, 960))), cv2.COLOR_RGB2GRAY)
+    g = cv2.equalizeHist(g)
+    out = []
+    for c in CASC:
+        for flip in (False, True):
+            gg = cv2.flip(g, 1) if flip else g
+            for (x, y, w, h) in c.detectMultiScale(gg, 1.08, 7, minSize=(34, 34)):
+                if flip: x = 540 - x - w
+                out.append((x * 2, (y - 0.45 * h) * 2, (x + w) * 2, (y + h * 1.3) * 2))
+    return out
+RESERVED = [  # (t0, t1, y0, y1)
+    (0.0, 1.7, 300, 760), (1.7, 6.3, 250, 420), (6.3, 8.28, 940, 1100), (8.28, 12.9, 250, 1300),
+    (12.9, 17.7, 250, 410), (17.7, 23.3, 150, 950), (23.3, 29.7, 220, 680), (29.7, 32.9, 230, 600),
+    (35.4, 38.7, 180, 1000), (38.7, 42.4, 200, 500), (42.4, 51.4, 760, 1440), (51.4, 53.8, 380, 1190),
+    (53.8, 56.2, 300, 660), (56.2, 99, 940, 1310)]
+CANDS = [1390, 1530, 1250, 1110, 1630, 960]
+def base_for(shot, t):
+    st, en, kind, src, z0, z1, c0, c1 = shot
+    pe = ease_io((t - st) / ((min(en, DUR)) - st)); z = z0 + (z1 - z0) * pe
+    if kind == 'photo':
+        cx = c0[0] + (c1[0] - c0[0]) * pe; cy = c0[1] + (c1[1] - c0[1]) * pe
+        return photo_frame(src, z, cx, cy)
+    if kind == 'aroll':
+        return zoom_img(grab(U + '193c93de-Aamer.mp4', t, f'scale={W}:{H}'), z)
+    path, ss, vf = VSRC[src]
+    return zoom_img(grab(path, ss + t - st, vf.replace(f'fps={FPS},', '')), z if src != 'sheesh' else 1.0 + 0.08 * pe)
+CAPY = {}
+cache_f = S + '/capy.json'
+if os.path.exists(cache_f) and os.path.getmtime(cache_f) > os.path.getmtime(__file__):
+    CAPY = {float(k): v for k, v in json.load(open(cache_f)).items()}
+else:
+    for sh in SHOTS:
+        st, en = sh[0], min(sh[1], DUR)
+        boxes = []
+        if sh[2] == 'aroll':
+            CAPY[st] = 1390; continue
+        for f in (0.1, 0.35, 0.6, 0.9):
+            b = base_for(sh, st + (en - st) * f)
+            if isinstance(b, tuple):
+                img, m = b; ma = np.asarray(m)
+                for bx in faces(img):
+                    cx_, cy_ = int((bx[0] + bx[2]) / 2), int(min(H - 1, (bx[1] + bx[3]) / 2))
+                    if ma[cy_, min(W - 1, cx_)] > 128: boxes.append(bx)
+            else:
+                boxes += faces(b)
+        res = [(a, b) for (t0, t1, a, b) in RESERVED if t0 < en and t1 > st]
+        def cost(cy):
+            y0, y1 = cy - 80, cy + 80
+            c = sum(max(0, min(y1, b[3]) - max(y0, b[1])) for b in boxes) * 3
+            c += sum(max(0, min(y1, b) - max(y0, a)) for a, b in res) * 2
+            return c + abs(cy - 1390) * 0.05
+        CAPY[st] = min(CANDS, key=cost)
+        print('shot', st, 'faces', [tuple(int(v) for v in b) for b in boxes][:6], '->', CAPY[st], flush=True)
+    json.dump(CAPY, open(cache_f, 'w'))
 
 N = int(DUR * FPS)
 if MODE == 'stills':
@@ -524,9 +599,10 @@ if MODE == 'stills':
     fi = 0; want = sorted(int(x * FPS) for x in ts)
     for i in range(max(want) + 1):
         a = aroll.read(); t = i / FPS
-        sh = sheesh.read() if 23.30 <= t < 26.20 else (sheesh.last or Image.new('RGB', (W, H)))
-        if i in want:
-            render(t, a, sh).save(f'{S}/frames/still_{t:05.2f}.jpg', quality=88); print('still', t, flush=True)
+        if i in want or shot_at(t)[2] == 'video':
+          fr = render(t, a)
+          if i in want:
+            fr.save(f'{S}/frames/still_{t:05.2f}.jpg', quality=88); print('still', t, flush=True)
     sys.exit()
 
 enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
@@ -534,8 +610,7 @@ enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_f
 for i in range(N):
     t = i / FPS
     a = aroll.read()
-    sh = sheesh.read() if 23.30 <= t < 26.20 else (sheesh.last or Image.new('RGB', (W, H)))
-    enc.stdin.write(render(t, a, sh).tobytes())
+    enc.stdin.write(render(t, a).tobytes())
     if i % 150 == 0: print('frame', i, '/', N, flush=True)
 enc.stdin.close(); enc.wait()
 print('done')
