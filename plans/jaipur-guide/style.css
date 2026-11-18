@@ -180,3 +180,5 @@ ul.src li a:after{content:' ↗';color:var(--saffron)}
 .facts3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2mm}
 .facts3 div{background:var(--paper);border:.3mm solid var(--line);border-radius:3mm;padding:2.6mm;font-size:7.8pt}
 .facts3 b{display:block;font-family:var(--disp);font-weight:400;font-size:18pt;color:var(--pink);line-height:1}
+.ps3.short div{height:50mm}
+.card .cimg{background-position:center 35%}

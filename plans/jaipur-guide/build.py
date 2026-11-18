@@ -43,7 +43,8 @@ def see_row(k):
 
 def card(k, img=None, compact=False):
     _, n, hi, c, *_r = G[k]; P = PLACES[k]; must = G[k][8]
-    im = f'<div class="cimg" style="background-image:url({IMG[img]})"></div>' if img else ''
+    pos = {'nah_jalview': 'center 52%;height:95mm', 'patrika': 'center 45%;height:60mm'}.get(img, 'center 35%')
+    im = f'<div class="cimg" style="background-image:url({IMG[img]});background-position:{pos}"></div>' if img else ''
     return f'''<section class="card{" compact" if compact else ""}">{im}
       <div class="chead"><div><h3>{E(n)}{' <i class="star">★ MUST SEE</i>' if must else ''}</h3><div class="hi">{hi}</div></div>{ctag(c)}</div>
       <p class="intro">{E(P["intro"])}</p>{facts(k)}{see_row(k)}
@@ -141,16 +142,16 @@ big_place('amer', 'amer_pavilion', ['amer_ganeshpol', 'amer_sheesh'], 'Amer & No
 page(f'''<div class="body">{card("jaigarh", "amer_rooftop")}
   <div class="callout"><div class="cbig">AMER<br>COMBO</div><div><b>Ek subah, 4 jagahein:</b> Amer Fort (8:00) → Panna Meena ka Kund → Anokhi Museum → Jaigarh Fort. Gaadi ek baar Amer parking me lagaiye, Panna Meena aur Anokhi paidal, Jaigarh ke liye jeep/cab.<br><br>Dopahar 1 baje tak sab khatam — wapsi me Jal Mahal par photo stop.</div></div></div>''', sec='Amer & North')
 page(f'<div class="body">{card("panna")}{card("anokhi")}</div>', sec='Amer & North')
-page(f'<div class="body">{card("jalmahal")}{card("kanak")}</div>', sec='Amer & North')
+page(f'<div class="body">{card("jalmahal", "nah_jalview")}</div>', sec='Amer & North')
 page(f'''<div class="body"><div class="eyebrow">Humari trip se 📸</div><h2>Amer ke 3 photo secrets</h2>
-  <div class="ps3"><div style="background-image:url({IMG["amer_sheeshvid"]})"><span>Sheesh Mahal</span></div><div style="background-image:url({IMG["amer_umbrella"]})"><span>Rangeen chhatri</span></div><div style="background-image:url({IMG["amer_court"]})"><span>Jharokha view</span></div></div>
+  <div class="ps3 short"><div style="background-image:url({IMG["amer_sheeshvid"]})"><span>Sheesh Mahal</span></div><div style="background-image:url({IMG["amer_umbrella"]})"><span>Rangeen chhatri</span></div><div style="background-image:url({IMG["amer_court"]})"><span>Jharokha view</span></div></div>
   <ul class="ticks"><li><b>Sheesh Mahal:</b> chhat aur deewarein shishe ke tukdon se bani hain — andar mobile ki torch jalaiye, poora hall taaron jaisa chamakta hai.</li>
   <li><b>Rangeen chhatri:</b> Amer ke bahar Rajasthani chhatriyan aur pagdi milti hain — photos ke liye mast prop. Rate pehle tay kariye.</li>
-  <li><b>Jharokhe:</b> upar ki manzil ke jharokhon se Maota Lake aur Aravalli ka frame banaiye — wide-angle ya 0.5x lens best.</li></ul></div>''', sec='Amer & North')
+  <li><b>Jharokhe:</b> upar ki manzil ke jharokhon se Maota Lake aur Aravalli ka frame banaiye — wide-angle ya 0.5x lens best.</li></ul>{card("kanak", compact=True)}</div>''', sec='Amer & North')
 big_place('nahargarh', 'nah_lights', ['nah_painted', 'nah_madh'], 'Nahargarh & Hills')
 page(f'''<div class="body">{card("gaitore", compact=True)}
   <div class="callout night"><div class="cbig">SUNSET<br>PLAN</div><div><b>Nahargarh ka perfect evening:</b><br>5:00 PM pahunchiye → Madhavendra Bhawan → 6:00 sunset point (Jal Mahal side) → raat me Pink City ki lights → 8:30 tak wapsi shuru (fort 9 PM tak).<br><br>Wapsi ki cab pehle se fix rakhiye — upar raat ko auto mushkil se milta hai.</div></div>
-  <div class="photostory"><div style="background-image:url({IMG["nah_night"]})"></div><div style="background-image:url({IMG["nah_selfie"]})"></div></div></div>''', sec='Nahargarh & Hills')
+  <div class="ps3 short"><div style="background-image:url({IMG["nah_cityview"]})"><span>Shaam: city view</span></div><div style="background-image:url({IMG["nah_night"]})"><span>Raat</span></div><div style="background-image:url({IMG["nah_selfie"]})"><span>Humari trip</span></div></div></div>''', sec='Nahargarh & Hills')
 page(f'<div class="body">{card("hawa")}{card("isarlat", compact=True)}</div>', sec='Walled City')
 page(f'<div class="body">{card("citypalace")}{card("jantar")}</div>', sec='Walled City')
 page(f'''<div class="body">{card("govind")}
@@ -161,14 +162,15 @@ page(f'''<div class="body">{card("govind")}
   <div><b>2019</b>Jaipur ka Walled City UNESCO World Heritage City bana.</div></div></div>''', sec='Walled City')
 page(f'<div class="body">{card("albert")}{card("masala", compact=True)}</div>', sec='Central & South')
 page(f'<div class="body">{card("birla")}{card("motidungri")}</div>', sec='Central & South')
-page(f'<div class="body">{card("patrika")}{card("rajmandir")}</div>', sec='Central & South')
-page(f'''<div class="body">{card("jkk")}
-  <div class="callout pink"><div class="cbig">CENTRAL<br>EVENING</div><div><b>Shaam ka perfect plan:</b> 5:30 PM Albert Hall (bahar ki lights) → Masala Chowk me dinner → Birla Mandir ki aarti → raat ka movie show Raj Mandir me.<br><br>Sab jagahein 2–3 km ke andar — ek auto/cab me ho jaata hai.</div></div>
+page(f'''<div class="body">{card("patrika", "patrika")}
   <h4 class="mt">Local etiquette 🙏</h4><ul class="ticks">
   <li>Mandir me joote bahar, kandhe-ghutne dhake kapde best.</li>
   <li>Museum ke andar photography ke niyam board par padhiye — flash aksar mana hota hai.</li>
   <li>Purani deewaron par naam likhna, chadhna ya chhoona — bilkul nahi.</li>
   <li>Plastic bottle dustbin me — Jaipur ko pink rakhiye, kachre se nahi.</li></ul></div>''', sec='Central & South')
+page(f'''<div class="body">{card("jkk", compact=True)}{card("rajmandir", compact=True)}
+  <div class="callout pink"><div class="cbig">CENTRAL<br>EVENING</div><div><b>Shaam ka plan:</b> 5:30 Albert Hall lights → Masala Chowk dinner → Birla Mandir aarti → Raj Mandir movie. Sab 2–3 km ke andar.</div></div>
+</div>''', sec='Central & South')
 page(f'<div class="body">{card("galtaji")}{card("sisodia", compact=True)}</div>', sec='Hills & East')
 page(f'<div class="body">{card("jhalana")}{card("chokhi")}</div>', sec='Safari & Evening')
 
