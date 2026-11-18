@@ -40,7 +40,7 @@ ul.ticks li:before{content:'';position:absolute;left:0;top:1.3mm;width:2.2mm;hei
 .cv-top .ed{border:.3mm solid #fff;padding:1mm 2.6mm;border-radius:5mm}
 .cv-mid{margin-top:auto;margin-bottom:6mm}
 .cvhi{font-size:22pt;color:#FFD27A;font-family:var(--deva)}
-.cover h1{font-size:76pt;line-height:.9;background:linear-gradient(180deg,#FFF2C4,#FF9A3D);-webkit-background-clip:text;color:transparent}
+.cover h1{font-size:76pt;line-height:.9;color:#FFB547}
 .cvsub{font-size:15pt;font-weight:700;letter-spacing:.02em;margin-top:1mm}
 .cvpills{display:flex;flex-wrap:wrap;gap:1.6mm;margin-top:3mm}
 .cvpills span{font-size:7pt;font-weight:600;background:rgba(255,255,255,.18);border:.3mm solid rgba(255,255,255,.6);backdrop-filter:blur(3px);padding:.8mm 2.4mm;border-radius:5mm}
@@ -164,7 +164,7 @@ ul.src li a:after{content:' ↗';color:var(--saffron)}
 .back .bk{margin-top:auto;display:flex;flex-direction:column;gap:3mm}
 .bkh{font-size:24pt;color:#fff}
 .back p{font-size:9pt;max-width:110mm}
-.bkbrand{font-family:var(--disp);font-size:26pt;line-height:1;background:linear-gradient(180deg,#FFF2C4,#FF9A3D);-webkit-background-clip:text;color:transparent}
+.bkbrand{font-family:var(--disp);font-size:26pt;line-height:1;color:#FFB547}
 .bksub{font-size:8pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-top:-2mm}
 .bkcta span{display:inline-block;background:#fff;color:var(--pink);font-weight:700;font-size:8pt;padding:1.6mm 3.4mm;border-radius:5mm}
 .bkcredit{font-size:6.4pt;opacity:.8;border-top:.3mm solid rgba(255,255,255,.4);padding-top:2mm}
