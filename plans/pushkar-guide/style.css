@@ -183,10 +183,10 @@ ul.src li a:after{content:' ↗';color:var(--saffron)}
 .ps3.short div{height:50mm}
 .card .cimg{background-position:center 35%}
 
-body.hi{font-family:'Hind','Poppins',sans-serif;font-size:9.6pt}
-body.hi h2,body.hi .hero h2{font-family:'Hind',sans-serif;font-weight:700}
-body.hi .cover h1{font-family:'Hind',sans-serif;font-weight:700;font-size:62pt;line-height:1.05}
-body.hi .bkh{font-family:'Hind',sans-serif;font-weight:700}
+.page.hi{font-family:'Hind','Poppins',sans-serif;font-size:9.6pt}
+.page.hi h2,.page.hi .hero h2{font-family:'Hind',sans-serif;font-weight:700}
+.page.hi .cover h1{font-family:'Hind',sans-serif;font-weight:700;font-size:62pt;line-height:1.05}
+.page.hi .bkh{font-family:'Hind',sans-serif;font-weight:700}
 .cvhi{font-family:'Hind',var(--deva)}
 .aicred{position:absolute;right:1.6mm;bottom:1.6mm;font-size:5.6pt;font-weight:600;background:rgba(30,26,43,.72);color:#fff;padding:.4mm 1.8mm;border-radius:5mm;letter-spacing:.03em}
 .aicred.own{background:rgba(176,48,58,.85)}
@@ -215,7 +215,7 @@ footer span:nth-child(2){margin-left:auto}
 ul.ticks.cols{display:grid;grid-template-columns:1fr 1fr;gap:1.4mm 4mm}
 .hero{height:88mm}
 .bkh{font-size:22pt}
-body.hi .bkh{font-size:30pt}
+.page.hi .bkh{font-size:30pt}
 .card .intro{font-size:9.3pt}
 .facts span{font-size:8.8pt}
 .reach,.tip{font-size:8.7pt}
@@ -228,3 +228,5 @@ p{font-size:9.6pt}
 .grid3 div{font-size:8.6pt}
 table.gl.glc{font-size:7.5pt}table.gl.glc td{padding:1.4mm 1.7mm}
 .cover h1.bkh{font-size:30pt;line-height:1.05}
+footer a+a{margin-left:2mm}
+.home .hh{margin-top:auto}.home h1{margin-top:0}

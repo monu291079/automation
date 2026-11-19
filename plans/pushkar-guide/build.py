@@ -17,7 +17,7 @@ def qr(url):
 
 G = {r[0]: r for r in GLANCE}
 
-def make(lang):
+def make(lang, off=0):
     hi = lang == 'hi'
     t = lambda pair: pair[0] if hi else pair[1]
     L = lambda h, e: h if hi else e
@@ -257,9 +257,9 @@ def make(lang):
            ('map', L('पुष्कर का नक्शा', 'Pushkar map')), ('places', L('घूमने की 15 जगहें', '15 places to visit')), ('types', L('हर यात्री के लिए टिप्स', 'Tips for every traveller')),
            ('plans', L('1, 2, 3 दिन के प्लान', '1-, 2- and 3-day plans')), ('reach', L('कैसे पहुँचें + कहाँ रुकें + दूरी', 'Getting there, stays & distances')), ('food', L('खाना और शॉपिंग', 'Food & shopping')),
            ('season', L('मौसम, त्योहार और ऊँट मेला', 'Seasons, festivals & camel fair')), ('budget', L('बजट', 'Budget')), ('safety', L('सुरक्षा, स्कैम और पैकिंग', 'Safety, scams & packing')), ('sources', L('स्रोत', 'Sources'))]
-    pnum = {p['pid']: i for i, p in enumerate(PAGES, 1)}
+    pnum = {p['pid']: i + off for i, p in enumerate(PAGES, 1)}
     tocl = ''.join(f'<li><a href="#{pid}"><span>{E(name)}</span><i></i><b>{pnum[pid]}</b></a></li>' for pid, name in toc)
-    sub = ''.join(f'<a href="#{PAGES[i - 1]["pid"]}"><span>{E(t(n))}</span><b>{i}</b></a>' for k, n, *_r in GLANCE for i in [next((j for j, p in enumerate(PAGES, 1) if E(t(n)) in p['body'] and ('<h2>' + E(t(n)) in p['body'] or '<h3>' + E(t(n)) in p['body'])), None)] if i)
+    sub = ''.join(f'<a href="#{PAGES[i - 1]["pid"]}"><span>{E(t(n))}</span><b>{i + off}</b></a>' for k, n, *_r in GLANCE for i in [next((j for j, p in enumerate(PAGES, 1) if E(t(n)) in p['body'] and ('<h2>' + E(t(n)) in p['body'] or '<h3>' + E(t(n)) in p['body'])), None)] if i)
     PAGES[1]['body'] = f'''<div class="body"><div class="eyebrow">{L("इस गाइड में", "In this guide")}</div><h2>{L("विषय सूची", "Contents")}</h2>
       <p class="note">{L("किसी भी लाइन पर टैप करें — सीधे उस पेज पर पहुँचेंगे।", "Tap any line to jump straight to that page.")}</p><ol class="toc">{tocl}</ol>
       <h4 class="mt">{L("जगहें — सीधे पेज पर जाएँ", "Places — jump to page")}</h4><div class="toc2">{sub}</div>
@@ -273,12 +273,47 @@ def make(lang):
     for fam, files in (('Poppins', [(400, 'Poppins-400'), (500, 'Poppins-500'), (600, 'Poppins-600'), (700, 'Poppins-700'), (800, 'Poppins-800')]),
                        ('Hind', [(400, 'Hind-400'), (500, 'Hind-500'), (600, 'Hind-600'), (700, 'Hind-700')]), ('Anton', [(400, 'Anton-400')]), ('Yatra', [(400, 'YatraOne-400')])):
         for w, f in files: fonts += f"@font-face{{font-family:'{fam}';font-weight:{w};src:url({FONT(f + '.ttf')}) format('truetype')}}\n"
-    out = [f'<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><title>{L("पुष्कर संपूर्ण यात्रा गाइड 2026", "Pushkar Complete Travel Guide 2026")}</title><style>', fonts, CSS, '</style></head><body class="' + lang + '">']
+    out = [f'<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><title>Pushkar Complete Travel Guide 2026 — हिंदी + English</title><style>', fonts, CSS, '</style></head><body class="' + lang + '">']
     for i, p in enumerate(PAGES, 1):
-        foot = f'<footer><span>How Is Travellers Life · {L("पुष्कर गाइड 2026", "Pushkar Guide 2026")}</span><span>{p["sec"]}</span><a href="#toc">↑ {L("सूची", "Contents")}</a><b>{i}</b></footer>' if p['footer'] else ''
-        out.append(f'<div class="page {p["cls"]}" id="{p["pid"]}">{p["body"]}{foot}</div>')
-    out.append('</body></html>')
-    (HERE / f'guide_{lang}.html').write_text(''.join(out))
+        foot = f'<footer><span>How Is Travellers Life · {L("पुष्कर गाइड 2026", "Pushkar Guide 2026")}</span><span>{p["sec"]}</span><a href="#home">⌂ {L("होम", "Home")}</a><a href="#toc">↑ {L("सूची", "Contents")}</a><b>{i + off}</b></footer>' if p['footer'] else ''
+        out.append(f'<div class="page {lang} {p["cls"]}" id="{p["pid"]}">{p["body"]}{foot}</div>')
+    import re
+    divs = out[4:]
+    divs = [re.sub(r'id="([\w-]+)"', lambda m: f'id="{lang}-{m.group(1)}"', d) for d in divs]
+    divs = [re.sub(r'href="#(?!home)([\w-]+)"', lambda m: f'href="#{lang}-{m.group(1)}"', d) for d in divs]
     print(lang, 'pages', len(PAGES))
+    return out[:3], divs, len(PAGES)
 
-for lg in (sys.argv[1:] or ['hi', 'en']): make(lg)
+head, hi_divs, nh = make('hi', off=1)
+_, en_divs, ne = make('en', off=1 + nh)
+CS = head[2] + '''
+.home{height:100%;position:relative;color:#fff;background-size:cover;background-position:center;display:flex;flex-direction:column;padding:10mm}
+.home:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,14,30,.55),rgba(20,14,30,.15) 35%,rgba(20,14,30,.9))}
+.home>*{position:relative}
+.home h1{font-family:'Anton',sans-serif;font-weight:400;font-size:64pt;line-height:.95;color:#FFB547;margin-top:auto}
+.home .hh{font-family:'Hind',sans-serif;font-weight:700;font-size:30pt;color:#FFD27A;line-height:1.1}
+.home .sub{font-size:12pt;font-weight:700;margin:1mm 0 5mm}
+.home .pick{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.home .pick a{display:block;background:rgba(255,255,255,.14);border:.4mm solid rgba(255,255,255,.7);border-radius:4mm;padding:4mm;color:#fff;text-decoration:none}
+.home .pick a b{display:block;font-family:'Hind','Poppins',sans-serif;font-size:17pt;line-height:1.1}
+.home .pick a span{font-size:8pt;opacity:.9}
+.home .pick a i{display:inline-block;margin-top:2mm;background:#FFB547;color:#1E1A2B;font-style:normal;font-weight:700;font-size:8pt;padding:.8mm 3mm;border-radius:5mm}
+.home .jump{margin-top:4mm;display:grid;grid-template-columns:1fr 1fr;gap:1.2mm 4mm;font-size:7.6pt}
+.home .jump a{color:#fff;text-decoration:none;border-bottom:.25mm dotted rgba(255,255,255,.5);display:flex;justify-content:space-between;padding:.6mm 0}
+.home .brandtop{font-size:7pt;font-weight:700;letter-spacing:.16em;background:#fff;color:#B0303A;padding:1mm 2.6mm;border-radius:5mm;align-self:flex-start}
+'''
+jumps = [('toc', 'विषय सूची', 'Contents'), ('glance', 'एक नज़र में', 'At a glance'), ('places', 'घूमने की जगहें', 'Places'), ('plans', 'प्लान', 'Itineraries'), ('budget', 'बजट', 'Budget'), ('safety', 'सुरक्षा', 'Safety')]
+import re as _re
+def pg(divs, lang, pid):
+    for i, d in enumerate(divs):
+        if f'id="{lang}-{pid}"' in d: return i
+jl = lambda lang, base: ''.join(f'<a href="#{lang}-{p}"><span>{h if lang == "hi" else e}</span><b>{base + pg(hi_divs if lang == "hi" else en_divs, lang, p) + 1}</b></a>' for p, h, e in jumps)
+home = f'''<div class="page nopad" id="home"><div class="home" style="background-image:url({IMG["ai_lake_sunset"]})">
+  <span class="brandtop">HOW IS TRAVELLERS LIFE · 2026</span>
+  <div class="hh">पुष्कर</div><h1>PUSHKAR</h1><div class="sub">संपूर्ण यात्रा गाइड · Complete Travel Guide</div>
+  <div class="pick"><a href="#hi-toc"><b>हिंदी गाइड</b><span>पेज 2–{1 + nh}</span><br><i>यहाँ टैप करें →</i></a>
+  <a href="#en-toc"><b>English Guide</b><span>Pages {2 + nh}–{1 + nh + ne}</span><br><i>Tap here →</i></a></div>
+  <div class="jump"><div>{jl("hi", 1)}</div><div>{jl("en", 1 + nh)}</div></div></div></div>'''
+html_out = ''.join(head[:2]) + CS + '</style></head><body>' + home + ''.join(hi_divs) + ''.join(en_divs) + '</body></html>'
+(HERE / 'guide.html').write_text(html_out)
+print('total pages', 1 + nh + ne)
